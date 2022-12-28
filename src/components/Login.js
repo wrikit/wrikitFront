@@ -14,14 +14,13 @@ const Login = () => {
   };
 
   const onSubmitHandler = (e) => {
-    axios({
-      method: "POST",
-      url: "http://115.85.180.7:8000/auth/login/",
-      data: {
-        username: id,
-        userpass: pw,
-      },
-    })
+    axios.post("http://localhost:8000/auth/login/",
+    {
+      username: id,
+      userpass: pw,
+    },
+    { withCredentials: true }
+    )
       .then((res) => {
         console.dir(res.data);
         // if (res.data[result] === false) {

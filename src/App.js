@@ -1,5 +1,6 @@
 import Login from "./components/Login";
-import "./styles/App.scss";
+import Resister from "./components/Resister";
+import "./styles/App.scss"
 import axios from "axios";
 import TextEditor from "./components/TextEditor";
 
@@ -26,6 +27,7 @@ function App() {
   return (
     <div className="App">
       <Login />
+      <Resister/>
       <TextEditor />
     </div>
   );

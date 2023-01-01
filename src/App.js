@@ -1,7 +1,12 @@
 import Login from "./components/Login";
+import axios from "axios";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import MainPage from "./pages/MainPage";
+import Document from "./pages/Document";
+import "./styles/App.scss";
 import Resister from "./components/Resister";
 import "./styles/App.scss"
-import axios from "axios";
 import TextEditor from "./components/TextEditor";
 
 function App() {
@@ -26,9 +31,16 @@ function App() {
   }
   return (
     <div className="App">
-      <Login />
-      <Resister/>
-      <TextEditor />
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/document" element={<Document />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+        <Resister/>
+      <TextEditor  />
+      </BrowserRouter>
     </div>
   );
 }

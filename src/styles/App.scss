@@ -1,0 +1,30 @@
+:root {
+  --font-size-xs: 0.5rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+@mixin breakpoint($point) {
+  @if $point == md {
+    //768px
+    @media (min-width: 48em) {
+      @content;
+    }
+  }
+}
+
+.MainPage {
+  min-height: 100vh;
+  background: #fbfbf8;
+  overflow-x: hidden;
+}
+
+// Login
+.Login {
+  padding-top: 50px;
+  background: #fbfbf8;
+}

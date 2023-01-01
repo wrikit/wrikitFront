@@ -24,11 +24,9 @@ const Login = () => {
     })
       .then((res) => {
         console.dir(res.data);
-        // if (res.data[result] === false) {
-        //   alert(`${res.data.username}님 안녕하세요!`)
-        // } else {
-        //   alert('아이디 또는 비밀번호를 확인해주세요.')
-        // }
+        if(res.data.result === false) {
+          alert(`${res.data.message}`)
+        }
       })
       .catch(function (err) {
         console.log(err);
@@ -62,7 +60,7 @@ const Login = () => {
       />
       <br />
       <button type="button" onClick={onSubmitHandler}>
-        Login
+        로그인
       </button>
     </form>
   );

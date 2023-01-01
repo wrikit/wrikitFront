@@ -1,9 +1,10 @@
 import Login from "./components/Login";
-import "./styles/App.scss";
 import axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import Main from "./components/Main";
+import MainPage from "./pages/MainPage";
+import Document from "./pages/Document";
+import "./styles/App.scss";
 
 function App() {
   try {
@@ -30,7 +31,8 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<MainPage />} />
+          <Route path="/document" element={<Document />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>

@@ -72,11 +72,11 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-        <div className="header__content__toggle">
+        {/* <div className="header__content__toggle">
           <NavLink to="/login">
             <RiLoginBoxFill />
           </NavLink>
-        </div>
+        </div> */}
       </div>
     </header>
   );

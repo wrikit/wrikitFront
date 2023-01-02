@@ -3,38 +3,44 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import "../styles/Login.scss";
 
-const Login = () => {
+const Resister = () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
+  const [ConfirmPw, setConfirmPw] = useState("");
 
   const onIdHandler = (e) => {
     setId(e.currentTarget.value);
   };
-
   const onPwHandler = (e) => {
     setPw(e.currentTarget.value);
   };
+  const onConfirmPwHandler = (e) => {
+    setConfirmPw(e.currentTarget.value);
+  };
 
   const onSubmitHandler = (e) => {
-    axios({
-      method: "POST",
-      url: "http://115.85.180.7:8000/auth/login/",
-      data: {
-        username: id,
-        userpass: pw,
-      },
-    })
-      .then((res) => {
-        console.dir(res.data.result)
-        if (res.data.result == "True") {
-          alert(`${id}님 안녕하세요!`);
-        } else {
-          alert(`아이디 또는 비밀번호를 확인해주세요`);
-        }
+    if (pw !== ConfirmPw) {
+      return alert("비밀번호가 같지 않습니다.");
+    } else {
+      axios({
+        method: "POST",
+        url: "http://115.85.180.7:8000/auth/create/",
+        data: {
+          username: id,
+          userpass: pw,
+        },
       })
-      .catch(function (err) {
-        console.log(err);
-      });
+        .then((res) => {
+          if (res.data.result === true) {
+            alert(`${res.data.username}님 안녕하세요!`);
+          } else {
+            alert(`${res.data.message}`);
+          }
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    }
   };
 
   const onKeyPress = (e) => {
@@ -46,33 +52,41 @@ const Login = () => {
   return (
     <div className="templateBlock">
       <form className="whiteBox" onSubmit={onSubmitHandler}>
-          <h3>로그인</h3>
+          <h3>회원가입</h3>
           <input
             className="styleInput"
             type="text"
             value={id}
             onChange={onIdHandler}
             placeholder="아이디"
-            />
+          />
           <br />
           <input
             className="styleInput"
             type="password"
             value={pw}
             onChange={onPwHandler}
-            onKeyPress={onKeyPress}
             placeholder="비밀번호"
           />
           <br />
+          <input
+            className="styleInput"
+            type="password"
+            value={ConfirmPw}
+            onChange={onConfirmPwHandler}
+            onKeyPress={onKeyPress}
+            placeholder="비밀번호 확인"
+          />
+          <br />
           <button className="button" type="button" onClick={onSubmitHandler}>
-            로그인
+            가입하기
           </button>
           <div className="link">
-            <Link to="/register">회원가입</Link>
+            <Link to="/login">로그인</Link>
           </div>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Resister;

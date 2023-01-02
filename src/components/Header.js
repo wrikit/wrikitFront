@@ -68,7 +68,7 @@ const Header = () => {
               <NavLink to="/login">LOGIN</NavLink>
             </li>
             <li onClick={hiddenMydoc}>
-              <NavLink to="/">SIGN UP</NavLink>
+              <NavLink to="/register">SIGN UP</NavLink>
             </li>
           </ul>
         </nav>

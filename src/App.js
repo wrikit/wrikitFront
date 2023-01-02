@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
 import Document from "./pages/Document";
 import "./styles/App.scss";
-import Resister from "./components/Resister";
+import Register from "./components/Register";
 import "./styles/App.scss"
 import TextEditor from "./components/TextEditor";
 
@@ -37,8 +37,10 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/document" element={<Document />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/textEditor" element={<TextEditor />} />
         </Routes>
-        <Resister/>
+        <Register/>
       <TextEditor  />
       </BrowserRouter>
     </div>

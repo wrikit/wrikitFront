@@ -4,7 +4,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 const TextEditor = () => {
   return (
     <>
-      <h1>Wrikit</h1>
+      <input type="text" placeholder="제목없는 문서" />
       <CKEditor
         editor={ClassicEditor}
         data="<p>여기에 공유할 내용을 작성하세요</p>"

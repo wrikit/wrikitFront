@@ -4,7 +4,6 @@ import { throttle } from "lodash";
 // import { GrCloudDownload } from "react-icons/gr";
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import { RiLoginBoxFill } from "react-icons/ri";
-import "../styles/Header.scss";
 
 const Header = () => {
   // 스크롤 감지 (-> 헤더 그림자 + 높이 줄어듦 효과)

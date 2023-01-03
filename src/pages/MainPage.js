@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "../styles/MainPage.scss";
 
 const MainPage = () => {
@@ -15,7 +16,11 @@ const MainPage = () => {
             <br />
           </div>
           <div className="main__textwrapper__btnArea">
-            <button className="runBtn"><span>시작하기</span></button>
+            <NavLink to="/login">
+              <button className="runBtn">
+                <span>시작하기</span>
+              </button>
+            </NavLink>
           </div>
         </div>
       </div>

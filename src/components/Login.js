@@ -1,7 +1,6 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import "../styles/Login.scss";
 
 const Login = () => {
   const [id, setId] = useState("");
@@ -25,7 +24,7 @@ const Login = () => {
       },
     })
       .then((res) => {
-        console.dir(res.data.result)
+        console.dir(res.data.result);
         if (res.data.result == "True") {
           alert(`${id}님 안녕하세요!`);
         } else {
@@ -46,30 +45,30 @@ const Login = () => {
   return (
     <div className="templateBlock">
       <form className="whiteBox" onSubmit={onSubmitHandler}>
-          <h3>로그인</h3>
-          <input
-            className="styleInput"
-            type="text"
-            value={id}
-            onChange={onIdHandler}
-            placeholder="아이디"
-            />
-          <br />
-          <input
-            className="styleInput"
-            type="password"
-            value={pw}
-            onChange={onPwHandler}
-            onKeyPress={onKeyPress}
-            placeholder="비밀번호"
-          />
-          <br />
-          <button className="button" type="button" onClick={onSubmitHandler}>
-            로그인
-          </button>
-          <div className="link">
-            <Link to="/register">회원가입</Link>
-          </div>
+        <h3>로그인</h3>
+        <input
+          className="styleInput"
+          type="text"
+          value={id}
+          onChange={onIdHandler}
+          placeholder="아이디"
+        />
+        <br />
+        <input
+          className="styleInput"
+          type="password"
+          value={pw}
+          onChange={onPwHandler}
+          onKeyPress={onKeyPress}
+          placeholder="비밀번호"
+        />
+        <br />
+        <button className="button" type="button" onClick={onSubmitHandler}>
+          로그인
+        </button>
+        <div className="link">
+          <Link to="/register">회원가입</Link>
+        </div>
       </form>
     </div>
   );

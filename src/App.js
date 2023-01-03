@@ -40,8 +40,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/textEditor" element={<TextEditor />} />
         </Routes>
-        <Register/>
-      <TextEditor  />
+        {/* <Register/> */}
+      {/* <TextEditor  /> */}
       </BrowserRouter>
     </div>
   );

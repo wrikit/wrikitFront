@@ -1,37 +1,29 @@
-import Login from "./components/Login";
-import axios from "axios";
+import React, {useState} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
+import axios, { formToJSON } from "axios";
 import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
 import Document from "./pages/Document";
 import "./styles/App.scss";
 import Register from "./components/Register";
 import TextEditor from "./components/TextEditor";
+import { useEffect } from "react";
 
 function App() {
-  try {
-    axios
-      .post(
-        "http://115.85.180.7:8000/auth/login/",
-        {
-          username: "user1",
-          userpass: "user1pass",
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((result) => {
-        console.dir(result);
-        console.log(result.cookie);
-      });
-  } catch (error) {
-    console.log("asdf");
-  }
+  // 로그인 상태 관리
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    if(sessionStorage.getItem('user_id')){
+      setIsLogin(true)
+    }
+  })
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
+        <Header isLogin={isLogin}/>
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/document" element={<Document />} />

@@ -6,7 +6,14 @@ import { IoCloudDownloadOutline } from "react-icons/io5";
 import { RiLoginBoxFill } from "react-icons/ri";
 import "../styles/Header.scss";
 
-const Header = () => {
+const Header = (props) => {
+  const isLogin = props.isLogin;
+  const onLogout = () => {
+    sessionStorage.removeItem("user_id");
+    alert("로그아웃 되었습니다.");
+    document.location.href = "/";
+  };
+
   // 스크롤 감지 (-> 헤더 그림자 + 높이 줄어듦 효과)
   // isScrolled가 true -> shadow 클래스 추가
   const [isScrolled, setIsScrolled] = useState(false);
@@ -65,7 +72,13 @@ const Header = () => {
               </p>
             </li>
             <li onClick={hiddenMydoc}>
-              <NavLink to="/login">LOGIN</NavLink>
+              {isLogin ? (
+                <button type="button" onClick={onLogout}>
+                  LOGOUT
+                </button>
+              ) : (
+                <NavLink to="/login">LOGIN</NavLink>
+              )}
             </li>
             <li onClick={hiddenMydoc}>
               <NavLink to="/register">SIGN UP</NavLink>

@@ -19,6 +19,8 @@ const Resister = () => {
   };
 
   const onSubmitHandler = (e) => {
+    e.preventDefault();
+    
     if (pw !== ConfirmPw) {
       return alert("비밀번호가 같지 않습니다.");
     } else {
@@ -74,11 +76,11 @@ const Resister = () => {
             type="password"
             value={ConfirmPw}
             onChange={onConfirmPwHandler}
-            onKeyPress={onKeyPress}
+            onKeyDown={onKeyPress}
             placeholder="비밀번호 확인"
           />
           <br />
-          <button className="button" type="button" onClick={onSubmitHandler}>
+          <button className="button" onClick={onSubmitHandler}>
             가입하기
           </button>
           <div className="link">

@@ -1,10 +1,16 @@
+import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import React, { useState } from "react";
 
 const TextEditor = () => {
+  const [title, setText] = useState("");
+  const onChange = (e) => {
+    setText(e.target.value);
+  };
   return (
     <>
-      <input type="text" placeholder="제목없는 문서" />
+      <input onChange={onChange} value={title} placeholder="제목없는 문서" />
       <CKEditor
         editor={ClassicEditor}
         data="<p>여기에 공유할 내용을 작성하세요</p>"
@@ -15,6 +21,19 @@ const TextEditor = () => {
         onChange={(event, editor) => {
           const data = editor.getData();
           console.log({ event, editor, data });
+          axios({
+            method: "POST",
+            url: "http://localhost:8000/main/create-document/",
+            data: {
+              name: { title },
+              type: "text",
+              key: "test",
+              editable: true,
+              public: true,
+            },
+          }).catch(function (err) {
+            console.log(err);
+          });
         }}
         onBlur={(event, editor) => {
           console.log("Blur.", editor);

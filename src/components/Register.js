@@ -1,7 +1,6 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import "../styles/Login.scss";
 
 const Resister = () => {
   const [id, setId] = useState("");

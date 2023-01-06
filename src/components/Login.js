@@ -1,7 +1,6 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import "../styles/Login.scss";
 
 const Login = () => {
   const [id, setId] = useState("");
@@ -27,7 +26,7 @@ const Login = () => {
       },
     })
       .then((res) => {
-        console.dir(res.data.result)
+        console.dir(res.data.result);
         if (res.data.result == "True") {
           alert(`${id}님 안녕하세요!`);
           sessionStorage.setItem('user_id', id)

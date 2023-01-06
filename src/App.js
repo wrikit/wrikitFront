@@ -7,7 +7,6 @@ import MainPage from "./pages/MainPage";
 import Document from "./pages/Document";
 import "./styles/App.scss";
 import Register from "./components/Register";
-import "./styles/App.scss"
 import TextEditor from "./components/TextEditor";
 import { useEffect } from "react";
 
@@ -32,8 +31,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/textEditor" element={<TextEditor />} />
         </Routes>
-        {/* <Register/>
-      <TextEditor  /> */}
+        {/* <Register/> */}
+        {/* <TextEditor  /> */}
       </BrowserRouter>
     </div>
   );

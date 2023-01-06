@@ -1,0 +1,81 @@
+.MainPage {
+  padding-top: 50px;
+  min-height: 100vh;
+  background: #fbfbf8;
+  overflow-x: hidden;
+
+  .banner {
+    background-size: cover;
+    padding: 150px 0px 150px 0px;
+  }
+  .index-img {
+    background-position: center 80%;
+    background-image: linear-gradient(
+        180deg,
+        rgba(33, 37, 41, 0.3) 0,
+        rgba(0, 0, 0, 0.25)
+      ),
+      url(/img/meeting.jpg);
+  }
+  .main__textwrapper {
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+    color: #fbfbf8;
+    text-align: center;
+
+    &__title {
+      margin-bottom: 20px;
+      font-size: 3rem;
+    }
+    &__desc {
+      font-size: 1.5rem;
+    }
+    &__btnArea {
+      margin-top: 40px;
+      max-width: 160px;
+      margin-left: auto;
+      margin-right: auto;
+
+      button {
+        margin: 20px;
+        width: 130px;
+        width: 130px;
+        height: 40px;
+        color: #fbfbf8;
+        border-radius: 20px;
+        padding: 10px 25px;
+        font-family: "Lato", sans-serif;
+        font-weight: 500;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-block;
+        box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.2),
+          7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+          4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+        outline: none;
+      }
+      .runBtn {
+        background: rgb(16, 15, 15);
+        background: linear-gradient(
+          0deg,
+          rgba(16, 15, 15, 1) 0%,
+          rgb(41, 38, 38) 100%
+        );
+        border: none;
+
+        &::before {
+          height: 0%;
+          width: 2px;
+        }
+        &:hover {
+          box-shadow: inset -3px -3px 6px 0 rgba(255, 255, 255, 0.25),
+            inset 3px 3px 6px 0 rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
+  }
+}

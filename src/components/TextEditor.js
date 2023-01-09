@@ -22,14 +22,12 @@ const TextEditor = () => {
           const data = editor.getData();
           console.log({ event, editor, data });
           axios({
-            method: "POST",
-            url: "http://localhost:8000/main/create-document/",
+            method: "PATCH",
+            url: "http://localhost:8000/main/update-document/",
             data: {
-              name: { title },
-              type: "text",
-              key: "test",
-              editable: true,
-              public: true,
+              documentid: "1", //테스트용데이터
+              documentkey: "test11", //테스트용데이터
+              content: data,
             },
           }).catch(function (err) {
             console.log(err);

@@ -1,10 +1,27 @@
 import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 
 const TextEditor = () => {
   const [title, setText] = useState("");
+  useEffect(() => {
+    console.log("⭕ mount!");
+    // API: main/create-document/
+    axios({
+      method: "POST",
+      url: "http://localhost:8000/main/create-document/",
+      data: {
+        name: { title },
+        type: "text",
+        key: "test", //임시
+        editable: true,
+        public: true,
+      },
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }, []);
   const onChange = (e) => {
     setText(e.target.value);
   };

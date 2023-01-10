@@ -2,42 +2,70 @@ import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useState, useEffect } from "react";
+import "../styles/TextEditor.scss";
 
 const TextEditor = () => {
   const [title, setText] = useState("");
+  const [contents, setContents] = useState("");
+
   useEffect(() => {
-    console.log("⭕ mount!");
-    // API: main/create-document/
-    axios({
-      method: "POST",
-      url: "http://localhost:8000/main/create-document/",
-      data: {
-        name: { title },
-        type: "text",
-        key: "test", //임시
-        editable: true,
-        public: true,
-      },
-    }).catch(function (err) {
-      console.log(err);
-    });
+    console.log("mount");
+    getDocument("1", "test11"); //나중에 props로 documentid, documentKey 값 받아온 값으로 교체....  .params.id
   }, []);
-  const onChange = (e) => {
+
+  const getDocument = async (documentId, documentKey) => {
+    let result = await axios({
+      method: "GET",
+      url: `http://localhost:8000/main/update-document?documentid=${documentId}&documentkey=${documentKey}`,
+    }).then((res) => {
+      console.log("getDocument", res.data);
+      return res.data;
+    });
+    console.log("getDocument 조회 결과: ", result);
+    setContents(result.content);
+  };
+
+  const onChange = async (e) => {
     setText(e.target.value);
+    // console.log("e.target.value", e.target.value);
+
+    // 타이틀 수정시 PATCH API로 document DB저장
+    await axios({
+      method: "PATCH",
+      url: "http://localhost:8000/main/update-document/",
+      data: {
+        documentid: "1", //테스트용데이터
+        documentkey: "test11", //테스트용데이터
+        docName: title,
+      },
+    })
+      .then((res) => {
+        console.log("update-document", title, res.data);
+        return res.data;
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   };
   return (
     <>
-      <input onChange={onChange} value={title} placeholder="제목없는 문서" />
+      <input
+        className="titleInput"
+        onChange={onChange}
+        value={title}
+        placeholder="제목없는 문서"
+      />
       <CKEditor
         editor={ClassicEditor}
-        data="<p>여기에 공유할 내용을 작성하세요</p>"
+        data={contents}
         onReady={(editor) => {
           // You can store the "editor" and use when it is needed.
           console.log("Editor is ready to use!", editor);
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log({ event, editor, data });
+          // console.log({ event, editor, data });
+          // 문서 수정시 PATCH API로 document DB저장
           axios({
             method: "PATCH",
             url: "http://localhost:8000/main/update-document/",
@@ -46,9 +74,14 @@ const TextEditor = () => {
               documentkey: "test11", //테스트용데이터
               content: data,
             },
-          }).catch(function (err) {
-            console.log(err);
-          });
+          })
+            .then((res) => {
+              console.log("update-document", res.data);
+              return res.data;
+            })
+            .catch(function (err) {
+              console.log(err);
+            });
         }}
         onBlur={(event, editor) => {
           console.log("Blur.", editor);

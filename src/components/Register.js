@@ -19,7 +19,7 @@ const Resister = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    
+
     if (pw !== ConfirmPw) {
       return alert("비밀번호가 같지 않습니다.");
     } else {
@@ -53,38 +53,35 @@ const Resister = () => {
   return (
     <div className="templateBlock">
       <form className="whiteBox" onSubmit={onSubmitHandler}>
-          <h3>회원가입</h3>
-          <input
-            className="styleInput"
-            type="text"
-            value={id}
-            onChange={onIdHandler}
-            placeholder="아이디"
-          />
-          <br />
-          <input
-            className="styleInput"
-            type="password"
-            value={pw}
-            onChange={onPwHandler}
-            placeholder="비밀번호"
-          />
-          <br />
-          <input
-            className="styleInput"
-            type="password"
-            value={ConfirmPw}
-            onChange={onConfirmPwHandler}
-            onKeyDown={onKeyPress}
-            placeholder="비밀번호 확인"
-          />
-          <br />
-          <button className="button" onClick={onSubmitHandler}>
-            가입하기
-          </button>
-          <div className="link">
-            <Link to="/login">로그인</Link>
-          </div>
+        <h3>회원가입</h3>
+        <input
+          className="styleInput"
+          type="text"
+          value={id}
+          onChange={onIdHandler}
+          placeholder="아이디"
+        />
+        <br />
+        <input
+          className="styleInput"
+          type="password"
+          value={pw}
+          onChange={onPwHandler}
+          placeholder="비밀번호"
+        />
+        <br />
+        <input
+          className="styleInput"
+          type="password"
+          value={ConfirmPw}
+          onChange={onConfirmPwHandler}
+          onKeyDown={onKeyPress}
+          placeholder="비밀번호 확인"
+        />
+        <br />
+        <button className="button" onClick={onSubmitHandler}>
+          가입하기
+        </button>
       </form>
     </div>
   );

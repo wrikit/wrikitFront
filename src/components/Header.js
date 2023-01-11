@@ -76,12 +76,12 @@ const Header = (props) => {
                   LOGOUT
                 </button>
               ) : (
-                <NavLink to="/login">LOGIN</NavLink>
+                <NavLink to="/lgpage">시작하기</NavLink>
               )}
             </li>
-            <li onClick={hiddenMydoc}>
+            {/* <li onClick={hiddenMydoc}>
               <NavLink to="/register">SIGN UP</NavLink>
-            </li>
+            </li> */}
           </ul>
         </nav>
         {/* <div className="header__content__toggle">

@@ -9,6 +9,7 @@ import "./styles/App.scss";
 import Register from "./components/Register";
 import TextEditor from "./components/TextEditor";
 import { useEffect } from "react";
+import LoginPage from './pages/LoginPage';
 
 function App() {
   // 로그인 상태 관리
@@ -29,6 +30,7 @@ function App() {
           <Route path="/document" element={<Document />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/lgpage" element={<LoginPage />} />
           <Route path="/textEditor" element={<TextEditor />} />
         </Routes>
         {/* <Register/> */}

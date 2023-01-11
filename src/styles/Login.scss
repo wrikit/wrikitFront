@@ -1,11 +1,16 @@
 // Login
-.Login {
-  padding-top: 100px;
-  // background: #fbfbf8;
-}
 
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+body{
+  background-color: #fbfbf8;
+}
 .templateBlock {
   // position: absolute;
+  margin-top: 100px;
   left: 0;
   right: 0;
   top: 0;
@@ -26,6 +31,39 @@
   background: white;
   border-radius: 2px;
 
+  .tabGroup {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    li a {
+      box-sizing: border-box;
+      display: block;
+      text-decoration: none;
+      padding: 15px;
+      margin-bottom: 15px;
+      // background: #0f3d3e;
+      color: #e2dcc8;
+      font-size: 20px;
+      float: left;
+      width: 50%;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.5s ease;
+      &:hover {
+        color: blue;
+      }
+    }
+    .active a {
+      // background: #0f3d3e;
+      color: black;
+    }
+  }
   h3 {
     margin: 0;
     margin-bottom: 1rem;

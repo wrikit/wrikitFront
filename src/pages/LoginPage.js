@@ -4,7 +4,7 @@ import "../styles/lgpage.scss";
 import { useState } from "react";
 const LoginPage = () => {
   //클릭한 버튼의 name 값을 state에 저장
-  const [content, setContent] = useState();
+  const [content, setContent] = useState("login");
   const handleClickButton = (e) => {
     const { name } = e.target;
     setContent(name);
@@ -25,12 +25,12 @@ const LoginPage = () => {
       <section className="loginPage__section__login">
         <div>
           <ul className="tabGroup">
-            <li className="tab">
+            <li className="tab active">
               <a onClick={handleClickButton} name="login">
                 로그인
               </a>
             </li>
-            <li className="tab active">
+            <li className="tab">
               <a onClick={handleClickButton} name="register">
                 회원가입
               </a>

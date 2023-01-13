@@ -28,7 +28,7 @@ const TextEditor = () => {
           console.log("get-document", res.data.result.content);
           // 문서내용 받아온 것 보이도록 설정
           setContents(res.data.result.content);
-          // 문서제목 받아온 것 보이도록 설정
+          // 문서제목 받아오기 보이도록 설정
           // setTitle(res.data.result.docName); //docName이 get-document에서 받아오게 설정안돼있어 아직은 못받아옴
           return res.data;
         })
@@ -98,10 +98,10 @@ const TextEditor = () => {
             });
         }}
         onBlur={(event, editor) => {
-          console.log("Blur.", editor);
+          // console.log("Blur.", editor);
         }}
         onFocus={(event, editor) => {
-          console.log("Focus.", editor);
+          // console.log("Focus.", editor);
         }}
       />
     </>

@@ -10,20 +10,30 @@ const TextEditor = () => {
 
   useEffect(() => {
     console.log("mount");
-    getDocument("1", "test11"); //나중에 props로 documentid, documentKey 값 받아온 값으로 교체....  .params.id
-  }, []);
+    // getDocument("1", "test11"); //나중에 props로 documentid, documentKey 값 받아온 값으로 교체....  .params.id
 
-  const getDocument = async (documentId, documentKey) => {
-    let result = await axios({
-      method: "GET",
-      url: `http://localhost:8000/main/update-document?documentid=${documentId}&documentkey=${documentKey}`,
-    }).then((res) => {
-      console.log("getDocument", res.data);
-      return res.data;
-    });
-    console.log("getDocument 조회 결과: ", result);
-    setContents(result.content);
-  };
+    const getDocument = async (documentId, documentKey) => {
+      console.log("get-document", documentId, documentKey);
+      axios
+        .post(
+          "http://localhost:8000/main/get-document/",
+          {
+            documentid: documentId,
+            documentkey: documentKey,
+          },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          console.log("get-document", res.data);
+          return res.data;
+          // setContents(res.data.content);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    };
+    getDocument("1", "test11");
+  }, []);
 
   const onChange = async (e) => {
     setText(e.target.value);

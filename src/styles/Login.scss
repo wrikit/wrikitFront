@@ -5,19 +5,19 @@
 *:after {
   box-sizing: border-box;
 }
-body{
+body {
   background-color: #fbfbf8;
 }
 .templateBlock {
   // position: absolute;
-  margin-top: 100px;
+  // margin-top: 100px;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   right: 0;
   // z-index: -1;
-  background-color: #fbfbf8;
+  background-color: #f8f4e8;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,45 +25,11 @@ body{
 }
 
 .whiteBox {
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
-  padding: 2rem;
+  padding: 1rem;
   width: 360px;
-  background: white;
+  background: #f8f4e8;
   border-radius: 2px;
 
-  .tabGroup {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    &::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-
-    li a {
-      box-sizing: border-box;
-      display: block;
-      text-decoration: none;
-      padding: 15px;
-      margin-bottom: 15px;
-      // background: #0f3d3e;
-      color: #e2dcc8;
-      font-size: 20px;
-      float: left;
-      width: 50%;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.5s ease;
-      &:hover {
-        color: blue;
-      }
-    }
-    .active a {
-      // background: #0f3d3e;
-      color: black;
-    }
-  }
   h3 {
     margin: 0;
     margin-bottom: 1rem;
@@ -77,6 +43,7 @@ body{
     padding-bottom: 0.5rem;
     outline: none;
     width: 100%;
+    background-color: #f8f4e8;
   }
 
   .button {

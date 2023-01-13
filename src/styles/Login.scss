@@ -1,18 +1,23 @@
 // Login
-.Login {
-  padding-top: 100px;
-  // background: #fbfbf8;
-}
 
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+body {
+  background-color: #fbfbf8;
+}
 .templateBlock {
   // position: absolute;
+  // margin-top: 100px;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   right: 0;
   // z-index: -1;
-  background-color: #fbfbf8;
+  background-color: #f8f4e8;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,10 +25,9 @@
 }
 
 .whiteBox {
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
-  padding: 2rem;
+  padding: 1rem;
   width: 360px;
-  background: white;
+  background: #f8f4e8;
   border-radius: 2px;
 
   h3 {
@@ -39,6 +43,7 @@
     padding-bottom: 0.5rem;
     outline: none;
     width: 100%;
+    background-color: #f8f4e8;
   }
 
   .button {

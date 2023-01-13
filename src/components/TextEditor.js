@@ -5,11 +5,12 @@ import { useState, useEffect } from "react";
 import "../styles/TextEditor.scss";
 
 const TextEditor = () => {
-  const [title, setText] = useState("");
+  const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
 
   useEffect(() => {
     console.log("mount");
+    // mount시 get-document 값 가져오기
     // getDocument("1", "test11"); //나중에 props로 documentid, documentKey 값 받아온 값으로 교체....  .params.id
 
     const getDocument = async (documentId, documentKey) => {
@@ -24,9 +25,12 @@ const TextEditor = () => {
           { withCredentials: true }
         )
         .then((res) => {
-          console.log("get-document", res.data);
+          console.log("get-document", res.data.result.content);
+          // 문서내용 받아온 것 보이도록 설정
+          setContents(res.data.result.content);
+          // 문서제목 받아온 것 보이도록 설정
+          // setTitle(res.data.result.docName); //docName이 get-document에서 받아오게 설정안돼있어 아직은 못받아옴
           return res.data;
-          // setContents(res.data.content);
         })
         .catch(function (err) {
           console.log(err);
@@ -36,7 +40,7 @@ const TextEditor = () => {
   }, []);
 
   const onChange = async (e) => {
-    setText(e.target.value);
+    setTitle(e.target.value);
     // console.log("e.target.value", e.target.value);
 
     // 타이틀 수정시 PATCH API로 document DB저장

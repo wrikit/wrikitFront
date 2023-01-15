@@ -53,7 +53,7 @@ const Resister = () => {
   return (
     <div className="templateBlock">
       <form className="whiteBox" onSubmit={onSubmitHandler}>
-        <h3>회원가입</h3>
+        <h1>Sign Up For Free</h1>
         <input
           className="styleInput"
           type="text"

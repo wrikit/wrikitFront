@@ -1,8 +1,11 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const Login = () => {
+  //CSS 관련
+
+  //로그인 기능
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
@@ -57,22 +60,29 @@ const Login = () => {
             <a href="/register">회원가입</a>
           </li>
         </ul> */}
-        <h3>로그인</h3>
+        <h1>LOGIN</h1>
+        <label>아이디</label>
         <input
+          // ref={inputRef}
           className="styleInput"
           type="text"
+          name="loginID"
           value={id}
           onChange={onIdHandler}
           placeholder="아이디"
+          required
         />
         <br />
+        <label>비밀번호</label>
         <input
           className="styleInput"
           type="password"
+          name="loginPW"
           value={pw}
           onChange={onPwHandler}
           onKeyDown={onKeyPress}
           placeholder="비밀번호"
+          required
         />
         <br />
         <button className="button" onClick={onSubmitHandler}>

@@ -1,4 +1,5 @@
 // Login
+@import "./utility";
 
 *,
 *:before,
@@ -39,7 +40,7 @@ body {
     margin: 0 0 40px;
   }
 
-  label{
+  label {
     display: none;
   }
   label.active {
@@ -47,12 +48,12 @@ body {
     transform: translateY(-5px);
     left: 2px;
     font-size: 14px;
-    color: rgba(black, 0.5)
+    color: rgba(black, 0.5);
   }
-  label.highlight{
+  label.highlight {
     color: black;
   }
-  
+
   .styleInput {
     font-size: 14pt;
     // margin-top: 1rem;
@@ -108,6 +109,39 @@ body {
 
       &:hover {
         opacity: 0.8;
+      }
+    }
+  }
+}
+@include breakpoint(md) {
+  .templateBlock {
+    background-color: #fbfbf8;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    // z-index: -1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // margin: 20px;
+    .whiteBox {
+      background: #fbfbf8;
+      padding: 1rem;
+      // margin: 10px;
+      h1 {
+        width: 90%;
+      }
+
+      .styleInput {
+        background-color: #fbfbf8;
+        width: 90%;
+      }
+      .button {
+        width: 90%;
+        font-size: 1.3rem;
       }
     }
   }

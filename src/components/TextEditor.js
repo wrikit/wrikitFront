@@ -3,6 +3,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useState, useEffect } from "react";
 import "../styles/TextEditor.scss";
+import ShareButton from "./ShareButton";
 
 const TextEditor = () => {
   const [title, setTitle] = useState("");
@@ -69,6 +70,7 @@ const TextEditor = () => {
         value={title}
         placeholder="제목없는 문서"
       />
+      <ShareButton />
       <CKEditor
         editor={ClassicEditor}
         data={contents}

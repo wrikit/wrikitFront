@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Login from "./components/Login";
 import axios, { formToJSON } from "axios";
 import Header from "./components/Header";
@@ -11,7 +11,8 @@ import TextEditor from "./components/TextEditor";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFound";
 
-function App() {
+// 페이지 레이아웃 관련 (특히 Header)
+const PageLayout = () => {
   // 로그인 상태 관리
   const [isLogin, setIsLogin] = useState(false);
 
@@ -20,26 +21,34 @@ function App() {
       setIsLogin(true);
     }
   });
-
   return (
     <>
-      <div className="App">
-        <BrowserRouter>
-          <Header isLogin={isLogin} />
-          <Routes>
+      <Header isLogin={isLogin} />
+      <Outlet />
+    </>
+  );
+};
+
+function App() {
+  return (
+    <div className="App">
+      <BrowserRouter>
+        {/* <Header isLogin={isLogin} /> */}
+        <Routes>
+          <Route element={<PageLayout />}>
             <Route path="/" element={<MainPage />} />
             <Route path="/document" element={<Document />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/lgpage" element={<LoginPage />} />
             <Route path="/textEditor" element={<TextEditor />} />
-            <Route path="/*" element={<NotFound />} />
-          </Routes>
-          {/* <Register/> */}
-          {/* <TextEditor  /> */}
-        </BrowserRouter>
-      </div>
-    </>
+          </Route>
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+        {/* <Register/> */}
+        {/* <TextEditor  /> */}
+      </BrowserRouter>
+    </div>
   );
 }
 

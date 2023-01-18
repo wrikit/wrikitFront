@@ -1,4 +1,5 @@
 // Login
+@import "./utility";
 
 *,
 *:before,
@@ -28,33 +29,72 @@ body {
   padding: 1rem;
   width: 360px;
   background: #f8f4e8;
-  border-radius: 2px;
+  // border-radius: 2px;
 
-  h3 {
-    margin: 0;
-    margin-bottom: 1rem;
+  h1 {
+    text-align: center;
+    color: black;
+    font-weight: 500;
+    letter-spacing: 0.2rem;
+    font-size: xx-large;
+    margin: 0 0 40px;
+  }
+
+  label {
+    display: none;
+  }
+  label.active {
+    display: flex;
+    transform: translateY(-5px);
+    left: 2px;
+    font-size: 14px;
+    color: rgba(black, 0.5);
+  }
+  label.highlight {
+    color: black;
   }
 
   .styleInput {
-    font-size: 1rem;
-    margin-top: 1rem;
+    font-size: 14pt;
+    // margin-top: 1rem;
+    margin-bottom: 40px;
     border: none;
     border-bottom: 1px solid black;
     padding-bottom: 0.5rem;
     outline: none;
     width: 100%;
+    height: 100%;
     background-color: #f8f4e8;
   }
 
   .button {
-    background-color: black;
-    color: white;
+    // background-color: black;
+    // color: white;
+    // width: 100%;
+    height: 3rem;
+    // margin-top: 1rem;
+    // border-radius: 20px;
+    display: block;
     width: 100%;
-    height: 2rem;
-    margin-top: 1rem;
+    border: 0;
+    outline: none;
     border-radius: 4px;
+    // padding: 15px 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: black;
+    color: white;
+    transition: all 0.5s ease;
+    // --webkit-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:focus {
       opacity: 0.8;
     }
   }
@@ -69,6 +109,39 @@ body {
 
       &:hover {
         opacity: 0.8;
+      }
+    }
+  }
+}
+@include breakpoint(md) {
+  .templateBlock {
+    background-color: #fbfbf8;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    // z-index: -1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // margin: 20px;
+    .whiteBox {
+      background: #fbfbf8;
+      padding: 1rem;
+      // margin: 10px;
+      h1 {
+        width: 90%;
+      }
+
+      .styleInput {
+        background-color: #fbfbf8;
+        width: 90%;
+      }
+      .button {
+        width: 90%;
+        font-size: 1.3rem;
       }
     }
   }

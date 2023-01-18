@@ -1,3 +1,5 @@
+@import "./utility";
+
 .loginPage {
   padding-top: 80px;
   display: flex;
@@ -5,31 +7,32 @@
   height: 100vh;
 
   &__section {
-    width: 100%;
-    &__desc {
-      width: 35%;
-      float: left;
-      .boxSize {
-        width: 100%;
-        // height: 50vh;
-        background-color: aqua;
-      }
-    }
+    // width: 100%;
+    // &__desc {
+    //   width: 35%;
+    //   float: left;
+    //   justify-content: center;
+    //   .boxSize {
+    //     width: 100%;
+    //     // height: 50vh;
+    //     // background-color: aqua;
+
+    //   }
+    // }
     &__login {
-      width: 65%;
-      float: right;
+      width: 100%;
+      // float: right;
       padding: 40px;
       max-width: 600px;
       margin: 40px auto;
       border-radius: 4px;
       box-shadow: 0 4px 10px 4px rgba(#13232f, 0.3);
-
       background-color: #f8f4e8;
 
       .tabGroup {
         list-style-type: none;
         padding: 0;
-        margin: 0 0 40px 0;
+        // margin: 0 0 40px 0;
         &::after {
           content: "";
           display: table;
@@ -51,14 +54,169 @@
           text-align: center;
           cursor: pointer;
           transition: 0.5s ease;
+          // &::after {
+          //   background: none repeat scroll 0 0 transparent;
+          //   bottom: 0;
+          //   content: "";
+          //   display: block;
+          //   height: 2px;
+          //   left: 50%;
+          //   position: absolute;
+          //   background: black;
+          //   transition: width 0.3s ease 0s, left 0.3s ease 0s;
+          //   width: 0;
+          // }
           &:hover {
             // background: darken(#1ab188, 5%);
             color: lighten(#0f3d3e, 20%);
           }
+          // &:hover::after {
+          //   width: 100%;
+          //   // top: 0;
+          //   left: 0;
+          //   // right: 0;
+          // }
+        }
+        a::after {
+          // background: none repeat scroll 0 0 transparent;
+          bottom: 0;
+          content: "";
+          display: block;
+          height: 2px;
+          left: 50%;
+          // margin-left: 12%;
+          position: absolute;
+          background: black;
+          transition: width 0.3s ease 0s, left 0.3s ease 0s;
+          width: 0;
+        }
+        a:hover::after {
+          width: 80%;
+          left: 28px;
+          // margin-left: 12%;
         }
         .active a {
           //   background: #1ab188;
           color: #0f3d3e;
+          &::after {
+            background: none repeat scroll 0 0 transparent;
+            bottom: 0;
+            content: "";
+            display: block;
+            height: 2px;
+            left: 28px;
+            position: absolute;
+            background: black;
+            transition: width 0.3s ease 0s8 left 0.3s ease 0s;
+            width: 80%;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 반응형 미디어 쿼리
+
+@include breakpoint(md) {
+  .loginPage {
+    padding-top: 80px;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+
+    &__section {
+      &__login {
+        width: 100%;
+        // float: right;
+        padding: 40px;
+        max-width: 600px;
+        margin: 0px auto;
+        box-shadow: 0 0px 0px 0px rgba(#13232f, 0.3);
+        background-color: #fbfbf8;
+
+        .tabGroup {
+          width: 95%;
+          list-style-type: none;
+          padding: 0;
+          // margin: 0 0 40px 0;
+          &::after {
+            content: "";
+            display: table;
+            clear: both;
+          }
+
+          li a {
+            box-sizing: border-box;
+            display: block;
+            position: relative;
+            text-decoration: none;
+            padding: 15px;
+            margin-bottom: 15px;
+            //   background: rgba(#a0b3b0, 0.25);
+            color: #a0b3b0;
+            font-size: 20px;
+            float: left;
+            width: 50%;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.5s ease;
+            // &::after {
+            //   background: none repeat scroll 0 0 transparent;
+            //   bottom: 0;
+            //   content: "";
+            //   display: block;
+            //   height: 2px;
+            //   left: 50%;
+            //   position: absolute;
+            //   background: black;
+            //   transition: width 0.3s ease 0s, left 0.3s ease 0s;
+            //   width: 0;
+            // }
+            &:hover {
+              // background: darken(#1ab188, 5%);
+              color: black;
+            }
+            // &:hover::after {
+            //   width: 100%;
+            //   // top: 0;
+            //   left: 0;
+            //   // right: 0;
+            // }
+          }
+          a::after {
+            // background: none repeat scroll 0 0 transparent;
+            bottom: 0;
+            content: "";
+            display: block;
+            height: 2px;
+            left: 50%;
+            // margin-left: 12%;
+            position: absolute;
+            background: black;
+            transition: width 0.3s ease 0s, left 0.3s ease 0s;
+            width: 0;
+          }
+          a:hover::after {
+            width: 0;
+            left: 28px;
+            // margin-left: 12%;
+          }
+          .active a {
+            //   background: #1ab188;
+            color: #0f3d3e;
+            &::after {
+              bottom: 0;
+              content: "";
+              display: block;
+              height: 2px;
+              left: 28px;
+              position: absolute;
+              background: black;
+              transition: width 0.3s ease 0s8 left 0.3s ease 0s;
+              width: 0;
+            }
+          }
         }
       }
     }

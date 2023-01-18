@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Login from "./components/Login";
 import axios, { formToJSON } from "axios";
 import Header from "./components/Header";
@@ -8,11 +8,11 @@ import Document from "./pages/Document";
 import "./styles/App.scss";
 import Register from "./components/Register";
 import TextEditor from "./components/TextEditor";
-import { useEffect } from "react";
 import LoginPage from "./pages/LoginPage";
-import Share from "./components/Share";
+import NotFound from "./pages/NotFound";
 
-function App() {
+// 페이지 레이아웃 관련 (특히 Header)
+const PageLayout = () => {
   // 로그인 상태 관리
   const [isLogin, setIsLogin] = useState(false);
 
@@ -21,19 +21,29 @@ function App() {
       setIsLogin(true);
     }
   });
+  return (
+    <>
+      <Header isLogin={isLogin} />
+      <Outlet />
+    </>
+  );
+};
 
+function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header isLogin={isLogin} />
+        {/* <Header isLogin={isLogin} /> */}
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/document" element={<Document />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/lgpage" element={<LoginPage />} />
-          <Route path="/textEditor" element={<TextEditor />} />
-          <Route path="/share" element={<Share />} />
+          <Route element={<PageLayout />}>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/document" element={<Document />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/lgpage" element={<LoginPage />} />
+            <Route path="/textEditor" element={<TextEditor />} />
+          </Route>
+          <Route path="/*" element={<NotFound />} />
         </Routes>
         {/* <Register/> */}
         {/* <TextEditor  /> */}

@@ -8,13 +8,13 @@ const Resister = () => {
   const [ConfirmPw, setConfirmPw] = useState("");
 
   const onIdHandler = (e) => {
-    setId(e.currentTarget.value);
+    setId(e.target.value);
   };
   const onPwHandler = (e) => {
-    setPw(e.currentTarget.value);
+    setPw(e.target.value);
   };
   const onConfirmPwHandler = (e) => {
-    setConfirmPw(e.currentTarget.value);
+    setConfirmPw(e.target.value);
   };
 
   const onSubmitHandler = (e) => {

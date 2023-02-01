@@ -16,7 +16,7 @@ const LoginTemplate = () => {
   };
 
   const onSubmitHandler = (e) => {
-    // e.preventDefault()
+    e.preventDefault()
 
     axios({
       method: "POST",

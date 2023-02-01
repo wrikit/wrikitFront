@@ -16,7 +16,7 @@ const MainPage = () => {
             <br />
           </div>
           <div className="main__textwrapper__btnArea">
-            <NavLink to="/login">
+            <NavLink to="/lgpage">
               <button className="runBtn">
                 <span>시작하기</span>
               </button>

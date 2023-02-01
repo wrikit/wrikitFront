@@ -5,11 +5,11 @@ import axios, { formToJSON } from "axios";
 import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
 import Document from "./pages/Document";
-import "./styles/App.scss";
-import Register from "./components/Register";
 import TextEditor from "./components/TextEditor";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from './components/LoginPage/LoginTemplate';
+import "./styles/App.scss";
 import NotFound from "./pages/NotFound";
+
 
 // 페이지 레이아웃 관련 (특히 Header)
 const PageLayout = () => {
@@ -28,6 +28,7 @@ const PageLayout = () => {
     </>
   );
 };
+
 
 function App() {
   return (

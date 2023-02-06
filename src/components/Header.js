@@ -7,6 +7,7 @@ import { RiLoginBoxFill } from "react-icons/ri";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
+  // console.log("Header ::", isLogin);
   const onLogout = () => {
     sessionStorage.removeItem("user_id");
     alert("로그아웃 되었습니다.");

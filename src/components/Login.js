@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
+import KakaoLogin from "./KakaoLogin";
 
 const Login = () => {
   //CSS 관련
@@ -88,6 +89,7 @@ const Login = () => {
         <button className="button" onClick={onSubmitHandler}>
           로그인
         </button>
+        <KakaoLogin />
       </form>
     </div>
   );

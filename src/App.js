@@ -15,12 +15,28 @@ import NotFound from "./pages/NotFound";
 const PageLayout = () => {
   // 로그인 상태 관리
   const [isLogin, setIsLogin] = useState(false);
+  const refreshIsLogin = () => {
+    axios.post("http://localhost:8000/auth/ping/", {}, { withCredentials:true })
+    .then(res => {
+      if (res.data.data) {
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
+      }
+    });
+  
+  }
 
+  // useEffect(() => {
+  //   if (sessionStorage.getItem("user_id")) {
+  //     setIsLogin(true);
+  //   }
+  // });
+  
   useEffect(() => {
-    if (sessionStorage.getItem("user_id")) {
-      setIsLogin(true);
-    }
-  });
+    refreshIsLogin();
+  }, []);
+
   return (
     <>
       <Header isLogin={isLogin} />

@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import KakaoLogin from "./KakaoLogin";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -74,6 +75,7 @@ const LoginTemplate = () => {
         <button className="button" onClick={onSubmitHandler}>
           로그인
         </button>
+        <KakaoLogin />
       </form>
     </div>
   );

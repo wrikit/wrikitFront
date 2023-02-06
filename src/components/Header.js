@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { throttle } from "lodash";
 // import { GrCloudDownload } from "react-icons/gr";
 import { IoCloudDownloadOutline } from "react-icons/io5";
+import {BsPersonCircle} from "react-icons/bs";
 import { RiLoginBoxFill } from "react-icons/ri";
 
 const Header = (props) => {
@@ -71,13 +72,9 @@ const Header = (props) => {
               </p>
             </li>
             <li onClick={hiddenMydoc}>
-              {isLogin ? (
-                <button type="button" onClick={onLogout}>
-                  LOGOUT
-                </button>
-              ) : (
-                <NavLink to="/lgpage">시작하기</NavLink>
-              )}
+              {/* {isLogin ? (<button type="button" onClick={onLogout}>LOGOUT</button>) : (<NavLink to="/lgpage">시작하기</NavLink>)} */}
+              {/* */}
+              {isLogin ? (<BsPersonCircle size="24" onClick={onLogout}/>) : (<NavLink to="/lgpage">시작하기</NavLink>)}
             </li>
 
           </ul>

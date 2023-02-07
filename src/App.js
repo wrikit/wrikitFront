@@ -18,6 +18,7 @@ const PageLayout = () => {
   const refreshIsLogin = () => {
     axios.post("http://localhost:8000/auth/ping/", {}, { withCredentials:true })
     .then(res => {
+      console.log(res.data.data);
       if (res.data.data) {
         setIsLogin(true);
       } else {

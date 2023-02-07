@@ -1,12 +1,14 @@
 import axios from "axios";
-import kakao_login_png from "../img/kakao_login.png";
+import kakao_login_png from "../../img/kakao_login.png";
 
 const KakaoLogin = () => {
   // index.html <head>에서 스크립트 연결필요
   // <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   const KakaoKey = '6d7d8e51b5a8fe5d22491601c0ab3f7a';
   const Kakao = window.Kakao;
-  Kakao.init(KakaoKey);
+  if (!Kakao.isInitialized()) {
+    Kakao.init(KakaoKey);
+  }
 
   const KakaoLogin = () => {
     Kakao.Auth.login({

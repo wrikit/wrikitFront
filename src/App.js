@@ -4,36 +4,35 @@ import axios, { formToJSON } from "axios";
 import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
 import Document from "./pages/Document";
-import TextEditor from "./components/TextEditor";
-import LoginPage from './components/LoginPage/LoginTemplate';
+import TextEditor from "./components/DocumentPage/TextEditor";
+import LoginPage from "./components/LoginPage/LoginTemplate";
 import Register from "./components/LoginPage/Register";
 import "./styles/App.scss";
 import NotFound from "./pages/NotFound";
-
 
 // 페이지 레이아웃 관련 (특히 Header)
 const PageLayout = () => {
   // 로그인 상태 관리
   const [isLogin, setIsLogin] = useState(false);
   const refreshIsLogin = () => {
-    axios.post("http://localhost:8000/auth/ping/", {}, { withCredentials:true })
-    .then(res => {
-      console.log(res.data.data);
-      if (res.data.data) {
-        setIsLogin(true);
-      } else {
-        setIsLogin(false);
-      }
-    });
-  
-  }
+    axios
+      .post("http://localhost:8000/auth/ping/", {}, { withCredentials: true })
+      .then((res) => {
+        console.log(res.data.data);
+        if (res.data.data) {
+          setIsLogin(true);
+        } else {
+          setIsLogin(false);
+        }
+      });
+  };
 
   // useEffect(() => {
   //   if (sessionStorage.getItem("user_id")) {
   //     setIsLogin(true);
   //   }
   // });
-  
+
   useEffect(() => {
     refreshIsLogin();
   }, []);
@@ -45,7 +44,6 @@ const PageLayout = () => {
     </>
   );
 };
-
 
 function App() {
   return (

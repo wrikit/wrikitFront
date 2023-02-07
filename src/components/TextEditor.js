@@ -39,8 +39,8 @@ const TextEditor = (props) => {
           console.log(err);
         });
     };
-    console.log("getDocument:", document.id, document.accessKey);
-    getDocument(document.id, document.accessKey);
+    // console.log("getDocument:", document.id, document.accessKey);
+    getDocument("2", "test11");
   }, []);
 
   const onChange = async (e) => {

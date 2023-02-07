@@ -1,4 +1,4 @@
-import DocumentList from "../components/DocumentList";
+import DocumentList from "../components/DocumentPage/DocumentList";
 const Document = () => {
   return (
     <main className="MainPage">

@@ -4,13 +4,33 @@ import { throttle } from "lodash";
 // import { GrCloudDownload } from "react-icons/gr";
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import { RiLoginBoxFill } from "react-icons/ri";
+import axios from "axios";
+
+
 
 const Header = (props) => {
   const isLogin = props.isLogin;
+  // console.log("Header ::", isLogin);
   const onLogout = () => {
-    sessionStorage.removeItem("user_id");
-    alert("로그아웃 되었습니다.");
-    document.location.href = "/";
+    // sessionStorage.removeItem("user_id");
+    
+    axios.post("http://localhost:8000/auth/logout/", {}, { withCredentials: true })
+    .then(res => {
+      // if (Kakao.Auth.getAccessToken()) {
+      //   Kakao.API.request({
+      //     url: '/v1/user/unlink',
+      //     success: response => {
+      //       console.log(response);
+      //     },
+      //     fail: error => {
+      //       console.log(error);
+      //     },
+      //   })
+      //   Kakao.Auth.setAccessToken(undefined);
+      // }  
+    }).then(() => {
+      document.location.href = "/";
+    });
   };
 
   // 스크롤 감지 (-> 헤더 그림자 + 높이 줄어듦 효과)

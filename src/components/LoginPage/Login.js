@@ -19,19 +19,14 @@ const LoginTemplate = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault()
 
-    axios({
-      method: "POST",
-      url: "http://115.85.180.7:8000/auth/login/",
-      data: {
-        username: id,
-        userpass: pw,
-      },
-    })
+    axios.post("http://localhost:8000/auth/login/", {
+      username: id, userpass: pw
+    }, { withCredentials:true })
       .then((res) => {
         // console.dir(res.data);
         if (res.data.result === "True") {
           alert(`${id}님 안녕하세요!`);
-          navigate('/')
+          document.location.href = "/";
         } else {
           alert(`아이디 또는 비밀번호를 확인해주세요`);
         }

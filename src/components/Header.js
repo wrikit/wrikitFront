@@ -5,7 +5,6 @@ import { throttle } from "lodash";
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import {BsPersonCircle} from "react-icons/bs";
 import { RiLoginBoxFill } from "react-icons/ri";
-import Dropdown from 'react-dropdown';
 import axios from "axios";
 
 
@@ -72,20 +71,7 @@ const Header = (props) => {
   };
 
   //헤더 드롭다운
-  // const options = [
-  //   'mypage', 'logout'
-  // ]
-  // const defaultOption = options[0];
-  // const [isDropdownOpened, setDropdownOpened] = useState(false);
-  // const [list, setList] = useState([1, 2, 3])
-  // const toggleDropDown = () => setDropdownOpened = !isDropdownOpened
-  // const DropDownlist = () => useMemo(()=> list.map(el=><div>el</div>))
-  //   if (isDropdownOpened== true){
-  //     DropDownlist();
-  //   }
-  // const dropdown = () => {
     const [isDropdownOpened, setDropdownOpened] = useState(false);
-  // }
 
 
 
@@ -113,13 +99,9 @@ const Header = (props) => {
             </li>
             <li onClick={hiddenMydoc}>
               {/* {isLogin ? (<button type="button" onClick={onLogout}>LOGOUT</button>) : (<NavLink to="/lgpage">시작하기</NavLink>)} */}
-              {/* */}
-              {/* {isLogin ? (<BsPersonCircle size="24" onClick={onLogout}/>) : (<NavLink to="/lgpage">시작하기</NavLink>)} */}
               {isLogin ? (<div className="iconContainer">
-              {/* <button onClick={() => setDropdownOpened(!isDropdownOpened)}> */}
                 <BsPersonCircle size="24" onClick={() => setDropdownOpened(!isDropdownOpened)}></BsPersonCircle>
-                {/* </button> */}
-                {isDropdownOpened && (<ul className="dropdownMenu"><li>Mypage</li><li>Logout</li></ul>)}
+                {isDropdownOpened && (<ul className="dropdownMenu"><li NavLink to="#">Mypage</li><li onClick={onLogout}>Logout</li></ul>)}
               </div>):(<NavLink to="/lgpage">시작하기</NavLink>)}
             </li>
 

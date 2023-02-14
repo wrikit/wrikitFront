@@ -32,7 +32,7 @@ const TextEditor = (props) => {
           // 문서내용 받아온 것 보이도록 설정
           setContents(res.data.result.content);
           // 문서제목 받아오기 보이도록 설정
-          // setTitle(res.data.result.docName); //docName이 get-document에서 받아오게 설정안돼있어 아직은 못받아옴
+          setTitle(res.data.result.docName); //docName이 get-document에서 받아오게 설정안돼있어 아직은 못받아옴
           return res.data;
         })
         .catch(function (err) {
@@ -52,7 +52,7 @@ const TextEditor = (props) => {
       method: "PATCH",
       url: "http://localhost:8000/main/update-document/",
       data: {
-        documentid: "1", //테스트용데이터
+        documentid: "2", //테스트용데이터
         documentkey: "test11", //테스트용데이터
         docName: title,
       },
@@ -90,7 +90,7 @@ const TextEditor = (props) => {
             method: "PATCH",
             url: "http://localhost:8000/main/update-document/",
             data: {
-              documentid: "1", //테스트용데이터
+              documentid: "2", //테스트용데이터
               documentkey: "test11", //테스트용데이터
               content: data,
             },

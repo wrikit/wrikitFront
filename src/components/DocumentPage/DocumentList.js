@@ -36,9 +36,13 @@ const DocumentList = () => {
     // const res = await axios.get("main/get-profile/");
     // console.log(res.data);
     axios
-      .post("http://localhost:8000/main/get-profile/", {
-        withCredentials: true,
-      })
+      .post(
+        "http://localhost:8000/main/get-profile/",
+        {},
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         console.log("get-profiledd", res.data);
         return res.data;

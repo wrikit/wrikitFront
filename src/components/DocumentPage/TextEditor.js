@@ -1,11 +1,13 @@
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useState, useEffect } from "react";
-import "../styles/TextEditor.scss";
+import "../../styles/TextEditor.scss";
 import ShareButton from "./ShareButton";
 
-const TextEditor = () => {
+const TextEditor = (props) => {
+  const { document } = props;
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
 
@@ -37,7 +39,8 @@ const TextEditor = () => {
           console.log(err);
         });
     };
-    getDocument("1", "test11");
+    // console.log("getDocument:", document.id, document.accessKey);
+    getDocument("2", "test11");
   }, []);
 
   const onChange = async (e) => {
@@ -63,6 +66,7 @@ const TextEditor = () => {
       });
   };
   return (
+    // <Link className="TextEditor" to={"/textEditor/" + document.id}>
     <>
       <input
         className="titleInput"
@@ -107,6 +111,7 @@ const TextEditor = () => {
         }}
       />
     </>
+    // </Link>
   );
 };
 

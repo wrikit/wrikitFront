@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { throttle } from "lodash";
 // import { GrCloudDownload } from "react-icons/gr";
 import { IoCloudDownloadOutline } from "react-icons/io5";
+import {BsPersonCircle} from "react-icons/bs";
 import { RiLoginBoxFill } from "react-icons/ri";
 import axios from "axios";
 
@@ -69,6 +70,12 @@ const Header = (props) => {
     setIsActive(false);
   };
 
+  //헤더 드롭다운
+    const [isDropdownOpened, setDropdownOpened] = useState(false);
+
+
+
+
   return (
     <header className={`header`}>
       <div className={`header__content ${isScrolled ? "shadow" : ""}`}>
@@ -91,13 +98,11 @@ const Header = (props) => {
               </p>
             </li>
             <li onClick={hiddenMydoc}>
-              {isLogin ? (
-                <button type="button" onClick={onLogout}>
-                  LOGOUT
-                </button>
-              ) : (
-                <NavLink to="/lgpage">시작하기</NavLink>
-              )}
+              {/* {isLogin ? (<button type="button" onClick={onLogout}>LOGOUT</button>) : (<NavLink to="/lgpage">시작하기</NavLink>)} */}
+              {isLogin ? (<div className="iconContainer">
+                <BsPersonCircle size="24" onClick={() => setDropdownOpened(!isDropdownOpened)}></BsPersonCircle>
+                {isDropdownOpened && (<ul className="dropdownMenu"><li NavLink to="#">Mypage</li><li onClick={onLogout}>Logout</li></ul>)}
+              </div>):(<NavLink to="/lgpage">시작하기</NavLink>)}
             </li>
 
           </ul>

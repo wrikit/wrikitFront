@@ -142,6 +142,7 @@
     box-sizing: border-box;
     z-index: 100;
     background-color: #fbfbf8;
+    // margin: 0 10px 0 10px;
 
     &__logo {
       color: black;
@@ -157,12 +158,31 @@
         justify-content: center;
         align-items: center;
 
-        li:not(#icon) {
-          display: none;
+        // li:not(#icon) {
+        //   display: none;
+        // }
+        li:not(.dropdownMenu li) {
+          list-style: none;
+          margin-left: 25px;
+          a,
+          Link {
+            text-decoration: none;
+            padding: 6px 15px;
+            color: black;
+            border-radius: 20px;
+          }
+
+          &:not(#icon) a:hover,
+          Link:hover,
+          &:not(#icon) a.active,
+          Link.active {
+            background: black;
+            color: whitesmoke;
+          }
         }
         #icon {
           list-style: none;
-          margin-left: 25px;
+          // margin-left: 25px;
           vertical-align: -12px;
           border-radius: 20px;
           scale: 0.9;
@@ -180,6 +200,35 @@
             display: none;
           }
         }
+        .iconContainer{
+          position: relative;
+          display: inline-block;
+        }
+        .dropdownMenu{
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background-color: white;
+          list-style: none;
+          padding: 0;
+          margin: 0 150px 0 0;
+          border: 1px solid gray;
+          border-radius: 5px;
+          box-shadow: 2px 2px 5px gray;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+      
+          & li{
+            padding: 10px 20px;
+            margin-left: 0;
+            
+            &:hover {
+              background-color: lightgrey;
+              cursor:pointer;
+            }
+          }
+        }
       }
     }
   }
@@ -189,21 +238,21 @@
   display: none;
 }
 
-.header__content__toggle {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  font-size: 2rem;
-  transition: 0.3s ease all;
-  position: relative;
+// .header__content__toggle {
+//   cursor: pointer;
+//   display: flex;
+//   align-items: center;
+//   font-size: 2rem;
+//   transition: 0.3s ease all;
+//   position: relative;
 
-  & path:hover {
-    color: red;
-  }
-  @include breakpoint(md) {
-    display: none;
-  }
-}
+  // & path:hover {
+  //   color: red;
+  // }
+  // @include breakpoint(md) {
+  //   display: none;
+  // }
+// }
 
 // @include breakpoint(md){
 //     .header__content{

@@ -25,7 +25,7 @@ const Resister = () => {
     } else {
       axios({
         method: "POST",
-        url: "http://115.85.180.7:8000/auth/create/",
+        url: "http://localhost:8000/auth/create/",
         data: {
           username: id,
           userpass: pw,

@@ -52,7 +52,7 @@ const TextEditor = (props) => {
       method: "PATCH",
       url: "http://localhost:8000/main/update-document/",
       data: {
-        documentid: "1", //테스트용데이터
+        documentid: "2", //테스트용데이터
         documentkey: "test11", //테스트용데이터
         docName: title,
       },
@@ -90,7 +90,7 @@ const TextEditor = (props) => {
             method: "PATCH",
             url: "http://localhost:8000/main/update-document/",
             data: {
-              documentid: "1", //테스트용데이터
+              documentid: "2", //테스트용데이터
               documentkey: "test11", //테스트용데이터
               content: data,
             },

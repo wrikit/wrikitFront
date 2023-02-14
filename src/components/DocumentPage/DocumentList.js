@@ -33,8 +33,19 @@ const DocumentList = () => {
     // API생성전 가짜데이터 사용
     setDocuments(fakeDocuments);
     // 서버에 API추가 필요 유저아이디별로문서리스트
-    // const res = await axios.get("서버에 새로만들어야함");
+    // const res = await axios.get("main/get-profile/");
     // console.log(res.data);
+    axios
+      .post("http://localhost:8000/main/get-profile/", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log("get-profiledd", res.data);
+        return res.data;
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
 
     // setDocuments(res.data.slice(0, 20));
   };

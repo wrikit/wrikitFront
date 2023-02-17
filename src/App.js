@@ -7,6 +7,7 @@ import Document from "./pages/Document";
 import TextEditor from "./components/DocumentPage/TextEditor";
 import LoginPage from "./components/LoginPage/LoginTemplate";
 import Register from "./components/LoginPage/Register";
+import Profile from "./components/UserProfile/Profile";
 import "./styles/App.scss";
 import NotFound from "./pages/NotFound";
 
@@ -18,7 +19,7 @@ const PageLayout = () => {
     axios
       .post("http://localhost:8000/auth/ping/", {}, { withCredentials: true })
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         if (res.data.data) {
           setIsLogin(true);
         } else {
@@ -57,6 +58,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/lgpage" element={<LoginPage />} />
             <Route path="/textEditor" element={<TextEditor />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>

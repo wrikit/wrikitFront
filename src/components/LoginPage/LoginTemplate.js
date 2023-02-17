@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import "../../styles/lgpage.scss";
@@ -6,10 +6,17 @@ import descImg1 from "../../img/desc01.png";
 
 const LoginPage = () => {
   const [content, setContent] = useState("login");
+  const [display, setDisplay] = useState(<Login />);
 
   const handleClickBtn = (e) => {
     setContent(e.target.name);
   };
+
+  useEffect(() => {
+      content === "login" ? 
+        setDisplay(<Login />) : 
+        setDisplay(<Register setContent={setContent} />);
+  }, [content]);
 
   return (
     <div className="loginPage">
@@ -32,7 +39,7 @@ const LoginPage = () => {
             </li>
           </ul>
         </div>
-        <div>{content === "login" ? <Login /> : <Register />}</div>
+        <div>{display}</div>
       </section>
     </div>
   );

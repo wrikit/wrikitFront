@@ -1,8 +1,8 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
-const Resister = () => {
+const Resister = (props) => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const [ConfirmPw, setConfirmPw] = useState("");
@@ -16,6 +16,7 @@ const Resister = () => {
   const onConfirmPwHandler = (e) => {
     setConfirmPw(e.target.value);
   };
+  const idRef = useRef(null);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -32,10 +33,12 @@ const Resister = () => {
         },
       })
         .then((res) => {
-          if (res.data.result === true) {
+          if (res.data.result == "True") {
             alert(`${res.data.username}님 안녕하세요!`);
+            props.setContent("login");
           } else {
             alert(`${res.data.message}`);
+            idRef.current.focus();
           }
         })
         .catch(function (err) {
@@ -46,7 +49,7 @@ const Resister = () => {
 
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
-      onSubmitHandler();
+      onSubmitHandler(e);
     }
   };
 
@@ -60,6 +63,7 @@ const Resister = () => {
           value={id}
           onChange={onIdHandler}
           placeholder="아이디"
+          ref={idRef}
         />
         <br />
         <input

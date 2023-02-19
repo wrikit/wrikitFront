@@ -1,17 +1,21 @@
 import { resolveTo } from "@remix-run/router";
 import { type } from "@testing-library/user-event/dist/type";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Information = props => {
   const [value, setValue] = useState(props.default);
-  const [onChange, setOnChange] = useState();
   const [image, setImage] = useState('');
   const [imageSrc, setImageSrc] = useState(props.src);
   const isImage = (props.type == "image");
+  const inputRef = useRef(null);
+
+  if (value == null) {
+    setValue('');
+  }
+
   const valueHandler = event => {
-    setOnChange(event);
-    setValue(event.target.value);
+    setValue(event.target.value); 
     if (isImage) {
       imageHandler(event);
     }
@@ -24,6 +28,8 @@ const Information = props => {
   useEffect(() => {
     if (!isImage) {
       value==props.default ? props.isChange(false) : props.isChange(true);
+    } else {
+      inputRef.current.value == "" ? props.isChange(false) : props.isChange(true);
     }
   }, [value]);
 
@@ -42,6 +48,8 @@ const Information = props => {
       onChange={valueHandler} 
       disabled={props.isDisabled}
       placeholder={props.placeHolder}
+      ref={inputRef}
+      name={props.formName}
     />
   </div>
 
@@ -55,7 +63,8 @@ Information.defaultProps = {
   type: "text",
   infoName: '',
   src: '',
-  placeHolder: ''
+  placeHolder: '',
+  formName: ''
 };
 
 export default Information;

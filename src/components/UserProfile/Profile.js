@@ -1,4 +1,5 @@
 import ProfileForm from "./ProfileForm";
+import PassSetting from "./PassSetting";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -25,6 +26,11 @@ const Profile = props => {
       {}, 
       { withCredentials:true})
       .then(res => {
+        if (res.data.data==undefined) {
+          alert("로그인이 필요합니다.");
+          document.location.href = "/lgpage";
+          return 0;
+        }
         setName(res.data.data.profileName);
         setMessage(res.data.data.profileMessage);
         setSrc("http://localhost:8000/media/user_profile/"+res.data.data.profileImg);  
@@ -37,6 +43,7 @@ const Profile = props => {
 
   return <div>
      {name ? (
+      <div>
       <ProfileForm 
         profileName={name}
         profileMessage={message}
@@ -44,11 +51,18 @@ const Profile = props => {
         userId={userId}
         profileId={profileId}
       />
+      <hr />
+      <PassSetting />
+
+      </div>
+      
+
      ) : (
       <div>Loading...</div>
      )}
   </div>;
- 
+  // TODO App.js에서 유저정보 쿠키로 만들고 가져오기
+  // TODO 카카오계정이면 PassSetting숨기기
   
 }
 

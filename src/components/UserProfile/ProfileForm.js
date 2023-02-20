@@ -74,7 +74,6 @@ const ProfileForm = props => {
     placeHolder="Status Message"
     formName="profileMessage"
     />
-    <hr />
     <button 
       onClick={isDisabledHandler}
       type="button">

@@ -11,6 +11,12 @@ import Profile from "./components/UserProfile/Profile";
 import "./styles/App.scss";
 import NotFound from "./pages/NotFound";
 
+const setCookie = (name, value, exp=7) => {
+  let date = new Date();
+  date.setTime(date.getTime() + exp*24*60*60*1000);
+  document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+}
+
 // 페이지 레이아웃 관련 (특히 Header)
 const PageLayout = () => {
   // 로그인 상태 관리
@@ -19,7 +25,9 @@ const PageLayout = () => {
     axios
       .post("http://localhost:8000/auth/ping/", {}, { withCredentials: true })
       .then((res) => {
-        // console.log(res.data.data);
+        setCookie('username', res.data['user']);
+        setCookie('isKakao', res.data['isKakao']);
+        
         if (res.data.data) {
           setIsLogin(true);
         } else {
@@ -27,12 +35,6 @@ const PageLayout = () => {
         }
       });
   };
-
-  // useEffect(() => {
-  //   if (sessionStorage.getItem("user_id")) {
-  //     setIsLogin(true);
-  //   }
-  // });
 
   useEffect(() => {
     refreshIsLogin();

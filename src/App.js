@@ -67,7 +67,7 @@ const PageLayout = (props) => {
   return (
     <>
       <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} />
-      {isSidebarOpen && <Mypage onCloseClick={handleSidebarToggle} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />}
+      {isSidebarOpen && <Mypage onCloseClick={handleSidebarToggle} setIsSidebarOpen={setIsSidebarOpen} />}
       <Outlet />
     </>
   );

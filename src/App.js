@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import axios, { formToJSON } from "axios";
 import Header from "./components/Header";
@@ -8,8 +8,9 @@ import TextEditor from "./components/DocumentPage/TextEditor";
 import LoginPage from "./components/LoginPage/LoginTemplate";
 import Register from "./components/LoginPage/Register";
 import Profile from "./components/UserProfile/Profile";
-import "./styles/App.scss";
 import NotFound from "./pages/NotFound";
+import Mypage from "./pages/Mypage";
+import "./styles/App.scss";
 
 const setCookie = (name, value, exp=7) => {
   let date = new Date();
@@ -18,7 +19,7 @@ const setCookie = (name, value, exp=7) => {
 }
 
 // 페이지 레이아웃 관련 (특히 Header)
-const PageLayout = () => {
+const PageLayout = (props) => {
   // 로그인 상태 관리
   const [isLogin, setIsLogin] = useState(false);
   const refreshIsLogin = () => {
@@ -40,9 +41,36 @@ const PageLayout = () => {
     refreshIsLogin();
   }, []);
 
+  //마이페이지 사이드바
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  }
+
+  // //다른 곳 클릭시 마이페이지 닫힘
+
+  
+  
+  // let mypageRef = useRef();
+  // useEffect(() => {
+  //   let handler = (e) => {
+  //     if(!mypageRef.current.contains(e.target)){
+  //       setIsSidebarOpen(false);
+  //     }
+  //   };
+
+  //   document.addEventListener("mousedown", handler);
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handler);
+  //   };
+  // },[]);
+
   return (
     <>
-      <Header isLogin={isLogin} />
+      <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} />
+      {isSidebarOpen && <Mypage onCloseClick={handleSidebarToggle} setIsSidebarOpen={setIsSidebarOpen} />}
       <Outlet />
     </>
   );

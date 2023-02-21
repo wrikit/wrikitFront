@@ -7,9 +7,16 @@ import Document from "./pages/Document";
 import TextEditor from "./components/DocumentPage/TextEditor";
 import LoginPage from "./components/LoginPage/LoginTemplate";
 import Register from "./components/LoginPage/Register";
+import Profile from "./components/UserProfile/Profile";
 import NotFound from "./pages/NotFound";
 import Mypage from "./pages/Mypage";
 import "./styles/App.scss";
+
+const setCookie = (name, value, exp=7) => {
+  let date = new Date();
+  date.setTime(date.getTime() + exp*24*60*60*1000);
+  document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+}
 
 // 페이지 레이아웃 관련 (특히 Header)
 const PageLayout = (props) => {
@@ -19,7 +26,9 @@ const PageLayout = (props) => {
     axios
       .post("http://localhost:8000/auth/ping/", {}, { withCredentials: true })
       .then((res) => {
-        console.log(res.data.data);
+        setCookie('username', res.data['user']);
+        setCookie('isKakao', res.data['isKakao']);
+        
         if (res.data.data) {
           setIsLogin(true);
         } else {
@@ -27,12 +36,6 @@ const PageLayout = (props) => {
         }
       });
   };
-
-  // useEffect(() => {
-  //   if (sessionStorage.getItem("user_id")) {
-  //     setIsLogin(true);
-  //   }
-  // });
 
   useEffect(() => {
     refreshIsLogin();
@@ -85,6 +88,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/lgpage" element={<LoginPage />} />
             <Route path="/textEditor" element={<TextEditor />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>

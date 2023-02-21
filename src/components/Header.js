@@ -72,6 +72,13 @@ const Header = (props) => {
 
   //헤더 드롭다운
     const [isDropdownOpened, setDropdownOpened] = useState(false);
+    
+  //마이페이지 클릭
+    const MypageClick = () =>{
+      props.onMenuClick();
+      setDropdownOpened(!isDropdownOpened);
+
+    }
 
 
 
@@ -100,8 +107,8 @@ const Header = (props) => {
             <li onClick={hiddenMydoc}>
               {/* {isLogin ? (<button type="button" onClick={onLogout}>LOGOUT</button>) : (<NavLink to="/lgpage">시작하기</NavLink>)} */}
               {isLogin ? (<div className="iconContainer">
-                <BsPersonCircle size="24" onClick={() => setDropdownOpened(!isDropdownOpened)}></BsPersonCircle>
-                {isDropdownOpened && (<ul className="dropdownMenu"><li NavLink to="#">Mypage</li><li onClick={onLogout}>Logout</li></ul>)}
+                <BsPersonCircle size="24" onClick={()=>setDropdownOpened(!isDropdownOpened)}></BsPersonCircle>
+                {isDropdownOpened && (<ul className="dropdownMenu"><li onClick={MypageClick}>Mypage</li><li onClick={onLogout}>Logout</li></ul>)}
               </div>):(<NavLink to="/lgpage">시작하기</NavLink>)}
             </li>
 

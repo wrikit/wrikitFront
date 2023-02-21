@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import axios, { formToJSON } from "axios";
 import Header from "./components/Header";
@@ -45,13 +45,30 @@ const PageLayout = (props) => {
     setIsSidebarOpen(!isSidebarOpen);
   }
 
+  // //다른 곳 클릭시 마이페이지 닫힘
+
+  
+  
+  // let mypageRef = useRef();
+  // useEffect(() => {
+  //   let handler = (e) => {
+  //     if(!mypageRef.current.contains(e.target)){
+  //       setIsSidebarOpen(false);
+  //     }
+  //   };
+
+  //   document.addEventListener("mousedown", handler);
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handler);
+  //   };
+  // },[]);
+
   return (
     <>
-    <div className={`layout ${isSidebarOpen ? "sidebarOpen" : ""}`}>
       <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} />
-      {isSidebarOpen && <Mypage onCloseClick={handleSidebarToggle} />}
+      {isSidebarOpen && <Mypage onCloseClick={handleSidebarToggle} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />}
       <Outlet />
-    </div>
     </>
   );
 };

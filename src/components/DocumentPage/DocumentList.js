@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+//documentItem컴포넌트 문서 번호, 이름, 마지막업데이트날짜
 import DocumentItem from "./DocumentItem";
+import DocumentNew from "./DocumentNew";
+import "../../styles/DocumentList.scss";
 
 const DocumentList = () => {
   // 2초기다리는건 처음에 state에 빈값이여야... 2초후바꾸기
@@ -44,7 +47,7 @@ const DocumentList = () => {
         }
       )
       .then((res) => {
-        console.log("get-profiledd", res.data);
+        console.log("get-profiled", res.data.data.user);
         return res.data;
       })
       .catch(function (err) {
@@ -65,10 +68,15 @@ const DocumentList = () => {
   });
 
   return (
-    <div className="documentList">
-      <p>내 문서</p>
-      {documents.length < 1 ? <h2>"Loading..."</h2> : dataLoaded}
-    </div>
+    <>
+      <div className="documentList">
+        <h2>내문서</h2>
+        {documents.length < 1 ? <h2>"Loading..."</h2> : dataLoaded}
+      </div>
+      <div>
+        <DocumentNew />
+      </div>
+    </>
   );
 };
 

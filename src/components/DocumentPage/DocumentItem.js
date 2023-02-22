@@ -1,3 +1,4 @@
+//documentItem컴포넌트 문서 번호, 이름, 마지막업데이트날짜
 const DocumentItem = (props) => {
   // props
   // {post: {id: x, title: xxx, body: xxx}}

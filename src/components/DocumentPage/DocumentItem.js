@@ -1,3 +1,4 @@
+import { HiDocumentText } from "react-icons/hi";
 //documentItem컴포넌트 문서 번호, 이름, 마지막업데이트날짜
 const DocumentItem = (props) => {
   // props
@@ -9,6 +10,7 @@ const DocumentItem = (props) => {
   return (
     <div className="DocumentItem">
       <div>
+        <HiDocumentText />
         <span className="id">No. {document.id}</span>
         <span className="docName">- {document.docName}</span>
         <span className="lastUpdate">- {document.lastUpdate}</span>

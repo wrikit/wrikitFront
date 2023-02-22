@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 
-const PassSetting = () => {
+const Setting = () => {
   const settingDialogRef = useRef(null);
   const passRef = useRef(null);
   const newPassRef = useRef(null);
@@ -67,27 +67,28 @@ const PassSetting = () => {
 
   return (
     <>
-    <button onClick={settingHandler}>계정설정</button>
-    <dialog ref={settingDialogRef}>
-      <h1>Heelo, This is dialog tag</h1>
-      <h3>비밀번호 재설정</h3>
-      <label htmlFor="password">패스워드</label>
-      <input type="password" id="password" onChange={inputHandler(setPass)} ref={passRef} />
-      <br />
-      <label htmlFor="new-password">새 패스워드</label>
-      <input type="password" id="new-password" onChange={inputHandler(setNewPass)} ref={newPassRef} />
-      <br />
-      <label htmlFor="confirm-password">패스워드확인</label>
-      <input type="password" id="confirm-password" onChange={inputHandler(setConfirm)} ref={confirmRef} />
-      <br />
-      <button onClick={passChangeHandler}>패스워드 변경</button>
-      <hr />
-      <form method="dialog">
-        <button>CLOSE</button>
-      </form>
-    </dialog>
+    <button onClick={settingHandler}>패스워드 변경</button>
+    <div className="pass-setting">
+      <dialog ref={settingDialogRef}>
+        <h3>비밀번호 재설정</h3>
+        <label htmlFor="password">패스워드</label> <br />
+        <input type="password" id="password" onChange={inputHandler(setPass)} ref={passRef} />
+        <br />
+        <label htmlFor="new-password">새 패스워드</label> <br />
+        <input type="password" id="new-password" onChange={inputHandler(setNewPass)} ref={newPassRef} />
+        <br />
+        <label htmlFor="confirm-password">패스워드확인</label> <br />
+        <input type="password" id="confirm-password" onChange={inputHandler(setConfirm)} ref={confirmRef} />
+        <br />
+        <button onClick={passChangeHandler}>패스워드 변경</button>
+        <form method="dialog">
+          <button>CLOSE</button>
+        </form>
+      </dialog>
+
+    </div>
     </>
   );
 }
 
-export default PassSetting;
+export default Setting;

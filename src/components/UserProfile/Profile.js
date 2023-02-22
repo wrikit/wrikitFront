@@ -9,6 +9,7 @@ const Profile = props => {
   const [src, setSrc] = useState();
   const [userId, setUserId] = useState();
   const [profileId, setProfileId] = useState();
+  const [isKakao, setIsKakao] = useState();
   if (name==null) {
     setName('');
   }
@@ -19,6 +20,19 @@ const Profile = props => {
     setSrc('');
   }
 
+  const getCookie = key => {
+    let value = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return value ? value[2] : null;
+  }
+
+
+  useEffect(() => {
+    if (getCookie('isKakao') == 'true') {
+      setIsKakao(true);
+    } else {
+      setIsKakao(false);
+    }
+  });
   useEffect(() => {
   const getData = async () => {
     axios.post(
@@ -41,8 +55,8 @@ const Profile = props => {
   getData();
   }, []);
 
-  return <div>
-     {name ? (
+  return <div className={props.type} id="profile" >
+     {(name && (isKakao!=undefined)) ? (
       <div>
       <ProfileForm 
         profileName={name}
@@ -51,9 +65,7 @@ const Profile = props => {
         userId={userId}
         profileId={profileId}
       />
-      <hr />
-      <PassSetting />
-
+      {isKakao ? "" : <PassSetting />}
       </div>
       
 

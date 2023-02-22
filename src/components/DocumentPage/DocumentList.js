@@ -69,12 +69,12 @@ const DocumentList = () => {
 
   return (
     <>
+      <div>
+        <DocumentNew />
+      </div>
       <div className="documentList">
         <h2>내문서</h2>
         {documents.length < 1 ? <h2>"Loading..."</h2> : dataLoaded}
-      </div>
-      <div>
-        <DocumentNew />
       </div>
     </>
   );

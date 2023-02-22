@@ -18,11 +18,11 @@ const DocumentNew = () => {
           size: "2em",
         }}
       >
-        <div>
+        <p className="NewText">새문서 만들기</p>
+        <div className="NewBtndiv">
           <FaPlus />
         </div>
       </IconContext.Provider>
-      ;
     </div>
   );
 };

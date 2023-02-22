@@ -35,13 +35,16 @@ const Information = props => {
   const return_result = <div>
     { isImage ?
       <label htmlFor={INPUT_ID}>
-        <img src={imageSrc} />
+        <div className="image-container">
+          <img src={imageSrc} className="profile-image" />
+        </div>
       </label> :
       <div className="info_name">{props.infoName}</div>
     }
     <input 
       id={INPUT_ID}
       type={isImage ? "file" : props.type} 
+      className={isImage ? "image-input" : "text-input"}
       value={value} 
       onChange={valueHandler} 
       disabled={props.isDisabled}

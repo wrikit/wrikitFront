@@ -88,7 +88,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/lgpage" element={<LoginPage />} />
             <Route path="/textEditor" element={<TextEditor />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile type="profile" />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import axios, { formToJSON } from "axios";
 import Header from "./components/Header";
@@ -7,18 +7,28 @@ import Document from "./pages/Document";
 import TextEditor from "./components/DocumentPage/TextEditor";
 import LoginPage from "./components/LoginPage/LoginTemplate";
 import Register from "./components/LoginPage/Register";
-import "./styles/App.scss";
+import Profile from "./components/UserProfile/Profile";
 import NotFound from "./pages/NotFound";
+import Mypage from "./pages/Mypage";
+import "./styles/App.scss";
+
+const setCookie = (name, value, exp=7) => {
+  let date = new Date();
+  date.setTime(date.getTime() + exp*24*60*60*1000);
+  document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+}
 
 // 페이지 레이아웃 관련 (특히 Header)
-const PageLayout = () => {
+const PageLayout = (props) => {
   // 로그인 상태 관리
   const [isLogin, setIsLogin] = useState(false);
   const refreshIsLogin = () => {
     axios
       .post("http://localhost:8000/auth/ping/", {}, { withCredentials: true })
       .then((res) => {
-        console.log(res.data.data);
+        setCookie('username', res.data['user']);
+        setCookie('isKakao', res.data['isKakao']);
+        
         if (res.data.data) {
           setIsLogin(true);
         } else {
@@ -27,19 +37,40 @@ const PageLayout = () => {
       });
   };
 
-  // useEffect(() => {
-  //   if (sessionStorage.getItem("user_id")) {
-  //     setIsLogin(true);
-  //   }
-  // });
-
   useEffect(() => {
     refreshIsLogin();
   }, []);
 
+  //마이페이지 사이드바
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  }
+
+  // //다른 곳 클릭시 마이페이지 닫힘
+
+  
+  
+  // let mypageRef = useRef();
+  // useEffect(() => {
+  //   let handler = (e) => {
+  //     if(!mypageRef.current.contains(e.target)){
+  //       setIsSidebarOpen(false);
+  //     }
+  //   };
+
+  //   document.addEventListener("mousedown", handler);
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handler);
+  //   };
+  // },[]);
+
   return (
     <>
-      <Header isLogin={isLogin} />
+      <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} />
+      {isSidebarOpen && <Mypage onCloseClick={handleSidebarToggle} setIsSidebarOpen={setIsSidebarOpen} />}
       <Outlet />
     </>
   );
@@ -57,6 +88,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/lgpage" element={<LoginPage />} />
             <Route path="/textEditor" element={<TextEditor />} />
+            <Route path="/profile" element={<Profile type="profile" />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>

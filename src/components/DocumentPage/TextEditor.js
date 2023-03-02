@@ -30,6 +30,7 @@ const TextEditor = (props) => {
         .then((res) => {
           console.log("get-document", res.data.result.content);
           // 문서내용 받아온 것 보이도록 설정
+          // 만약 문서받아오기 실패하면?
           setContents(res.data.result.content);
           // 문서제목 받아오기 보이도록 설정
           setTitle(res.data.result.docName); //docName이 get-document에서 받아오게 설정안돼있어 아직은 못받아옴

@@ -45,13 +45,12 @@ const c2c_exec_command = text => {
   }
 }
 
-const softAlert = (content, displayTime, inTime=1, outTime=1, maxOpacity=0.6) => {
+const softAlert = (content, displayTime=1, inTime=1, outTime=1, maxOpacity=0.6) => {
   const messageWrap = document.createElement('div');
   const message = document.createElement('div');
   message.innerText = content;
   messageWrap.appendChild(message);
   const fade_in = () => {
-    console.log("fadein");
     let now = new Date().getTime();
     if ((start + inTime*1000) < now) {
       messageWrap.style.opacity = maxOpacity;
@@ -62,7 +61,6 @@ const softAlert = (content, displayTime, inTime=1, outTime=1, maxOpacity=0.6) =>
     }
   }
   const display = () => {
-    console.log('display');
     setTimeout(() => {
       now = new Date().getTime();
       end = now + outTime*1000;
@@ -70,9 +68,6 @@ const softAlert = (content, displayTime, inTime=1, outTime=1, maxOpacity=0.6) =>
     }, displayTime*1000);
   }
   const fade_out = () => {
-    console.log('fadeout');
-    // let now = 0;
-    // let end = now + outTime*1000;
     if (end < now) {
       messageWrap.remove();
       return true;

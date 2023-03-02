@@ -57,9 +57,9 @@ const DocumentView = () => {
   }
   const copyContent = () => {
     if (copyToClipboard(content)) {
-      softAlert(true);
+      softAlert("복사완료!");
     } else {
-      softAlert(false);
+      softAlert("복사되지 않았어요 :(");
     }
   }
 
@@ -77,7 +77,7 @@ const DocumentView = () => {
       }
       return true;
     } else {
-      softAlert("문서가 존재하지 않습니다 :(");
+      alert("문서가 존재하지 않습니다 :(");
       return false;
     }
   })
@@ -86,8 +86,7 @@ const DocumentView = () => {
       if (saveKey) {
         axios.post(
           "http://localhost:8000/main/get-document/",
-          { documentid: id,
-            documentkey: saveKey })
+          { documentid: id, documentkey: saveKey })
         .then(res => {
           if (res.data.result) {
             setContent(res.data.result.content);

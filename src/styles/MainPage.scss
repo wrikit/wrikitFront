@@ -1,7 +1,9 @@
+@import "./utility";
+
 .MainPage {
   padding-top: 50px;
   min-height: 100vh;
-  background: #fbfbf8;
+  background: $background-color;
   overflow-x: hidden;
   flex: 1;
 
@@ -23,18 +25,18 @@
     margin-left: auto;
     margin-right: auto;
     padding: 0 20px;
-    color: #fbfbf8;
-    text-align: center;
+    color: $background-color;
+    @extend .text-center;
 
     &__title {
-      margin-bottom: 20px;
-      font-size: 3rem;
+      @extend .mb-20;
+      font-size: $font-size-xlg;
     }
     &__desc {
-      font-size: 1.5rem;
+      font-size: $font-size-lg;
     }
     &__btnArea {
-      margin-top: 40px;
+      @extend .mt-40;
       max-width: 160px;
       margin-left: auto;
       margin-right: auto;
@@ -42,10 +44,9 @@
       button {
         margin: 20px;
         width: 130px;
-        width: 130px;
         height: 40px;
-        color: #fbfbf8;
-        border-radius: 20px;
+        color: $background-color;
+        @extend .br-20;
         padding: 10px 25px;
         font-family: "Lato", sans-serif;
         font-weight: 500;
@@ -53,7 +54,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
         position: relative;
-        display: inline-block;
+        @extend .d-inline-block;
         box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.2),
           7px 7px 20px 0px rgba(0, 0, 0, 0.1),
           4px 4px 5px 0px rgba(0, 0, 0, 0.1);

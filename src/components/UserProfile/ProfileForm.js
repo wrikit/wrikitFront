@@ -18,9 +18,6 @@ const ProfileForm = props => {
       !isDisabled && 
       (isNameChange || isImageChange || isMessageChange)) {
       submitRef.current.submit();
-    } else {
-      setIsDisabled(false);
-      return undefined;
     }
     setIsDisabled(!isDisabled);     
   };
@@ -65,6 +62,7 @@ const ProfileForm = props => {
     default={props.profileName}
     placeHolder="Name"
     formName="profileName"
+    infoName="Name"
     />
     <Information 
     type="text"
@@ -73,11 +71,12 @@ const ProfileForm = props => {
     default={props.profileMessage}
     placeHolder="Status Message"
     formName="profileMessage"
+    infoName="Message"
     />
     <button 
       onClick={isDisabledHandler}
       type="button">
-      { isDisabled ? "수정하기" : "저장하기" }
+      { isDisabled ? "프로필 수정하기" : "저장하기" }
     </button>
   </form>;
   return (return_result);

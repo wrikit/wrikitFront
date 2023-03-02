@@ -4,6 +4,7 @@ import axios, { formToJSON } from "axios";
 import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
 import Document from "./pages/Document";
+import DocumentView from "./pages/DocumentView";
 import TextEditor from "./components/DocumentPage/TextEditor";
 import LoginPage from "./components/LoginPage/LoginTemplate";
 import Register from "./components/LoginPage/Register";
@@ -66,10 +67,11 @@ function App() {
           <Route element={<PageLayout />}>
             <Route path="/" element={<MainPage />} />
             <Route path="/document" element={<Document />} />
+            <Route path="/document/:id" element={<DocumentView />} />
             <Route path="/register" element={<Register />} />
             <Route path="/lgpage" element={<LoginPage />} />
             <Route path="/textEditor" element={<TextEditor />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile type="profile" />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>

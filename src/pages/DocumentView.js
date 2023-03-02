@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import PassInput from "../components/DocumentView/PassInput";
 import ContentBox from "../components/DocumentView/ContentBox";
-import { copyToClipboard, getCookie } from "../tools";
+import { copyToClipboard, getCookie, softAlert } from "../tools";
 
 const DocumentView = () => {
   const { id } = useParams();
@@ -22,7 +22,6 @@ const DocumentView = () => {
   // TODO 문서가 수정가능한지 확인, 수정기능 on/off
   // TODO 만약 로그인 상태에서 입력한 문서비밀번호가 일치하면 저장 ...OK
   // TODO 복사하기 버튼 ...OK
-
   const getSaveKey = (docId) => {
     axios.post(
       "http://localhost:8000/main/get-documentkey/",
@@ -50,7 +49,7 @@ const DocumentView = () => {
         }
         setIsDisplay(true);
       } else {
-        alert("패스워드가 일치하지 않습니다");
+        softAlert("패스워드가 일치하지 않습니다");
         passRef.current.focus();
 
       }
@@ -58,9 +57,9 @@ const DocumentView = () => {
   }
   const copyContent = () => {
     if (copyToClipboard(content)) {
-      alert(true);
+      softAlert(true);
     } else {
-      alert(false);
+      softAlert(false);
     }
   }
 
@@ -78,7 +77,7 @@ const DocumentView = () => {
       }
       return true;
     } else {
-      alert("문서가 존재하지 않습니다 :(");
+      softAlert("문서가 존재하지 않습니다 :(");
       return false;
     }
   })

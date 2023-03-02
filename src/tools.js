@@ -45,8 +45,81 @@ const c2c_exec_command = text => {
   }
 }
 
+const softAlert = (content, displayTime, inTime=1, outTime=1, maxOpacity=0.6) => {
+  const messageWrap = document.createElement('div');
+  const message = document.createElement('div');
+  message.innerText = content;
+  messageWrap.appendChild(message);
+  const fade_in = () => {
+    console.log("fadein");
+    let now = new Date().getTime();
+    if ((start + inTime*1000) < now) {
+      messageWrap.style.opacity = maxOpacity;
+      display();
+    } else {
+      messageWrap.style.opacity = maxOpacity*((now-start)/(inTime*1000));
+      window.requestAnimationFrame(fade_in);
+    }
+  }
+  const display = () => {
+    console.log('display');
+    setTimeout(() => {
+      now = new Date().getTime();
+      end = now + outTime*1000;
+      fade_out();
+    }, displayTime*1000);
+  }
+  const fade_out = () => {
+    console.log('fadeout');
+    // let now = 0;
+    // let end = now + outTime*1000;
+    if (end < now) {
+      messageWrap.remove();
+      return true;
+    } else {
+      now = new Date().getTime();
+      messageWrap.style.opacity = maxOpacity*((end-now)/(outTime*1000));
+      window.requestAnimationFrame(fade_out);
+    }
+  }
+  // message_wrap.style.opacity
+  const wrapStyles = {
+    'text-align': 'center',
+    'position': 'fixed',
+    'padding': '3rem 10vw',
+    'bottom': '0',
+    'width': '100%',
+    'opacity': '0'
+  }
+  const messageStyles = {
+    'font-size': '1rem',
+    'line-height': '2rem',
+    'margin': '0 auto',
+    'font-size': '16px',
+    'width': `${16*content.length + 30}px`,
+    'text-align': 'center',
+    'background-color': 'black',
+    'color': 'white',
+    'height': '2rem',
+    'border-radius': '1rem'
+  }
+  for (const key in wrapStyles) {
+    messageWrap.style[key] = wrapStyles[key];
+  }
+  for (const key in messageStyles) {
+    message.style[key] = messageStyles[key];
+  }
+  document.body.appendChild(messageWrap);
+  // fade part
+  let start = new Date().getTime();
+  let now, end;
+  fade_in();
+}
+
+
 export { 
   getCookie,
   inputHandler,
-  copyToClipboard
+  copyToClipboard,
+  softAlert
 };

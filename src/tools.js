@@ -14,6 +14,16 @@ const inputHandler = (settingFunc) => {
   };
 }
 
+const ifKeyDownEnter = (callback=(() => {return true}), ...args) => {
+  const return_func = event => {
+    event.preventDefault();
+    if (event.key === 'Enter') {
+      callback.apply(null, args);
+    }
+  }
+  return return_func;
+}
+
 const copyToClipboard = text => {
   if (c2c_use_navigator(text)) {
     return true;
@@ -81,8 +91,8 @@ const softAlert = (content, displayTime=1, inTime=1, outTime=1, maxOpacity=0.6) 
   const wrapStyles = {
     'text-align': 'center',
     'position': 'fixed',
-    'padding': '3rem 10vw',
-    'bottom': '0',
+    'padding': '0 10vw',
+    'bottom': '3rem',
     'width': '100%',
     'opacity': '0'
   }
@@ -111,10 +121,17 @@ const softAlert = (content, displayTime=1, inTime=1, outTime=1, maxOpacity=0.6) 
   fade_in();
 }
 
+const clearEventListener = element => {
+  const clone = element.cloneNode(true);
+  element.parentNode.replaceChild(clone, element);
+}
+
 
 export { 
   getCookie,
   inputHandler,
+  ifKeyDownEnter,
   copyToClipboard,
-  softAlert
+  softAlert,
+  clearEventListener
 };

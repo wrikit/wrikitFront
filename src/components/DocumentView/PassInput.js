@@ -15,7 +15,7 @@ const PassInput = props => {
 
 
   return <div className={props.divClass} >
-    <div className="document-name">{props.documentName}</div>
+    <div className="document-name">{props.title}</div>
     <input 
       type="password" 
       className={props.inputClass} 
@@ -30,7 +30,7 @@ const PassInput = props => {
 }
 
 PassInput.defaultProps = {
-  documentName: '',
+  title: '',
   callback: () => {},
   divClass: '',
   inputClass: '',

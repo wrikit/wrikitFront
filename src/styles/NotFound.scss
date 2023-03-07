@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
-
+@import "./utility";
 // :root {
 //   --pink1: #ef73cb;
 //   --pink2: #dc5f89;
@@ -8,22 +8,22 @@
   // margin-top: 300px;
   align-items: center;
   background-image: linear-gradient(to bottom right, #fbfbf8, #f1ead5);
-  color: #fff;
-  display: flex;
+  color: $white;
+  @extend .d-flex;
   flex-direction: column;
   font-family: "Roboto", sans-serif;
   justify-content: center;
   height: 100vh;
-  text-align: center;
+  @extend .text-center;
   overflow: hidden;
   position: relative;
-  margin: 0;
+  @extend .m-0;
   .container {
     & h1 {
       font-size: 10em;
       margin: 0 0 0.5em;
       line-height: 10px;
-      color: #fff;
+      color: $white;
       text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
         0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
         0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
@@ -47,7 +47,7 @@
     }
 
     .circle {
-      background-image: linear-gradient(to top right, #fbfbf8, #f1ead5);
+      background-image: linear-gradient(to top right, $background-color, #f1ead5);
       border-radius: 50%;
       position: absolute;
       // z-index: -1;
@@ -60,7 +60,7 @@
       }
 
       &.medium {
-        background-image: linear-gradient(to bottom left, #fbfbf8, #f8f4e8);
+        background-image: linear-gradient(to bottom left, $background-color, $secondary-background-color);
         bottom: -70px;
         left: 0;
         width: 200px;
@@ -88,7 +88,7 @@
 
     footer {
       background-color: #222;
-      color: #fff;
+      color: white;
       bottom: 0;
       position: fixed;
       left: 0;

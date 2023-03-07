@@ -1,27 +1,31 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import PassInput from "../components/DocumentView/PassInput";
-import ContentBox from "../components/DocumentView/ContentBox";
-import { copyToClipboard, getCookie } from "../tools";
+import { 
+  copyToClipboard, 
+  getCookie, 
+  softAlert, 
+  clearEventListener, 
+  inputHandler,
+  ifKeyDownEnter } from "../tools";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 
 const DocumentView = () => {
   const { id } = useParams();
   const [docName, setDocName] = useState(false);
+  const [writer, setWriter] = useState('');
   const [saveKey, setSaveKey] = useState(false);
+  const [updateKey, setUpdateKey] = useState('');
   const [isDisplay, setIsDisplay] = useState(false);
-  const [content, setContent] = useState(false);
+  const [content, setContentBefore] = useState(false);
+  const [updateContent, setUpdateContent] = useState('');
+  const [editable, setEditable] = useState();
   const passRef = useRef(null);
-  // TODO 문서이름 가져오는 api만들기 ...OK
-  // TODO 프로필받아서 키를 가지고있는지 확인 ...OK
-  // TODO 문서이름표시, 비밀번호 입력받아서 서버로 요청 ...OK
-  // TODO 비밀번호를 입력받는 컴포넌트 -> css만하면됨
-  //  ^^^ props -> 문서이름, 입력받은뒤 실행할 콜벡 ...OK
-  // TODO 문서내용을 표시하고 제어할 컴포넌트 -> TextEditor필요
-  // TODO 요청결과에 화면에표시 -> TextEditor.js를 약간 수정해서 사용가능
-  // TODO 문서가 수정가능한지 확인, 수정기능 on/off
-  // TODO 만약 로그인 상태에서 입력한 문서비밀번호가 일치하면 저장 ...OK
-  // TODO 복사하기 버튼 ...OK
+  const saveRef = useRef(null);
+  const updateInputRef = useRef(null);
 
   const getSaveKey = (docId) => {
     axios.post(
@@ -41,27 +45,92 @@ const DocumentView = () => {
       {documentid: id, documentkey: key})
     .then(res => {
       if (res.data.result) {
-        setContent(res.data.result.content);
+        const data = res.data.result;
+        setContent(data.content);
+        if(data.username == getCookie('username') || data.editable) {
+          setEditable(true);
+        } else {
+          setEditable(false);
+        }
         if (getCookie('username') != 'null') {
           axios.post(
             `${URL}main/add-document-key/`,
             {documentid: id, documentkey: key},
-            { withCredentials: true });
+            { withCredentials: true })
+          .then(() => {
+            softAlert("패스워드 저장완료");
+          });
+
         }
         setIsDisplay(true);
       } else {
-        alert("패스워드가 일치하지 않습니다");
+        softAlert("패스워드가 일치하지 않습니다");
         passRef.current.focus();
-
       }
     });
   }
   const copyContent = () => {
-    if (copyToClipboard(content)) {
-      alert(true);
+    const editorDiv = document.querySelector(".ck-content");
+    if (copyToClipboard(editorDiv.innerText)) {
+      softAlert("복사완료!");
     } else {
-      alert(false);
+      softAlert("복사되지 않았어요 :(");
     }
+  }
+  const saveForm = event => {
+    softAlert("TEST: 저장버튼");
+    const editorDiv = document.querySelector(".ck-content");
+    let temp = editorDiv.innerHTML.replaceAll('<br><br data-cke-filler="true">','__emptytablecell__');
+    temp = temp.replaceAll('<span class="ck-table-bogus-paragraph"><br data-cke-filler="true"></span>','<span class="ck-table-bogus-paragraph">__emptytablecell__</span>');
+    setUpdateContent(temp);
+    event.preventDefault();
+    saveRef.current.showModal();
+    if (saveKey) {
+      updateInputRef.current.value = saveKey;
+      setUpdateKey(saveKey);
+    }
+  }
+  const update = () => {
+    axios.post(
+      "http://localhost:8000/main/update-document/",
+      { 
+        documentid: id, 
+        documentkey: updateKey,
+        content: updateContent})
+    .then(res => {
+      if (res.data.result) {
+        softAlert("저장완료!");
+      } else {
+        softAlert("저장실패 :(");
+      }
+    })
+
+  }
+  const cantSave = () => {
+    softAlert("주인만 수정가능하도록 설정되있어요");
+  }
+  const saveClone = () => {
+    softAlert("업데이트 예정");
+  }
+  const setContent = html => {
+    html = html.replaceAll('__emptytablecell__','');
+    setContentBefore(html);
+  }
+  const ckeditorTableClear = () => {
+    let tableBrs = document.querySelectorAll(".ck-content td br");
+    // tableBrs = [...tableBrs];
+    // let empty = tableBrs.filter(br => br.getAttribute('data-cke-filler')!='true');
+    for (let br of tableBrs) {
+      if (br.getAttribute('data-cke-filler')!='true') {
+        // console.log(br);
+        br.remove();
+        console.log(br);
+      }
+    }    
+    // for (let e of empty) {
+    //   e.parentNode.innerHTML='<br data-cke-filler="true">';
+    //   console.log(e.parentNode);
+    // }
   }
 
   axios.post(
@@ -71,6 +140,7 @@ const DocumentView = () => {
   .then(res => {
     if (res.data.result) {
       setDocName(res.data.data);
+      setWriter(res.data.username)
       if (res.data.public) {
         setIsDisplay(true);
       } else {
@@ -87,18 +157,26 @@ const DocumentView = () => {
       if (saveKey) {
         axios.post(
           "http://localhost:8000/main/get-document/",
-          { documentid: id,
-            documentkey: saveKey })
+          { documentid: id, documentkey: saveKey })
         .then(res => {
           if (res.data.result) {
-            setContent(res.data.result.content);
+            const data = res.data.result;
+            if(data.username == getCookie('username') || data.editable) {
+              setEditable(true);
+            } else {
+              setEditable(false);
+            }
+            setContent(data.content);
             setIsDisplay(true);
           } else {
+            setSaveKey(false);
             axios.post(
               "http://localhost:8000/main/delete-document-key/",
               { delete: id },
               { withCredentials: true });
           }
+        }).then(() => {
+          ckeditorTableClear();
         });
       }
     } else {
@@ -106,30 +184,61 @@ const DocumentView = () => {
     }
   });
 
+  useEffect(() => {}, [])
+
   return <div className="document-view">
+    <div className="document-name">
+      {docName}
+      <span className="writer-name">{writer}</span>
+    </div>
     {isDisplay ? (
       <div>
-        <div className="document-name">{docName}</div>
-        <ContentBox 
-          content={content}
-          divClass='content-main'
-          contentClass='content-text' />
+        <CKEditor
+          editor={ClassicEditor}
+          data={content}
+          onReady={() => {
+            return true;
+          }} />
+        
         <button className="copy-button" onClick={copyContent} >복사하기</button>
+        {editable ? (
+          <button className="save-button" onClick={saveForm} >저장하기</button>
+        ) : (
+          <button className="cant-save" onClick={cantSave}>저장하기</button>
+        )}
+        <button className="clone-button" onClick={saveClone}>Save as</button>
+        <dialog ref={saveRef}>
+          <h3>저장하기</h3>
+          <input 
+            type="password"
+            placeholder="password"
+            onChange={inputHandler(setUpdateKey)}
+            onKeyDown={ifKeyDownEnter(update)}
+            ref={updateInputRef} />
+            <br />
+            <button className="save-button" onClick={update}>저장</button>
+          <form method="dialog"><button>취소</button></form>
+        </dialog>
       </div>
     ) : (
       <div className="pass-input">
         <PassInput 
-          documentName={docName} 
           callback={inputKeyCB}
           placeHorder="password"
           divClass="passinut-main"
           buttonClass="passinput-button"
           inputClass="passinput-input"
           inputRef={passRef} />
-        <p className="info">
-          로그인 하시면 한번 입력한 키를 저장해두고 사용가능해요. <br />
-          <a href="http://localhost:3000/lgpage">로그인 하러가기</a>
-        </p>
+          {(getCookie('username') == 'null') ? (
+            <p className="info">
+              로그인 하시면 한번 입력한 키를 저장해두고 사용가능해요. <br />
+              <a href="http://localhost:3000/lgpage">로그인 하러가기</a>
+            </p>                        
+          ) : (
+            <p className="info">
+              한번입력한 패스워드는 저장되고 다음에 자동으로 사용되요.
+            </p>
+          )}
       </div>
       
     )}

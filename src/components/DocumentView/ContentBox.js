@@ -4,12 +4,20 @@ const ContentBox = props => {
   const contentRef = useRef(null);
 
   useEffect(() => {
-    contentRef.current.innerText = props.content;
+    if (!props.editable) {
+      contentRef.current.innerHTML = props.content;
+    }
 
   }, []);
 
   return <div className={props.divClass}>
-    <p ref={contentRef} className={props.contentClass}></p>
+    {/* { props.editable ? (<CKEditor 
+      editor={ClassicEditor}
+      data={props.content}
+      onReady={(editor) => {
+        console.log("Editor is ready to use!", editor);
+      }} />) : (<div ref={contentRef} ></div>)} */}
+    <div ref={contentRef} ></div>
   </div>;
 }
 

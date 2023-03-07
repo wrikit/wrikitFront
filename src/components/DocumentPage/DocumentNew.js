@@ -6,14 +6,12 @@ import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import "../../styles/DocumentNew.scss";
+import { useEffect, useState } from "react";
 const DocumentNew = () => {
   // props
-  // {post: {id: x, title: xxx, body: xxx}}
-  //   console.log(props);
-  // const { document } = props;
-  const onClickHandler = (e) => {
-    // console.log("clicked");
-    axios({
+  const [documentId, setDocumentId] = useState([]);
+  const onClickHandler = async (e) => {
+    await axios({
       method: "POST",
       url: "http://localhost:8000/main/create-document/",
       data: {
@@ -26,18 +24,25 @@ const DocumentNew = () => {
       withCredentials: true,
     })
       .then((res) => {
-        console.log("create-document axios True", res.data);
-
-        // <Link className="DocumentNew" to={"/document/" + document.id}>
-        // </Link>
+        const newObjectData = res.data;
+        console.log("create-document axios True", newObjectData.id);
+        setDocumentId(newObjectData.id);
       })
       .catch(function (err) {
         console.log(err);
       });
   };
-  //   post =>{id: x, title: xxx, body: xxx}
+  useEffect(() => {
+    if (documentId) {
+      // Use template literals to create the Link component's "to" prop
+      // with the updated documentId value.
+      document
+        .getElementById("new-doc-link")
+        .setAttribute("to", `/document/${documentId}`);
+    }
+  }, [documentId]);
   return (
-    <div className="DocumentNew">
+    <Link onClick={onClickHandler} id="new-doc-link" to="#">
       <IconContext.Provider
         value={{
           color: "#00917C",
@@ -45,14 +50,12 @@ const DocumentNew = () => {
           size: "2em",
         }}
       >
-        <p onClick={onClickHandler} className="NewText">
-          새문서 만들기
-        </p>
+        <p className="NewText">새문서 만들기</p>
         <div className="NewBtndiv">
-          <FaPlus onClick={onClickHandler} />
+          <FaPlus />
         </div>
       </IconContext.Provider>
-    </div>
+    </Link>
   );
 };
 

@@ -19,6 +19,8 @@ const ifKeyDownEnter = (callback=(() => {return true}), ...args) => {
     event.preventDefault();
     if (event.key === 'Enter') {
       callback.apply(null, args);
+    } else {
+      return false;
     }
   }
   return return_func;

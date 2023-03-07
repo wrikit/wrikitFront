@@ -1,0 +1,43 @@
+.mini-profile {
+  margin-left: 10px;
+  position: relative;
+  overflow: visible;
+  .main {
+    position: relative;
+    bottom: 0;
+    display: flex;
+    height: 2rem;
+    line-height: 2rem;
+    .image-container {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      img {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+  &:hover .profile-message {
+    opacity: 0.8;
+    transition: 0.5s;
+  }
+  .profile-message {
+    position: absolute;
+    padding: 2px;
+    border-radius: 2px;
+    font-size: 12px;
+    height: 12px;
+    line-height: 12px;
+    opacity: 0;
+    background-color: black;
+    color: white;
+    left: 2.2rem;
+    top: -0.5rem;
+    transition: 0.5s;
+  }
+  .gray-scale img {
+    filter: grayscale(100%);
+  }
+}

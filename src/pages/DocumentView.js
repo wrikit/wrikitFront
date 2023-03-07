@@ -11,6 +11,7 @@ import {
   ifKeyDownEnter } from "../tools";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import MiniProfile from "../components/UserProfile/MiniProfile";
 
 
 const DocumentView = () => {
@@ -187,9 +188,12 @@ const DocumentView = () => {
   useEffect(() => {}, [])
 
   return <div className="document-view">
-    <div className="document-name">
-      {docName}
-      <span className="writer-name">{writer}</span>
+    <div className="document-info">
+      <div className="document-name">
+        {docName}
+        {/* <span className="writer-name">{writer}</span> */}
+      </div>
+      <MiniProfile profileName={writer} />
     </div>
     {isDisplay ? (
       <div>

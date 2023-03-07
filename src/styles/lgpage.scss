@@ -1,7 +1,6 @@
 @import "./utility";
 
 .loginPage {
-  
   // padding-top: 80px;
   @extend.pt-80;
   @extend.d-flex;
@@ -52,7 +51,7 @@
           color: #a0b3b0;
           font-size: 20px;
           float: left;
-          width: 50%; 
+          width: 50%;
           @extend .text-center;
           cursor: pointer;
           transition: 0.5s ease;
@@ -122,59 +121,27 @@
 
 @include mobile {
   .loginPage {
-    @extend .pt-80;
-    @extend .d-flex;
     flex-direction: row;
-    height: 100vh;
+    height: fit-content;
+    overflow: hidden;
 
     &__section {
       &__login {
         width: 100%;
         // float: right;
-        padding: 40px;
+        // padding: 0;
         max-width: 600px;
+        // max-height: fit-content;
+
         margin: 0px auto;
         box-shadow: 0 0px 0px 0px rgba(#13232f, 0.3);
         background-color: $background-color;
 
         .tabGroup {
           width: 95%;
-          list-style-type: none;
-          @extend .p-0;
           // margin: 0 0 40px 0;
-          &::after {
-            content: "";
-            @extend .d-table;
-            clear: both;
-          }
 
           li a {
-            box-sizing: border-box;
-            @extend .d-block;
-            position: relative;
-            @extend .text-none;
-            padding: 15px;
-            margin-bottom: 15px;
-            //   background: rgba(#a0b3b0, 0.25);
-            color: #a0b3b0;
-            font-size: 20px;
-            float: left;
-            width: 50%;
-            @extend .text-center;
-            cursor: pointer;
-            transition: 0.5s ease;
-            // &::after {
-            //   background: none repeat scroll 0 0 transparent;
-            //   bottom: 0;
-            //   content: "";
-            //   display: block;
-            //   height: 2px;
-            //   left: 50%;
-            //   position: absolute;
-            //   background: black;
-            //   transition: width 0.3s ease 0s, left 0.3s ease 0s;
-            //   width: 0;
-            // }
             &:hover {
               // background: darken(#1ab188, 5%);
               color: $black;
@@ -186,36 +153,14 @@
             //   // right: 0;
             // }
           }
-          a::after {
-            // background: none repeat scroll 0 0 transparent;
-            bottom: 0;
-            content: "";
-            @extend .d-block;
-            height: 2px;
-            left: 50%;
-            // margin-left: 12%;
-            position: absolute;
-            background: $black;
-            transition: width 0.3s ease 0s, left 0.3s ease 0s;
-            width: 0;
-          }
+
           a:hover::after {
             width: 0;
             left: 28px;
             // margin-left: 12%;
           }
           .active a {
-            //   background: #1ab188;
-            color: $point-color;
             &::after {
-              bottom: 0;
-              content: "";
-              @extend .d-block;
-              height: 2px;
-              left: 28px;
-              position: absolute;
-              background: $black;
-              transition: width 0.3s ease 0s8 left 0.3s ease 0s;
               width: 0;
             }
           }

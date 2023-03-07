@@ -3,35 +3,36 @@ import { NavLink } from "react-router-dom";
 import { throttle } from "lodash";
 // import { GrCloudDownload } from "react-icons/gr";
 import { IoCloudDownloadOutline } from "react-icons/io5";
-import {BsPersonCircle} from "react-icons/bs";
+import { BsPersonCircle } from "react-icons/bs";
+import { SlLogin } from "react-icons/sl";
 import { RiLoginBoxFill } from "react-icons/ri";
 import axios from "axios";
-
-
 
 const Header = (props) => {
   const isLogin = props.isLogin;
   // console.log("Header ::", isLogin);
   const onLogout = () => {
     // sessionStorage.removeItem("user_id");
-    
-    axios.post("http://localhost:8000/auth/logout/", {}, { withCredentials: true })
-    .then(res => {
-      // if (Kakao.Auth.getAccessToken()) {
-      //   Kakao.API.request({
-      //     url: '/v1/user/unlink',
-      //     success: response => {
-      //       console.log(response);
-      //     },
-      //     fail: error => {
-      //       console.log(error);
-      //     },
-      //   })
-      //   Kakao.Auth.setAccessToken(undefined);
-      // }  
-    }).then(() => {
-      document.location.href = "/";
-    });
+
+    axios
+      .post("http://localhost:8000/auth/logout/", {}, { withCredentials: true })
+      .then((res) => {
+        // if (Kakao.Auth.getAccessToken()) {
+        //   Kakao.API.request({
+        //     url: '/v1/user/unlink',
+        //     success: response => {
+        //       console.log(response);
+        //     },
+        //     fail: error => {
+        //       console.log(error);
+        //     },
+        //   })
+        //   Kakao.Auth.setAccessToken(undefined);
+        // }
+      })
+      .then(() => {
+        document.location.href = "/";
+      });
   };
 
   // 스크롤 감지 (-> 헤더 그림자 + 높이 줄어듦 효과)
@@ -71,17 +72,13 @@ const Header = (props) => {
   };
 
   //헤더 드롭다운
-    const [isDropdownOpened, setDropdownOpened] = useState(false);
-    
+  const [isDropdownOpened, setDropdownOpened] = useState(false);
+
   //마이페이지 클릭
-    const MypageClick = () =>{
-      props.onMenuClick();
-      setDropdownOpened(!isDropdownOpened);
-
-    }
-
-
-
+  const MypageClick = () => {
+    props.onMenuClick();
+    setDropdownOpened(!isDropdownOpened);
+  };
 
   return (
     <header className={`header`}>
@@ -106,12 +103,30 @@ const Header = (props) => {
             </li>
             <li onClick={hiddenMydoc}>
               {/* {isLogin ? (<button type="button" onClick={onLogout}>LOGOUT</button>) : (<NavLink to="/lgpage">시작하기</NavLink>)} */}
-              {isLogin ? (<div className="iconContainer">
-                <BsPersonCircle size="24" onClick={()=>setDropdownOpened(!isDropdownOpened)}></BsPersonCircle>
-                {isDropdownOpened && (<ul className="dropdownMenu"><li onClick={MypageClick}>Mypage</li><li onClick={onLogout}>Logout</li></ul>)}
-              </div>):(<NavLink to="/lgpage">시작하기</NavLink>)}
+              {isLogin ? (
+                <div className="iconContainer">
+                  <BsPersonCircle
+                    size="24"
+                    onClick={() => setDropdownOpened(!isDropdownOpened)}
+                  ></BsPersonCircle>
+                  {isDropdownOpened && (
+                    <ul className="dropdownMenu">
+                      <li onClick={MypageClick}>Mypage</li>
+                      <li onClick={onLogout}>Logout</li>
+                    </ul>
+                  )}
+                </div>
+              ) : (
+                <div className="iconContainer">
+                  <NavLink to="/lgpage" className="lgbtn-show">
+                    시작하기
+                  </NavLink>
+                  <NavLink to="/lgpage" className="lgbtn-hide">
+                    <SlLogin size="23"></SlLogin>
+                  </NavLink>
+                </div>
+              )}
             </li>
-
           </ul>
         </nav>
       </div>

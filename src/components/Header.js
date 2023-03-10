@@ -95,7 +95,7 @@ const Header = (props) => {
   //마이페이지 클릭
   const MypageClick = () => {
     props.onMenuClick();
-    setDropdownOpened(!isDropdownOpened);
+    setDropdownOpened(false);
   };
 
   return (
@@ -110,7 +110,10 @@ const Header = (props) => {
               id="icon"
               onMouseOver={handleMouseOver}
               onMouseOut={handleMouseOut}
-              onClick={showMydoc}
+              onClick={() => {
+                showMydoc();
+                setDropdownOpened(false);
+              }}
             >
               <NavLink to="/document">
                 <IoCloudDownloadOutline size="24" />

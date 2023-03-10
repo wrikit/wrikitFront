@@ -5,6 +5,7 @@ import { throttle } from "lodash";
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import { BsPersonCircle } from "react-icons/bs";
 import { SlLogin } from "react-icons/sl";
+import { FaWindowClose } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
 import axios from "axios";
 
@@ -74,10 +75,27 @@ const Header = (props) => {
   //헤더 드롭다운
   const [isDropdownOpened, setDropdownOpened] = useState(false);
 
+  // 반응형 드롭다운 -> X 버튼(닫기) 생성
+  const [closeBtn, setCloseBtn] = useState(false);
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 767) {
+        setCloseBtn(true);
+      } else {
+        setCloseBtn(false);
+      }
+    }
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.window.addEventListener("resize", handleResize);
+  }, []);
+
   //마이페이지 클릭
   const MypageClick = () => {
     props.onMenuClick();
-    setDropdownOpened(!isDropdownOpened);
+    setDropdownOpened(false);
   };
 
   return (
@@ -92,7 +110,10 @@ const Header = (props) => {
               id="icon"
               onMouseOver={handleMouseOver}
               onMouseOut={handleMouseOut}
-              onClick={showMydoc}
+              onClick={() => {
+                showMydoc();
+                setDropdownOpened(false);
+              }}
             >
               <NavLink to="/document">
                 <IoCloudDownloadOutline size="24" />
@@ -108,9 +129,17 @@ const Header = (props) => {
                   <BsPersonCircle
                     size="24"
                     onClick={() => setDropdownOpened(!isDropdownOpened)}
-                  ></BsPersonCircle>
+                  />
                   {isDropdownOpened && (
                     <ul className="dropdownMenu">
+                      {closeBtn && (
+                        <li id="closeButton">
+                          <FaWindowClose
+                            size="30"
+                            onClick={() => setDropdownOpened(false)}
+                          />
+                        </li>
+                      )}
                       <li onClick={MypageClick}>Mypage</li>
                       <li onClick={onLogout}>Logout</li>
                     </ul>

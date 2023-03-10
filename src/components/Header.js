@@ -74,6 +74,12 @@ const Header = (props) => {
   //헤더 드롭다운
   const [isDropdownOpened, setDropdownOpened] = useState(false);
 
+  // const handleMenu = () => {
+  //   if(window.innerWidth <= 767){
+
+  //   }
+  // }
+
   //마이페이지 클릭
   const MypageClick = () => {
     props.onMenuClick();

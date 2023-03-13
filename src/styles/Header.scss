@@ -1,239 +1,225 @@
 @import "./utility";
-@include tablet {
-  .header__content {
-    display:flex;
+.header__content {
+  @extend .d-flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 80px;
+  padding: 0px 150px;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: $background-color;
+  transition: 0.3s ease all;
+  z-index: 100;
+
+  &.shadow {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 80px;
-    padding: 0px 150px;
+    min-height: 70px;
+    padding: 10px 150px;
+    transition: 0.3s ease-in-out;
+    @extend .d-flex;
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
     box-sizing: border-box;
-    background-color: #fbfbf8;
-    transition: 0.3s ease all;
-    z-index: 100;
+    -webkit-box-shadow: 0px 15px 10px -15px rgba(57, 63, 72, 0.5);
+    -moz-box-shadow: 0px 15px 10px -15px rgba(57, 63, 72, 0.5);
+    box-shadow: 0px 15px 10px -15px rgba(57, 63, 72, 0.5);
+  }
 
-    &.shadow {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      min-height: 70px;
-      padding: 10px 150px 10px 150px;
-      transition: 0.3s ease-in-out;
-      display: flex;
-      justify-content: space-between;
+  &__logo {
+    color: $black;
+    font-weight: 700;
+    @extend .text-none;
+    font-size: 2em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  &__nav {
+    ul {
+      @extend .d-flex;
+      justify-content: center;
       align-items: center;
-      box-sizing: border-box;
-      -webkit-box-shadow: 0px 15px 10px -15px rgba(57, 63, 72, 0.5);
-      -moz-box-shadow: 0px 15px 10px  -15px rgba(57, 63, 72, 0.5);
-      box-shadow: 0px 15px 10px -15px rgba(57, 63, 72, 0.5);
-    }
 
-    &__logo {
-      color: black;
-      font-weight: 700;
-      text-decoration: none;
-      font-size: 2em;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
+      li:not(.dropdownMenu li) {
+        list-style: none;
+        margin-left: 25px;
 
-    &__nav {
-      ul {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-
-        li:not(.dropdownMenu li) {
-          list-style: none;
-          margin-left: 25px;
-
-          a,
-          Link {
-            text-decoration: none;
-            padding: 6px 15px;
-            color: black;
-            border-radius: 20px;
-          }
-
-          &:not(#icon) a:hover,
-          Link:hover,
-          &:not(#icon) a.active,
-          Link.active {
-            background: black;
-            color: whitesmoke;
-          }
-          
+        a:not(.lgbtn-hide),
+        Link {
+          @extend .text-none;
+          padding: 6px 15px;
+          color: $black;
+          @extend .br-20;
         }
-        #icon {
-          vertical-align: -12px;
-          border-radius: 20px;
-          a {
-            padding-bottom: 0;
 
-            &.active p,
-            &:hover p {
-              text-align: center;
-              font-size: var(--font-size-xs);
-              padding: 2px;
-              border-radius: 20px;
-              background-color: black;
-              color: whitesmoke;
-            }
-          }
-          p {
-            text-align: center;
-            font-size: var(--font-size-xs);
-            font-family: "Poppins";
-            padding: 2px;
-            border-radius: 20px;
-            background-color: black;
-            color: whitesmoke;
-          }
+        &:not(#icon) a:hover:not(.lgbtn-hide),
+        Link:hover,
+        &:not(#icon) a.active:not(.lgbtn-hide),
+        Link.active {
+          background: $black;
+          color: whitesmoke;
         }
       }
-      
-    }
-  }
-  .iconContainer{
-    position: relative;
-    display: inline-block;
-  }
-  .dropdownMenu{
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    list-style: none;
-    padding: 0;
-    margin: 0 150px 0 0;
-    border: 1px solid gray;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px gray;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
+      #icon {
+        vertical-align: -12px;
+        @extend .br-20;
+        a {
+          padding-bottom: 0;
 
-    & li{
-      padding: 10px 20px;
-      margin-left: 0;
-      
-      &:hover {
-        background-color: lightgrey;
-        cursor:pointer;
+          &.active p,
+          &:hover p {
+            @extend .text-center;
+            font-size: $font-size-xs;
+            padding: 2px;
+            @extend .br-20;
+            background-color: $black;
+            color: whitesmoke;
+          }
+        }
+        p {
+          @extend .text-center;
+          font-size: $font-size-xs;
+          font-family: "Poppins";
+          padding: 2px;
+          @extend .br-20;
+          background-color: $black;
+          color: whitesmoke;
+        }
       }
     }
   }
 }
+.iconContainer {
+  position: relative;
+  display: inline-block;
+
+  .lgbtn-show {
+    display: inline-block;
+  }
+
+  .lgbtn-hide {
+    display: none;
+  }
+}
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: $white;
+  list-style: none;
+  @extend .p-0;
+  margin: 0 150px 0 0;
+  border: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px gray;
+  z-index: 1;
+  @extend .d-flex;
+  flex-direction: column;
+
+  & li {
+    padding: 10px 20px;
+    margin-left: 0;
+
+    &:hover {
+      background-color: lightgrey;
+      cursor: pointer;
+    }
+  }
+}
+.full-screen-menu {
+  display: none;
+}
 
 @include mobile {
   .header__content {
-    position: fixed;
-    width: 100%;
     min-height: 70px;
     transition: 0.3s ease-in-out;
-    display: flex;
     justify-content: space-evenly;
-    align-items: center;
-    box-sizing: border-box;
     z-index: 1;
-    background-color: #fbfbf8;
     // margin: 0 10px 0 10px;
-
-    &__logo {
-      color: black;
-      font-weight: 700;
-      text-decoration: none;
-      font-size: 2em;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+    &.shadow {
+      justify-content: space-evenly;
     }
+
     &__nav {
       ul {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        // li:not(#icon) {
-        //   display: none;
-        // }
-        li:not(.dropdownMenu li) {
-          list-style: none;
-          margin-left: 25px;
-          a,
-          Link {
-            text-decoration: none;
-            padding: 6px 15px;
-            color: black;
-            border-radius: 20px;
-          }
-
-          &:not(#icon) a:hover,
-          Link:hover,
-          &:not(#icon) a.active,
-          Link.active {
-            background: black;
-            color: whitesmoke;
-          }
-        }
         #icon {
           list-style: none;
           // margin-left: 25px;
-          vertical-align: -12px;
-          border-radius: 20px;
           scale: 0.9;
           a {
             padding-left: 4em;
-            padding-bottom: 0;
             & path {
               color: black;
             }
             &.active path {
-              color: blue;
+              color: $point-color-light;
             }
           }
           p {
             display: none;
           }
         }
-        .iconContainer{
-          position: relative;
-          display: inline-block;
-        }
-        .dropdownMenu{
-          position: absolute;
-          top: 100%;
-          left: 0;
-          background-color: white;
-          list-style: none;
-          padding: 0;
-          margin: 0 150px 0 0;
-          border: 1px solid gray;
-          border-radius: 5px;
-          box-shadow: 2px 2px 5px gray;
-          z-index: 1;
-          display: flex;
-          flex-direction: column;
-      
-          & li{
-            padding: 10px 20px;
-            margin-left: 0;
-            
-            &:hover {
-              background-color: lightgrey;
-              cursor:pointer;
-            }
-          }
-        }
+      }
+    }
+  }
+  .iconContainer .lgbtn-show {
+    display: none;
+  }
+  .iconContainer .lgbtn-hide {
+    display: inline-block;
+    color: black;
+    &.active path {
+      color: $point-color-light;
+    }
+  }
+  .dropdownMenu {
+    // display: none;
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 70px 0 0 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0;
+    background-color: rgba($secondary-color, 0.9);
+    z-index: 999;
+
+    & li {
+      padding: 30px 30px;
+      font-size: $font-size-m;
+      font-weight: 410;
+      &:hover {
+        background-color: rgba($secondary-color, 0);
+        // cursor: pointer;
+      }
+      &:active {
+        // background-color: none;
+        color: $point-color-light;
       }
     }
   }
 }
 
+// .full-screen-menu {
+//   position: fixed;
+//   display: block;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: white;
+//   z-index: 999;
+// }
 .hiddenName {
   display: none;
 }
@@ -246,12 +232,12 @@
 //   transition: 0.3s ease all;
 //   position: relative;
 
-  // & path:hover {
-  //   color: red;
-  // }
-  // @include breakpoint(md) {
-  //   display: none;
-  // }
+// & path:hover {
+//   color: red;
+// }
+// @include breakpoint(md) {
+//   display: none;
+// }
 // }
 
 // @include breakpoint(md){

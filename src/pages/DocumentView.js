@@ -9,9 +9,8 @@ import {
   clearEventListener, 
   inputHandler,
   ifKeyDownEnter } from "../tools";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import MiniProfile from "../components/UserProfile/MiniProfile";
+import QuillEditor from "../components/TextEditor/QuillEditor";
 
 
 const DocumentView = () => {
@@ -21,7 +20,7 @@ const DocumentView = () => {
   const [saveKey, setSaveKey] = useState(false);
   const [updateKey, setUpdateKey] = useState('');
   const [isDisplay, setIsDisplay] = useState(false);
-  const [content, setContentBefore] = useState(false);
+  const [content, setContent] = useState(false);
   const [updateContent, setUpdateContent] = useState('');
   const [editable, setEditable] = useState();
   const passRef = useRef(null);
@@ -71,7 +70,7 @@ const DocumentView = () => {
     });
   }
   const copyContent = () => {
-    const editorDiv = document.querySelector(".ck-content");
+    const editorDiv = document.querySelector(".quill .ql-editor");
     if (copyToClipboard(editorDiv.innerText)) {
       softAlert("복사완료!");
     } else {
@@ -80,10 +79,8 @@ const DocumentView = () => {
   }
   const saveForm = event => {
     softAlert("TEST: 저장버튼");
-    const editorDiv = document.querySelector(".ck-content");
-    let temp = editorDiv.innerHTML.replaceAll('<br><br data-cke-filler="true">','__emptytablecell__');
-    temp = temp.replaceAll('<span class="ck-table-bogus-paragraph"><br data-cke-filler="true"></span>','<span class="ck-table-bogus-paragraph">__emptytablecell__</span>');
-    setUpdateContent(temp);
+    const editorDiv = document.querySelector(".quill .ql-editor");
+    setUpdateContent(editorDiv.innerHTML);
     event.preventDefault();
     saveRef.current.showModal();
     if (saveKey) {
@@ -92,6 +89,7 @@ const DocumentView = () => {
     }
   }
   const update = () => {
+    console.log(content);
     axios.post(
       "http://localhost:8000/main/update-document/",
       { 
@@ -112,26 +110,6 @@ const DocumentView = () => {
   }
   const saveClone = () => {
     softAlert("업데이트 예정");
-  }
-  const setContent = html => {
-    html = html.replaceAll('__emptytablecell__','');
-    setContentBefore(html);
-  }
-  const ckeditorTableClear = () => {
-    let tableBrs = document.querySelectorAll(".ck-content td br");
-    // tableBrs = [...tableBrs];
-    // let empty = tableBrs.filter(br => br.getAttribute('data-cke-filler')!='true');
-    for (let br of tableBrs) {
-      if (br.getAttribute('data-cke-filler')!='true') {
-        // console.log(br);
-        br.remove();
-        console.log(br);
-      }
-    }    
-    // for (let e of empty) {
-    //   e.parentNode.innerHTML='<br data-cke-filler="true">';
-    //   console.log(e.parentNode);
-    // }
   }
 
   axios.post(
@@ -176,8 +154,6 @@ const DocumentView = () => {
               { delete: id },
               { withCredentials: true });
           }
-        }).then(() => {
-          ckeditorTableClear();
         });
       }
     } else {
@@ -191,19 +167,12 @@ const DocumentView = () => {
     <div className="document-info">
       <div className="document-name">
         {docName}
-        {/* <span className="writer-name">{writer}</span> */}
       </div>
       <MiniProfile profileName={writer} />
     </div>
     {isDisplay ? (
       <div>
-        <CKEditor
-          editor={ClassicEditor}
-          data={content}
-          onReady={() => {
-            return true;
-          }} />
-        
+        <QuillEditor data={content} />
         <button className="copy-button" onClick={copyContent} >복사하기</button>
         {editable ? (
           <button className="save-button" onClick={saveForm} >저장하기</button>

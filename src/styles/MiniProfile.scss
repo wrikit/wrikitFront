@@ -18,24 +18,31 @@
         height: 2rem;
       }
     }
+    .profile-name {
+      color: #777777;
+    }
   }
   &:hover .profile-message {
-    opacity: 0.8;
+    opacity: 0.7;
     transition: 0.5s;
   }
   .profile-message {
     position: absolute;
+    display: inline-block;
     padding: 2px;
     border-radius: 2px;
     font-size: 12px;
-    height: 12px;
+    max-height: 36px;
+    max-width: 100px;
+    width: 5rem;
     line-height: 12px;
     opacity: 0;
     background-color: black;
     color: white;
     left: 2.2rem;
-    top: -0.5rem;
+    bottom: 2.2rem;
     transition: 0.5s;
+    z-index: 1;
   }
   .gray-scale img {
     filter: grayscale(100%);

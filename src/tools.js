@@ -91,9 +91,9 @@ const softAlert = (content, displayTime=1, inTime=1, outTime=1, maxOpacity=0.6) 
   }
   // message_wrap.style.opacity
   const wrapStyles = {
+    'padding':'0',
     'text-align': 'center',
     'position': 'fixed',
-    'padding': '0 10vw',
     'bottom': '3rem',
     'width': '100%',
     'opacity': '0'
@@ -128,12 +128,11 @@ const clearEventListener = element => {
   element.parentNode.replaceChild(clone, element);
 }
 
-
 export { 
   getCookie,
   inputHandler,
   ifKeyDownEnter,
   copyToClipboard,
   softAlert,
-  clearEventListener
+  clearEventListener,
 };

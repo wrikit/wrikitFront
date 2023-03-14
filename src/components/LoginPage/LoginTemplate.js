@@ -13,9 +13,9 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-      content === "login" ? 
-        setDisplay(<Login />) : 
-        setDisplay(<Register setContent={setContent} />);
+    content === "login"
+      ? setDisplay(<Login />)
+      : setDisplay(<Register setContent={setContent} />);
   }, [content]);
 
   return (

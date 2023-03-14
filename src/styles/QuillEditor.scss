@@ -1,0 +1,27 @@
+.quill {
+
+  .ql-toolbar {
+    height: 5rem;
+    padding: 0;
+    .ql-formats {
+      margin-left: 5vw;
+      display: flex;
+      &>span {
+        height: 2.5rem;
+
+        span {
+          line-height: 2.5rem;
+        }
+      }
+      .ql- {
+        cursor: default;
+      }
+    }
+  }
+  
+  .ql-container {
+    .ql-editor {
+      min-height: 15rem;
+    }
+  }
+}

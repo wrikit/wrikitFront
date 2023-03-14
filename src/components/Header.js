@@ -3,35 +3,37 @@ import { NavLink } from "react-router-dom";
 import { throttle } from "lodash";
 // import { GrCloudDownload } from "react-icons/gr";
 import { IoCloudDownloadOutline } from "react-icons/io5";
-import {BsPersonCircle} from "react-icons/bs";
+import { BsPersonCircle } from "react-icons/bs";
+import { SlLogin } from "react-icons/sl";
+import { FaWindowClose } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
 import axios from "axios";
-
-
 
 const Header = (props) => {
   const isLogin = props.isLogin;
   // console.log("Header ::", isLogin);
   const onLogout = () => {
     // sessionStorage.removeItem("user_id");
-    
-    axios.post("http://localhost:8000/auth/logout/", {}, { withCredentials: true })
-    .then(res => {
-      // if (Kakao.Auth.getAccessToken()) {
-      //   Kakao.API.request({
-      //     url: '/v1/user/unlink',
-      //     success: response => {
-      //       console.log(response);
-      //     },
-      //     fail: error => {
-      //       console.log(error);
-      //     },
-      //   })
-      //   Kakao.Auth.setAccessToken(undefined);
-      // }  
-    }).then(() => {
-      document.location.href = "/";
-    });
+
+    axios
+      .post("http://localhost:8000/auth/logout/", {}, { withCredentials: true })
+      .then((res) => {
+        // if (Kakao.Auth.getAccessToken()) {
+        //   Kakao.API.request({
+        //     url: '/v1/user/unlink',
+        //     success: response => {
+        //       console.log(response);
+        //     },
+        //     fail: error => {
+        //       console.log(error);
+        //     },
+        //   })
+        //   Kakao.Auth.setAccessToken(undefined);
+        // }
+      })
+      .then(() => {
+        document.location.href = "/";
+      });
   };
 
   // 스크롤 감지 (-> 헤더 그림자 + 높이 줄어듦 효과)
@@ -71,17 +73,41 @@ const Header = (props) => {
   };
 
   //헤더 드롭다운
-    const [isDropdownOpened, setDropdownOpened] = useState(false);
-    
-  //마이페이지 클릭
-    const MypageClick = () =>{
-      props.onMenuClick();
-      setDropdownOpened(!isDropdownOpened);
+  const [isDropdownOpened, setDropdownOpened] = useState(false);
 
+  // 반응형 드롭다운 -> X 버튼(닫기) 생성
+  const dropdownRef = useRef();
+  const [closeBtn, setCloseBtn] = useState(false);
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 767) {
+        setCloseBtn(true);
+      } else {
+        setCloseBtn(false);
+      }
+    }
+    // 드롭다운 외 다른 곳 클릭시 드롭다운 닫힘
+    function handleClickOutside(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpened(false);
+      }
     }
 
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpened]);
 
-
+  //마이페이지 클릭
+  const MypageClick = () => {
+    props.onMenuClick();
+    setDropdownOpened(false);
+  };
 
   return (
     <header className={`header`}>
@@ -95,7 +121,10 @@ const Header = (props) => {
               id="icon"
               onMouseOver={handleMouseOver}
               onMouseOut={handleMouseOut}
-              onClick={showMydoc}
+              onClick={() => {
+                showMydoc();
+                setDropdownOpened(false);
+              }}
             >
               <NavLink to="/document">
                 <IoCloudDownloadOutline size="24" />
@@ -106,12 +135,38 @@ const Header = (props) => {
             </li>
             <li onClick={hiddenMydoc}>
               {/* {isLogin ? (<button type="button" onClick={onLogout}>LOGOUT</button>) : (<NavLink to="/lgpage">시작하기</NavLink>)} */}
-              {isLogin ? (<div className="iconContainer">
-                <BsPersonCircle size="24" onClick={()=>setDropdownOpened(!isDropdownOpened)}></BsPersonCircle>
-                {isDropdownOpened && (<ul className="dropdownMenu"><li onClick={MypageClick}>Mypage</li><li onClick={onLogout}>Logout</li></ul>)}
-              </div>):(<NavLink to="/lgpage">시작하기</NavLink>)}
+              {isLogin ? (
+                <div className="iconContainer">
+                  <BsPersonCircle
+                    size="24"
+                    onClick={() => setDropdownOpened(!isDropdownOpened)}
+                  />
+                  {isDropdownOpened && (
+                    <ul className="dropdownMenu" ref={dropdownRef}>
+                      {closeBtn && (
+                        <li id="closeButton">
+                          <FaWindowClose
+                            size="30"
+                            onClick={() => setDropdownOpened(false)}
+                          />
+                        </li>
+                      )}
+                      <li onClick={MypageClick}>Mypage</li>
+                      <li onClick={onLogout}>Logout</li>
+                    </ul>
+                  )}
+                </div>
+              ) : (
+                <div className="iconContainer">
+                  <NavLink to="/lgpage" className="lgbtn-show">
+                    시작하기
+                  </NavLink>
+                  <NavLink to="/lgpage" className="lgbtn-hide">
+                    <SlLogin size="23"></SlLogin>
+                  </NavLink>
+                </div>
+              )}
             </li>
-
           </ul>
         </nav>
       </div>

@@ -47,7 +47,7 @@ const DocumentList = () => {
         }
       )
       .then((res) => {
-        console.log("get-profiled", res.data.data.user);
+        console.log("get-profiled", res.data.data.DocumentList);
         return res.data;
       })
       .catch(function (err) {

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
 
-const Resister = (props) => {
+const Register = (props) => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const [ConfirmPw, setConfirmPw] = useState("");
@@ -91,4 +91,4 @@ const Resister = (props) => {
   );
 };
 
-export default Resister;
+export default Register;

@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet,
+  useNavigate,
+} from "react-router-dom";
 import axios, { formToJSON } from "axios";
 import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
@@ -13,23 +19,24 @@ import NotFound from "./pages/NotFound";
 import Mypage from "./pages/Mypage";
 import "./styles/App.scss";
 
-const setCookie = (name, value, exp=7) => {
+const setCookie = (name, value, exp = 7) => {
   let date = new Date();
-  date.setTime(date.getTime() + exp*24*60*60*1000);
+  date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
   document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
-}
+};
 
 // 페이지 레이아웃 관련 (특히 Header)
 const PageLayout = (props) => {
   // 로그인 상태 관리
   const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
   const refreshIsLogin = () => {
     axios
       .post("http://localhost:8000/auth/ping/", {}, { withCredentials: true })
       .then((res) => {
-        setCookie('username', res.data['user']);
-        setCookie('isKakao', res.data['isKakao']);
-        
+        setCookie("username", res.data["user"]);
+        setCookie("isKakao", res.data["isKakao"]);
+
         if (res.data.data) {
           setIsLogin(true);
         } else {
@@ -42,17 +49,27 @@ const PageLayout = (props) => {
     refreshIsLogin();
   }, []);
 
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/document");
+    }
+  }, [isLogin, navigate]);
   //마이페이지 사이드바
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleSidebarToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
-  }
+  };
 
   return (
     <>
       <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} />
-      {isSidebarOpen && <Mypage onCloseClick={handleSidebarToggle} setIsSidebarOpen={setIsSidebarOpen} />}
+      {isSidebarOpen && (
+        <Mypage
+          onCloseClick={handleSidebarToggle}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+      )}
       <Outlet />
     </>
   );

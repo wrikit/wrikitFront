@@ -12,7 +12,7 @@ const QuillEditor = props => {
   const modules = {
     toolbar: [
       [{ 'font': [] }, {size: []}, {color: []}, '', {'list': 'ordered'}, {'list': 'bullet'}],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote', 'link', '', {'indent': '+1'}]
+      ['bold', 'italic', 'underline', 'strike', 'blockquote', 'link', 'code-block', {'indent': '+1'}]
     ],
     clipboard: {
       // toggle to add extra line breaks when pasting HTML:
@@ -21,9 +21,9 @@ const QuillEditor = props => {
   };
 
   const formats = [
-    'font', 'size', 'color',
+    'font', 'size', 'color', '',
     'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent'
+    'list', 'bullet', 'indent', 'code-block'
   ];
 
   return (

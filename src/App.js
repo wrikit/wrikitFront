@@ -50,7 +50,7 @@ const PageLayout = (props) => {
   }, []);
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin && window.location.pathname === "/") {
       navigate("/document");
     }
   }, [isLogin, navigate]);

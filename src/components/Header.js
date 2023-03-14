@@ -74,8 +74,9 @@ const Header = (props) => {
 
   //헤더 드롭다운
   const [isDropdownOpened, setDropdownOpened] = useState(false);
-  const dropdownRef = useRef();
+
   // 반응형 드롭다운 -> X 버튼(닫기) 생성
+  const dropdownRef = useRef();
   const [closeBtn, setCloseBtn] = useState(false);
 
   useEffect(() => {
@@ -86,7 +87,7 @@ const Header = (props) => {
         setCloseBtn(false);
       }
     }
-
+    // 드롭다운 외 다른 곳 클릭시 드롭다운 닫힘
     function handleClickOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setDropdownOpened(false);

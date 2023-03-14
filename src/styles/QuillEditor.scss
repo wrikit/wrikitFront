@@ -6,15 +6,42 @@
     .ql-formats {
       margin-left: 5vw;
       display: flex;
+
+      .ql-picker-options {
+        z-index: 3;
+      }
       &>span {
         height: 2.5rem;
-
         span {
           line-height: 2.5rem;
         }
       }
+      &>button {
+        align-content: center;
+      }
       .ql- {
         cursor: default;
+      }
+    }
+  }
+  
+  @media (max-width: 360px) {
+    .ql-toolbar {
+      .ql-formats {
+        margin: 0 3px;
+        justify-content: space-between;
+        .ql-color {
+          padding: 0;
+        }
+        .ql- {
+          width: 0;
+          margin: 0;
+          padding: 0;
+        }
+
+        &>button {
+          margin: 3px;
+        }
       }
     }
   }

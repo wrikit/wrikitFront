@@ -49,6 +49,7 @@ const PageLayout = (props) => {
     refreshIsLogin();
   }, []);
 
+  // 로그인 후 메인페이지 x ->  문서페이지로 이동
   useEffect(() => {
     if (isLogin && window.location.pathname === "/") {
       navigate("/document");
@@ -70,6 +71,7 @@ const PageLayout = (props) => {
           setIsSidebarOpen={setIsSidebarOpen}
         />
       )}
+
       <Outlet />
     </>
   );

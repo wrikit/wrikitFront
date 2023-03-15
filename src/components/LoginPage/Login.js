@@ -18,6 +18,7 @@ const LoginTemplate = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
+
     axios
       .post(
         "http://localhost:8000/auth/login/",
@@ -31,8 +32,7 @@ const LoginTemplate = () => {
         // console.dir(res.data);
         if (res.data.result === "True") {
           alert(`${id}님 안녕하세요!`);
-          // document.location.href = "/";
-          navigate("/document");
+          document.location.href = "/document";
         } else {
           alert(`아이디 또는 비밀번호를 확인해주세요`);
         }
@@ -73,7 +73,9 @@ const LoginTemplate = () => {
           required
         />
         <br />
-        <button className="button">로그인</button>
+        <button className="button" onClick={onSubmitHandler}>
+          로그인
+        </button>
         <KakaoLogin />
       </form>
     </div>

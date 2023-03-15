@@ -112,7 +112,10 @@ const Header = (props) => {
   return (
     <header className={`header`}>
       <div className={`header__content ${isScrolled ? "shadow" : ""}`}>
-        <a href="/" className="header__content__logo">
+        <a
+          href={!isLogin ? "/" : "/document"} //로그인 후 로고클릭 -> 문서페이지로 이동
+          className="header__content__logo"
+        >
           Wrikit
         </a>
         <nav className="header__content__nav">

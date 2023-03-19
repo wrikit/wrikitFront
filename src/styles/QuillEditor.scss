@@ -6,7 +6,10 @@
     .ql-formats {
       margin-left: 5vw;
       display: flex;
-
+      height: 2.5rem;
+      max-width: 30rem;
+      align-items: center;
+      justify-content: space-between;
       .ql-picker-options {
         z-index: 3;
       }
@@ -15,8 +18,11 @@
         span {
           line-height: 2.5rem;
         }
+        span::before {
+          margin-top: -0.5rem;
+        }
       }
-      &>button {
+      button {
         align-content: center;
       }
       .ql- {
@@ -32,6 +38,10 @@
         justify-content: space-between;
         .ql-color {
           padding: 0;
+          svg {
+            min-width: 18px;
+            min-height: 18px;
+          }
         }
         .ql- {
           width: 0;
@@ -48,6 +58,7 @@
   
   .ql-container {
     .ql-editor {
+      max-height: 65vh;
       min-height: 15rem;
     }
   }

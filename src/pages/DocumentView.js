@@ -6,9 +6,9 @@ import {
   copyToClipboard, 
   getCookie, 
   softAlert, 
-  clearEventListener, 
   inputHandler,
-  ifKeyDownEnter } from "../tools";
+  ifKeyDownEnter,
+  reactStates } from "../tools";
 import MiniProfile from "../components/UserProfile/MiniProfile";
 import QuillEditor from "../components/TextEditor/QuillEditor";
 
@@ -17,15 +17,25 @@ const DocumentView = () => {
   const { id } = useParams();
   const [docName, setDocName] = useState(false);
   const [writer, setWriter] = useState('');
+  const [isMine, setIsMine] = useState(false);
   const [saveKey, setSaveKey] = useState(false);
   const [updateKey, setUpdateKey] = useState('');
   const [isDisplay, setIsDisplay] = useState(false);
   const [content, setContent] = useState(false);
   const [updateContent, setUpdateContent] = useState('');
-  const [editable, setEditable] = useState();
+  const [editable, setEditable] = useState(false);
+  const [settings, setSettings] = useState({});
+  const settingsObj = new reactStates(setSettings, settings);
+
   const passRef = useRef(null);
   const saveRef = useRef(null);
   const updateInputRef = useRef(null);
+  const settingFormRefs = {};
+  settingFormRefs.settingForm = useRef(null);
+  settingFormRefs.name = useRef(null);
+  settingFormRefs.editable = useRef(null);
+  settingFormRefs.public = useRef(null);
+  settingFormRefs.newPassword = useRef(null);
 
   const getSaveKey = (docId) => {
     axios.post(
@@ -78,7 +88,6 @@ const DocumentView = () => {
     }
   }
   const saveForm = event => {
-    softAlert("TEST: 저장버튼");
     const editorDiv = document.querySelector(".quill .ql-editor");
     setUpdateContent(editorDiv.innerHTML);
     event.preventDefault();
@@ -88,22 +97,101 @@ const DocumentView = () => {
       setUpdateKey(saveKey);
     }
   }
+  const settingForm = () => {
+    settingFormRefs.name.current.value = settings.name;
+    settingFormRefs.editable.current.checked = settings.editable;
+    settingFormRefs.public.current.checked = settings.public;
+    settingFormRefs.settingForm.current.showModal();
+  }
+  const resetPassword = () => {
+    const newPass = settingFormRefs.newPassword.current.value;
+    if (newPass.length && newPass.length <= 20) {
+      axios.post(
+        "http://localhost:8000/main/set-documentkey/", 
+        {
+          documentid: id,
+          newkey: newPass
+        }, 
+        { withCredentials: true } )
+      .then(res => {
+        if (res.data.result) {
+          alert(`패스워드가 변경되었습니다.  새로운 패스워드: ${newPass}`);
+          settingsObj.write('newPassword', '');
+          settingFormRefs.newPassword.current.value = '';
+        } else {
+          softAlert("패스워드 변경 실패 :(");
+        }
+      })
+    } else {
+      softAlert("패스워드는 최대20이고 비워둘수 없습니다");
+    }
+  }
+  const delete_mousedown = event => {
+    settingsObj.write('deleteMouseDown', new Date().getTime());
+  }
+  const documentDelete = event => {
+    const now = new Date().getTime();
+    if (now > (settings.deleteMouseDown+5000)) {
+      axios.post(
+        "http://localhost:8000/main/delete-document/",
+        { documentid: id },
+        { withCredentials: true }
+      )
+      .then(res => {
+        if (res.data.result) {
+          document.location.href = "/document";
+        } else {
+          softAlert("삭제 실패");
+        }
+      });
+    }
+  }
+  const saveSettings = event => {
+    const newName = settingFormRefs.name.current.value;
+    if (newName.length) {
+      axios.post(
+        "http://localhost:8000/main/update-document/",
+        { 
+          documentid: id,
+          documentkey: '',
+          docName: newName,
+          editable: settings.editable,
+          public: settings.public
+        },
+        { withCredentials: true }
+      )
+      .then(res => {
+        if (res.data.result) {
+          settingFormRefs.name.current.value = newName;
+          settingFormRefs.settingForm.current.close();
+          setDocName(newName);
+          softAlert("설정 저장됨");
+        } else {
+          softAlert("설정 저장실패");
+        }
+      });
+    } else {
+      softAlert("제목을 비워둘수 없습니다");
+    }
+  }
   const update = () => {
-    console.log(content);
     axios.post(
       "http://localhost:8000/main/update-document/",
-      { 
-        documentid: id, 
+      { documentid: id, 
         documentkey: updateKey,
-        content: updateContent})
+        content: updateContent},
+        { withCredentials: true } )
     .then(res => {
       if (res.data.result) {
         softAlert("저장완료!");
       } else {
         softAlert("저장실패 :(");
       }
+      saveRef.current.close();
     })
-
+  }
+  const closeSettingForm = () => {
+    settingFormRefs.settingForm.current.close();
   }
   const cantSave = () => {
     softAlert("주인만 수정가능하도록 설정되있어요");
@@ -112,56 +200,100 @@ const DocumentView = () => {
     softAlert("업데이트 예정");
   }
 
-  axios.post(
-    "http://localhost:8000/main/get-document-name/",
-    { documentid: id },
-    { withCredentials: true })
-  .then(res => {
-    if (res.data.result) {
-      setDocName(res.data.data);
-      setWriter(res.data.username)
-      if (res.data.public) {
-        setIsDisplay(true);
-      } else {
-        getSaveKey(id);
-      }
-      return true;
-    } else {
-      alert("문서가 존재하지 않습니다 :(");
-      return false;
-    }
-  })
-  .then(isExist => {
-    if (isExist) {
-      if (saveKey) {
-        axios.post(
-          "http://localhost:8000/main/get-document/",
-          { documentid: id, documentkey: saveKey })
-        .then(res => {
-          if (res.data.result) {
-            const data = res.data.result;
-            if(data.username == getCookie('username') || data.editable) {
-              setEditable(true);
-            } else {
-              setEditable(false);
-            }
-            setContent(data.content);
-            setIsDisplay(true);
-          } else {
-            setSaveKey(false);
-            axios.post(
-              "http://localhost:8000/main/delete-document-key/",
-              { delete: id },
-              { withCredentials: true });
-          }
-        });
-      }
-    } else {
-      document.location.href = "/";
-    }
-  });
 
-  useEffect(() => {}, [])
+
+  useEffect(() => {
+    axios.post(
+      "http://localhost:8000/main/get-document-name/",
+      { documentid: id },
+      { withCredentials: true })
+    .then(res => {
+      if (res.data.result) {
+        setDocName(res.data.data);
+        setWriter(res.data.username)
+        if (res.data.username == getCookie('username')) {
+          setIsMine(true);
+          axios.post(
+            "http://localhost:8000/main/get-document/",
+            { documentid: id, documentkey:'' },
+            { withCredentials: true } )
+          .then(res => {
+            if (res.data.result) {
+              const data = res.data.result;
+              setEditable(true);
+              setContent(data.content);
+              setIsDisplay(true);
+              return res.data;
+            } else {
+              softAlert("오류발생 QoQ");
+              console.log('error >>>', res.data.message);
+              return false;
+            }
+          })
+          .then(data => {
+            if (data) {
+              settingsObj.write('name', data.result.docName);
+              settingsObj.write('editable', data.result.editable);
+              settingsObj.write('public', data.result.public);
+            }
+          });
+        } else if (res.data.public) {
+          axios.post(
+            "http://localhost:8000/main/get-document/",
+            { documentid: id, documentkey:'' })
+          .then(res => {
+            if (res.data.result) {
+              const data = res.data.result;
+              setEditable(data.editable);
+              setContent(data.content);
+              setIsDisplay(true);
+            } else {
+              softAlert("오류발생 QoQ");
+              console.log('error >>>', res.data.message);
+            }
+          });
+        } else {
+          getSaveKey(id);
+        }
+        return true;
+      } else {
+        alert("문서가 존재하지 않습니다 :(");
+        return false;
+      }
+    })
+    .then(isExist => {
+      if (isExist) {
+        if (saveKey) {
+          axios.post(
+            "http://localhost:8000/main/get-document/",
+            { documentid: id, documentkey: saveKey })
+          .then(res => {
+            if (res.data.result) {
+              const data = res.data.result;
+              if(data.username == getCookie('username') || data.editable) {
+                setEditable(true);
+              } else {
+                setEditable(false);
+              }
+              setContent(data.content);
+              setIsDisplay(true);
+            } else {
+              setSaveKey(false);
+              axios.post(
+                "http://localhost:8000/main/delete-document-key/",
+                { delete: id },
+                { withCredentials: true });
+            }
+          });
+        }
+      } else {
+        document.location.href = "/";
+      }
+    })
+    .then(() => {
+      
+    });
+  }, [saveKey])
 
   return <div className="document-view">
     <div className="document-info">
@@ -171,26 +303,87 @@ const DocumentView = () => {
       <MiniProfile profileName={writer} />
     </div>
     {isDisplay ? (
-      <div>
+      <div className="document-main">
         <QuillEditor data={content} />
-        <button className="copy-button" onClick={copyContent} >복사하기</button>
-        {editable ? (
-          <button className="save-button" onClick={saveForm} >저장하기</button>
-        ) : (
-          <button className="cant-save" onClick={cantSave}>저장하기</button>
-        )}
-        <button className="clone-button" onClick={saveClone}>Save as</button>
+        <div className="document-functions">
+          <div className="flex-wrap">
+            <button className="copy-button" onClick={copyContent} >복사하기</button>
+            {editable ? (
+              <button className="save-button" onClick={saveForm} >저장하기</button>
+            ) : (
+              <button className="cant-save" onClick={cantSave}>저장하기</button>
+            )}
+            {isMine ? (
+              <button className="setting-button" onClick={settingForm}>Setting</button>
+            ) : (
+              <button className="clone-button" onClick={saveClone}>Save as</button>   
+            )}
+          </div>
+        </div>
         <dialog ref={saveRef}>
           <h3>저장하기</h3>
-          <input 
-            type="password"
-            placeholder="password"
-            onChange={inputHandler(setUpdateKey)}
-            onKeyDown={ifKeyDownEnter(update)}
-            ref={updateInputRef} />
-            <br />
+          <div className="input-updatekey">
+            <input 
+              type="password"
+              placeholder={isMine ? ("주인 입니다") : ("password")}
+              onChange={inputHandler(setUpdateKey)}
+              onKeyDown={ifKeyDownEnter(update)}
+              ref={updateInputRef} 
+              disabled={isMine} />
             <button className="save-button" onClick={update}>저장</button>
+          </div>
           <form method="dialog"><button>취소</button></form>
+        </dialog>
+        <dialog ref={settingFormRefs.settingForm} className="setting-form" >
+          <div className="info">
+            <h1>설정</h1>
+            <span>작성자만 수정가능 합니다</span>
+          </div>
+          <div className="flex-wrap">
+            <div className="name">
+              <span>제목</span>
+              <input 
+                type="text" 
+                ref={settingFormRefs.name} 
+                onChange={settingsObj.handle('name')}
+                required />
+            </div>
+            <div className="editable">
+              <span>다른사람의 편집허용</span>
+              <input 
+                type="checkbox" 
+                ref={settingFormRefs.editable}
+                onChange={settingsObj.handle('editable')} />
+            </div>
+            <div className="publice">
+              <span>패스워드없이 공개</span>
+              <input 
+                type="checkbox" 
+                ref={settingFormRefs.public}
+                onChange={settingsObj.handle('public')} />
+            </div>
+            <hr />
+            <div className="password-reset">
+              <button onClick={resetPassword}>패스워드 변경</button>
+              <input 
+                type="text"
+                placeholder="최대 20자"
+                ref={settingFormRefs.newPassword}
+                onChange={settingsObj.handle('newPassword')}
+                maxLength={20}
+                required />
+            </div>
+            <span className="delete-info">삭제는 5초이상 눌러주세요</span>
+            <div className="buttons">
+              <button onClick={saveSettings}>변경 저장</button>
+              <button onClick={closeSettingForm}>닫기</button>
+              <button 
+                onClick={documentDelete} 
+                onMouseDown={delete_mousedown} 
+                className="delete-button">삭제</button>
+            </div>
+
+          </div>
         </dialog>
       </div>
     ) : (
@@ -198,7 +391,7 @@ const DocumentView = () => {
         <PassInput 
           callback={inputKeyCB}
           placeHorder="password"
-          divClass="passinut-main"
+          divClass="passinput-main"
           buttonClass="passinput-button"
           inputClass="passinput-input"
           inputRef={passRef} />

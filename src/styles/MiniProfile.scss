@@ -22,20 +22,21 @@
       color: #777777;
     }
   }
-  &:hover .profile-message {
+  &:hover .profile-message,
+  &:active .profile-message {
     opacity: 0.7;
     transition: 0.5s;
   }
   .profile-message {
     position: absolute;
-    display: inline-block;
     padding: 2px;
     border-radius: 2px;
     font-size: 12px;
     max-height: 36px;
-    max-width: 100px;
-    width: 5rem;
+    width: 80px;
     line-height: 12px;
+    word-break: break-all;
+    white-space: pre-wrap;
     opacity: 0;
     background-color: black;
     color: white;

@@ -9,35 +9,8 @@ const DocumentList = () => {
   // 2초기다리는건 처음에 state에 빈값이여야... 2초후바꾸기
   const [documents, setDocuments] = useState([]);
   // 가짜 데이터
-  const fakeDocuments = [
-    {
-      id: 1,
-      docName: "test",
-      createDate: "2023-01-10 03:41:06",
-      lastUpdate: "2023-01-10 04:13:02",
-      accessKey: "test11",
-      content: "textkjk",
-      public: 1,
-      editable: 1,
-    },
-    {
-      id: 2,
-      docName: "testDocument",
-      createDate: "2022-12-18 17:37:27",
-      lastUpdate: "2023-01-10 04:13:02",
-      accessKey: "test11",
-      content: "<p>ffffgg</p>",
-      public: 1,
-      editable: 1,
-    },
-  ];
 
   const getDocuments = () => {
-    // API생성전 가짜데이터 사용
-    // setDocuments(fakeDocuments);
-    // 서버에 API추가 필요 유저아이디별로문서리스트
-    // const res = await axios.get("main/get-profile/");
-    // console.log(res.data);
     axios
       .post(
         "http://localhost:8000/main/get-profile/",
@@ -54,9 +27,7 @@ const DocumentList = () => {
             docName,
           })
         );
-
-        setDocuments(TransDocuments.slice(0, 20));
-        console.log("TransDocuments.slice(0, 20)", TransDocuments.slice(0, 20));
+        setDocuments(TransDocuments);
       })
       .catch(function (err) {
         console.log(err);
@@ -69,16 +40,10 @@ const DocumentList = () => {
   }, []);
   //document리스트 map
   const dataLoaded = documents.map((document) => {
-    console.log("dataLoaded", document.id);
+    // console.log("dataLoaded", document.id);
     return <DocumentItem key={document.id} document={document} />;
   });
 
-  // useEffect(() => {
-  //   const dataLoaded = documents.map((document) => {
-  //     console.log("dataLoaded", document);
-  //     return <DocumentItem key={doc_list} document={document} />;
-  //   });
-  // }, [documents]);
   return (
     <>
       <div>

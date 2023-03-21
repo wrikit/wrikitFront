@@ -1,5 +1,6 @@
 import React, {useRef, useState, useEffect} from "react";
 import "../styles/Mypage.scss";
+import Profile from "../components/UserProfile/Profile";
 
 const Mypage=(props)=>{
     
@@ -24,6 +25,7 @@ const Mypage=(props)=>{
 
     return(
     <div className="Mypage" ref={mypageRef} >
+        <Profile type="side"></Profile>
         <button onClick={props.onCloseClick}>Close</button>
         {/* <button onClick={MypageClick}>Close</button> */}
     <p>This is Mypage</p>

@@ -6,7 +6,7 @@ const DocumentItem = (props) => {
   // {post: {id: x, title: xxx, body: xxx}}
   //   console.log(props);
   const { document } = props;
-  console.log("DocumentItem컴포넌트", document.id);
+  console.log("DocumentItem컴포넌트key", document);
   //   post =>{id: x, title: xxx, body: xxx}
   return (
     <Link className="DocumentItem" to={"/document/" + document.id}>
@@ -14,7 +14,7 @@ const DocumentItem = (props) => {
         <HiDocumentText />
         <span className="id">No. {document.id}</span>
         <span className="docName">- {document.docName}</span>
-        <span className="lastUpdate">- {document.lastUpdate}</span>
+        {/* <span className="lastUpdate">- {document.lastUpdate}</span> */}
       </div>
     </Link>
   );

@@ -32,9 +32,9 @@ const DocumentList = () => {
     },
   ];
 
-  const getDocuments = async () => {
+  const getDocuments = () => {
     // API생성전 가짜데이터 사용
-    setDocuments(fakeDocuments);
+    // setDocuments(fakeDocuments);
     // 서버에 API추가 필요 유저아이디별로문서리스트
     // const res = await axios.get("main/get-profile/");
     // console.log(res.data);
@@ -48,25 +48,37 @@ const DocumentList = () => {
       )
       .then((res) => {
         console.log("get-profiled", res.data.data.DocumentList);
-        return res.data;
+        const TransDocuments = Object.entries(res.data.data.DocumentList).map(
+          ([id, docName]) => ({
+            id: parseInt(id),
+            docName,
+          })
+        );
+
+        setDocuments(TransDocuments.slice(0, 20));
+        console.log("TransDocuments.slice(0, 20)", TransDocuments.slice(0, 20));
       })
       .catch(function (err) {
         console.log(err);
       });
-
-    // setDocuments(res.data.slice(0, 20));
   };
 
   // 컴포넌트가 Mount 된 시점에
   useEffect(() => {
     getDocuments();
   }, []);
-
+  //document리스트 map
   const dataLoaded = documents.map((document) => {
     console.log("dataLoaded", document.id);
     return <DocumentItem key={document.id} document={document} />;
   });
 
+  // useEffect(() => {
+  //   const dataLoaded = documents.map((document) => {
+  //     console.log("dataLoaded", document);
+  //     return <DocumentItem key={doc_list} document={document} />;
+  //   });
+  // }, [documents]);
   return (
     <>
       <div>

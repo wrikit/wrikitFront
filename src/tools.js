@@ -16,7 +16,6 @@ const inputHandler = (settingFunc) => {
 
 const ifKeyDownEnter = (callback=(() => {return true}), ...args) => {
   const return_func = event => {
-    event.preventDefault();
     if (event.key === 'Enter') {
       callback.apply(null, args);
     } else {
@@ -128,6 +127,33 @@ const clearEventListener = element => {
   element.parentNode.replaceChild(clone, element);
 }
 
+class reactStates {
+  constructor(set, data={}) {
+    this.data = data;
+    this.set = set;
+  }
+
+  write(key, value) {
+    const key_string = String(key);
+    this.data = {
+      ...this.data,
+      [key_string]: value
+    }
+    this.set(this.data);
+  }
+
+  handle(key) {
+    return event => {
+      const key_string = String(key);
+      if (event.target.type == "checkbox") {
+        this.write(key_string, event.target.checked);
+      } else {
+        this.write(key_string, event.target.value);
+      }      
+    }
+  }
+}
+
 export { 
   getCookie,
   inputHandler,
@@ -135,4 +161,5 @@ export {
   copyToClipboard,
   softAlert,
   clearEventListener,
+  reactStates
 };

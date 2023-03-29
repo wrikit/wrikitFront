@@ -12,7 +12,7 @@
   box-sizing: border-box;
   background-color: $background-color;
   transition: 0.3s ease all;
-  z-index: 100;
+  z-index: 1;
 
   &.shadow {
     position: fixed;

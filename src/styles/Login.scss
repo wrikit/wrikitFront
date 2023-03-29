@@ -121,6 +121,35 @@ body {
     }
   }
 }
+
+.logined {
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 10px;
+  &>* {
+    height: 4rem;
+  }
+  button {
+    font-size: 1.5rem;
+    background-color: inherit;
+    border: 2px solid black;
+    border-radius: 0.5rem;
+    margin: auto;
+    padding: 0.5rem;
+    &:hover {
+      color: white;
+      background-color: black;
+      transition: 0.5s;
+    }
+    &:not(:hover) {
+      transition: 0.5s;
+    }
+  }
+
+}
+
 @include mobile {
   .templateBlock {
     background-color: $background-color;
@@ -159,6 +188,13 @@ body {
           border-radius: 12px;
         }
       }
+    }
+  }
+  .logined {
+    button:active {
+      color: white;
+      background-color: black;
+      transition: 0.5s;
     }
   }
 }

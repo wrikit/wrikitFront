@@ -1,9 +1,9 @@
 // Title
 .DocumentItem {
-  margin-top: 101px;
-  margin-left: 10px;
-  margin-bottom: 10px;
-  border-left: 0px;
-  border-right: 0px;
-  border-top: 0px;
+  text-decoration-line: none;
+  color: inherit; /* 링크의 색상 제거 */
+}
+
+.DocumentItems:hover {
+  background-color: #e2dcc8;
 }

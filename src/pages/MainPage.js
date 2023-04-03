@@ -24,20 +24,6 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
-      <h1>scrolldown</h1>
     </main>
   );
 };

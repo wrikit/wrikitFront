@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { throttle } from "lodash";
 // import { GrCloudDownload } from "react-icons/gr";
-import { IoCloudDownloadOutline } from "react-icons/io5";
+// import { IoCloudDownloadOutline } from "react-icons/io5";
+import { FaFolderOpen } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { SlLogin } from "react-icons/sl";
 import { FaWindowClose } from "react-icons/fa";
@@ -130,7 +131,7 @@ const Header = (props) => {
               }}
             >
               <NavLink to="/document">
-                <IoCloudDownloadOutline size="24" />
+                <FaFolderOpen size="24" />
               </NavLink>
               <p className={iconHover || isActive ? "active" : "hiddenName"}>
                 내 문서

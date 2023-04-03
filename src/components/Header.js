@@ -9,10 +9,11 @@ import { SlLogin } from "react-icons/sl";
 import { FaWindowClose } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
 import axios from "axios";
+import MiniProfile from "./UserProfile/MiniProfile";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
-  // console.log("Header ::", isLogin);
+  // console.log("Header ::", userName);
   const onLogout = () => {
     // sessionStorage.removeItem("user_id");
 
@@ -106,6 +107,26 @@ const Header = (props) => {
     props.onMenuClick();
   };
 
+  //미니프로필
+  const [userName, setUserName] = useState("");
+
+  axios
+    .post(
+      "http://localhost:8000/main/get-profile/",
+      {},
+      {
+        withCredentials: true,
+      }
+    )
+    .then((res) => {
+      // console.log(res.data);
+      if (res.data.result) {
+        setUserName(res.data.data.profileName);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   return (
     <header className={`header`}>
       <div className={`header__content ${isScrolled ? "shadow" : ""}`}>

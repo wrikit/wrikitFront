@@ -73,41 +73,37 @@ const Header = (props) => {
     setIsActive(false);
   };
 
-  //헤더 드롭다운
-  const [isDropdownOpened, setDropdownOpened] = useState(false);
-
   // 반응형 드롭다운 -> X 버튼(닫기) 생성
-  const dropdownRef = useRef();
-  const [closeBtn, setCloseBtn] = useState(false);
+  // const dropdownRef = useRef();
+  // const [closeBtn, setCloseBtn] = useState(false);
 
-  useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth <= 767) {
-        setCloseBtn(true);
-      } else {
-        setCloseBtn(false);
-      }
-    }
-    // 드롭다운 외 다른 곳 클릭시 드롭다운 닫힘
-    function handleClickOutside(e) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setDropdownOpened(false);
-      }
-    }
+  // useEffect(() => {
+  //   function handleResize() {
+  //     if (window.innerWidth <= 767) {
+  //       setCloseBtn(true);
+  //     } else {
+  //       setCloseBtn(false);
+  //     }
+  //   }
+  // 드롭다운 외 다른 곳 클릭시 드롭다운 닫힘
+  //   function handleClickOutside(e) {
+  //     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+  //       setDropdownOpened(false);
+  //     }
+  //   }
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isDropdownOpened]);
+  //   handleResize();
+  //   window.addEventListener("resize", handleResize);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [isDropdownOpened]);
 
   //마이페이지 클릭
   const MypageClick = () => {
     props.onMenuClick();
-    setDropdownOpened(false);
   };
 
   return (
@@ -127,7 +123,6 @@ const Header = (props) => {
               onMouseOut={handleMouseOut}
               onClick={() => {
                 showMydoc();
-                setDropdownOpened(false);
               }}
             >
               <NavLink to="/document">
@@ -141,24 +136,8 @@ const Header = (props) => {
               {/* {isLogin ? (<button type="button" onClick={onLogout}>LOGOUT</button>) : (<NavLink to="/lgpage">시작하기</NavLink>)} */}
               {isLogin ? (
                 <div className="iconContainer">
-                  <BsPersonCircle
-                    size="24"
-                    onClick={() => setDropdownOpened(!isDropdownOpened)}
-                  />
-                  {isDropdownOpened && (
-                    <ul className="dropdownMenu" ref={dropdownRef}>
-                      {closeBtn && (
-                        <li id="closeButton">
-                          <FaWindowClose
-                            size="30"
-                            onClick={() => setDropdownOpened(false)}
-                          />
-                        </li>
-                      )}
-                      <li onClick={MypageClick}>Mypage</li>
-                      <li onClick={onLogout}>Logout</li>
-                    </ul>
-                  )}
+                  <BsPersonCircle size="24" onClick={MypageClick} />
+                  {/* <li onClick={onLogout}>Logout</li> */}
                 </div>
               ) : (
                 <div className="iconContainer">

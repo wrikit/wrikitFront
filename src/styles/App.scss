@@ -9,8 +9,11 @@
 @import "./MiniProfile.scss";
 @import "./QuillEditor.scss";
 * {
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
-    font-family: "Poppins", "Do Hyeon", sans-serif;
-  }
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: "Poppins", "Do Hyeon", sans-serif;
+}
+// body {
+//   margin-top: 50px;
+// }

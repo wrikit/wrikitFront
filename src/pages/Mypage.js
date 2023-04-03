@@ -24,6 +24,7 @@ const Mypage = (props) => {
   return (
     <div className="Mypage" ref={mypageRef}>
       <button onClick={props.onCloseClick}>Close</button>
+      <h2>My page</h2>
       <Profile type="side"></Profile>
       {/* <button onClick={MypageClick}>Close</button> */}
     </div>

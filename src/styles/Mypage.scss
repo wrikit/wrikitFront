@@ -36,3 +36,12 @@
     transform: translateX(0);
   }
 }
+
+@include mobile {
+  .Mypage {
+    width: 100%;
+    max-width: 100%;
+    animation: none;
+    border-radius: 0;
+  }
+}

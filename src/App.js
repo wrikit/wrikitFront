@@ -56,20 +56,34 @@ const PageLayout = (props) => {
     }
   }, [isLogin, navigate]);
   //마이페이지 사이드바
+  const mypageRef = useRef(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const handleClickOutsideMypage = (e) => {
+    if (
+      mypageRef.current &&
+      !mypageRef.current.contains(e.target) &&
+      !document.querySelector(".iconContainer").contains(e.target)
+    ) {
+      setIsSidebarOpen(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutsideMypage, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutsideMypage, true);
+    };
+  }, []);
   const handleSidebarToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
   return (
     <>
       <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} />
       {isSidebarOpen && (
-        <Mypage
-          onCloseClick={handleSidebarToggle}
-          setIsSidebarOpen={setIsSidebarOpen}
-        />
+        <div ref={mypageRef}>
+          <Mypage onCloseClick={handleSidebarToggle} />
+        </div>
       )}
 
       <Outlet />

@@ -10,6 +10,7 @@ import { FaWindowClose } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
 import axios from "axios";
 import MiniProfile from "./UserProfile/MiniProfile";
+import Mypage from "../pages/Mypage";
 
 const Header = (props) => {
   const isLogin = props.isLogin;

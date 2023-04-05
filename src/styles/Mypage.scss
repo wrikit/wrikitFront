@@ -26,6 +26,10 @@
     text-align: center;
     @extend .mb-20;
   }
+  .closeBtn {
+    margin-left: 45px;
+    cursor: pointer;
+  }
 }
 
 @keyframes slidein {

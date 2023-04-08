@@ -58,28 +58,7 @@ const Profile = (props) => {
     };
     getData();
   }, []);
-  //로그아웃 기능
-  const onLogout = () => {
-    axios
-      .post("http://localhost:8000/auth/logout/", {}, { withCredentials: true })
-      .then((res) => {
-        // if (Kakao.Auth.getAccessToken()) {
-        //   Kakao.API.request({
-        //     url: '/v1/user/unlink',
-        //     success: response => {
-        //       console.log(response);
-        //     },
-        //     fail: error => {
-        //       console.log(error);
-        //     },
-        //   })
-        //   Kakao.Auth.setAccessToken(undefined);
-        // }
-      })
-      .then(() => {
-        document.location.href = "/";
-      });
-  };
+  
   return (
     <div className={props.type} id="profile">
       {name && isKakao != undefined ? (
@@ -91,8 +70,6 @@ const Profile = (props) => {
             userId={userId}
             profileId={profileId}
           />
-          {isKakao ? "" : <PassSetting />}
-          <button onClick={onLogout}>로그아웃</button>
         </div>
       ) : (
         <div>Loading...</div>

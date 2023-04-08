@@ -16,6 +16,7 @@ import QuillEditor from "../components/TextEditor/QuillEditor";
 const DocumentView = () => {
   const { id } = useParams();
   const [docName, setDocName] = useState(false);
+  const [profileName, setProfileName] = useState('');
   const [writer, setWriter] = useState('');
   const [isMine, setIsMine] = useState(false);
   const [saveKey, setSaveKey] = useState(false);
@@ -70,7 +71,6 @@ const DocumentView = () => {
           .then(() => {
             softAlert("패스워드 저장완료");
           });
-
         }
         setIsDisplay(true);
       } else {
@@ -201,8 +201,18 @@ const DocumentView = () => {
   }
 
 
+  console.log("profileName", profileName);
 
   useEffect(() => {
+    axios.post(
+      "http://localhost:8000/main/get-profile/",
+      {},
+      { withCredentials: true }
+    )
+    .then(res => {
+      const data = res.data.data;
+      setProfileName(data.profileName);
+    })
     axios.post(
       "http://localhost:8000/main/get-document-name/",
       { documentid: id },
@@ -211,8 +221,9 @@ const DocumentView = () => {
       if (res.data.result) {
         setDocName(res.data.data);
         setWriter(res.data.username)
-        if (res.data.username == getCookie('username')) {
+        if (res.data.username == profileName) {
           setIsMine(true);
+          //TODO: username형식이 카카오이면 
           axios.post(
             "http://localhost:8000/main/get-document/",
             { documentid: id, documentkey:'' },
@@ -293,7 +304,7 @@ const DocumentView = () => {
     .then(() => {
       
     });
-  }, [saveKey])
+  }, [saveKey, profileName])
 
   return <div className="document-view">
     <div className="document-info">

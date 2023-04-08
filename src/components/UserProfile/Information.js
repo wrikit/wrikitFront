@@ -6,7 +6,13 @@ const Information = (props) => {
   const [image, setImage] = useState("");
   const [imageSrc, setImageSrc] = useState(props.src);
   const isImage = props.type == "image";
-  const inputRef = useRef(null);
+  const tempRef = useRef(null);
+  let inputRef;
+  if (!props.inputRef) {
+    inputRef = tempRef;
+  } else {
+    inputRef = props.inputRef;
+  }
 
   if (value == null) {
     setValue("");
@@ -71,6 +77,7 @@ Information.defaultProps = {
   src: "",
   placeHolder: "",
   formName: "",
+  inputRef: false
 };
 
 export default Information;

@@ -1,5 +1,7 @@
 import Information from "./Information";
 import { useState, useEffect, useRef } from "react";
+import { getCookie } from "../../tools";
+import PassSetting from "./PassSetting";
 import axios from "axios";
 
 const ProfileForm = (props) => {
@@ -11,6 +13,8 @@ const ProfileForm = (props) => {
   const [isImageChange, setIsImageChange] = useState(false);
   const [isNameChange, setIsNameChange] = useState(false);
   const [isMessageChange, setIsMessageChange] = useState(false);
+  const [isKakao, setIsKakao] = useState();
+
 
   const submitRef = useRef(null);
   const isDisabledHandler = () => {
@@ -28,6 +32,36 @@ const ProfileForm = (props) => {
       }
     });
     return csrfToken;
+  };
+
+  useEffect(() => {
+    if (getCookie("isKakao") == "true") {
+      setIsKakao(true);
+    } else {
+      setIsKakao(false);
+    }
+  });
+
+  const onLogout = () => {
+    axios
+      .post("http://localhost:8000/auth/logout/", {}, { withCredentials: true })
+      .then((res) => {
+        // if (Kakao.Auth.getAccessToken()) {
+        //   Kakao.API.request({
+        //     url: '/v1/user/unlink',
+        //     success: response => {
+        //       console.log(response);
+        //     },
+        //     fail: error => {
+        //       console.log(error);
+        //     },
+        //   })
+        //   Kakao.Auth.setAccessToken(undefined);
+        // }
+      })
+      .then(() => {
+        document.location.href = "/";
+      });
   };
   useEffect(() => {
     setCsrf(getCsrfToken());
@@ -72,9 +106,21 @@ const ProfileForm = (props) => {
         formName="profileMessage"
         infoName="Message"
       />
-      <button onClick={isDisabledHandler} type="button">
-        {isDisabled ? "프로필 수정하기" : "저장하기"}
-      </button>
+      <div className="button_container">
+        <button onClick={isDisabledHandler} type="button">
+          {isDisabled ? "프로필 수정하기" : "저장하기"}
+        </button>
+        {isKakao ? 
+        <button disabled>
+          패스워드 변경
+        </button>
+        : <PassSetting />}
+        
+      </div>
+      <div className="button_container">
+        <button type="button">회원탈퇴</button>
+        <button onClick={onLogout} type="button">로그아웃</button>
+      </div>
     </form>
   );
   return return_result;

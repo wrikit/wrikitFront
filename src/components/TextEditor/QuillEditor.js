@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactQuill from 'react-quill';
+import Quill from 'quill';
 import 'react-quill/dist/quill.snow.css';
+
 
 const QuillEditor = props => {
   const [content, setContent] = useState(props.data);
@@ -9,10 +11,22 @@ const QuillEditor = props => {
     setContent(value);
   }
 
+  
+  // const Link = Quill.import('formats/link');
+
+  // Link.sanitize = function(url) {
+  //   if (url.indexOf('http') !== 0) {
+  //     url = 'http://' + url;
+  //   }
+  //   return url;
+  // };
+
+  // Quill.register(Link, true);
+
   const modules = {
     toolbar: [
       [{ 'font': [] }, {size: []}, {color: []}, {'list': 'ordered'}, {'list': 'bullet'}],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote', 'link', 'align', {'indent': '+1'}]
+      ['bold', 'italic', 'underline', 'strike', 'blockquote', 'link', { 'align': [] }, {'indent': '+1'}]
     ],
     clipboard: {
       // toggle to add extra line breaks when pasting HTML:
@@ -23,7 +37,7 @@ const QuillEditor = props => {
   const formats = [
     'font', 'size', 'color', '',
     'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent', 'align'
+    'list', 'bullet', 'link', 'indent', 'align'
   ];
 
   return (

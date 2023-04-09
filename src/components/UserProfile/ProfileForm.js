@@ -17,9 +17,11 @@ const ProfileForm = (props) => {
 
 
   const submitRef = useRef(null);
-  const isDisabledHandler = () => {
+  const isDisabledHandler = (event) => {
+    // event.preventDefault();
     if (!isDisabled && (isNameChange || isImageChange || isMessageChange)) {
       submitRef.current.submit();
+      // window.history.back();
     }
     setIsDisabled(!isDisabled);
   };

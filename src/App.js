@@ -5,6 +5,7 @@ import {
   Route,
   Outlet,
   useNavigate,
+  useMatch,
 } from "react-router-dom";
 import axios, { formToJSON } from "axios";
 import Header from "./components/Header";
@@ -18,6 +19,7 @@ import Profile from "./components/UserProfile/Profile";
 import NotFound from "./pages/NotFound";
 import Mypage from "./pages/Mypage";
 import "./styles/App.scss";
+import { useMediaQuery } from "react-responsive";
 
 const setCookie = (name, value, exp = 7) => {
   let date = new Date();
@@ -77,15 +79,22 @@ const PageLayout = (props) => {
   const handleSidebarToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  // 문서 작성 페이지에서 모바일환경에서는 헤더 숨김
+  const match = useMatch("/document/:id");
+  const isMobile = useMediaQuery({ query: "(max-width : 767px)" });
+  console.log(match, isMobile);
   return (
     <>
-      <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} />
+      {!match || (match && !isMobile) ? (
+        <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} />
+      ) : null}
+      {/* <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} /> */}
       {isSidebarOpen && (
         <div ref={mypageRef}>
           <Mypage onCloseClick={handleSidebarToggle} />
         </div>
       )}
-
       <Outlet />
     </>
   );

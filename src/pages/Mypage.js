@@ -25,7 +25,7 @@ const Mypage = (props) => {
     <div className="Mypage">
       <MdClose size={28} onClick={props.onCloseClick} className="closeBtn" />
       <h2>My page</h2>
-      <Profile type="side"></Profile>
+      <Profile type="side" />
       {/* <button onClick={MypageClick}>Close</button> */}
     </div>
   );

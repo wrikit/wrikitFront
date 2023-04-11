@@ -1,3 +1,4 @@
+@import "./utility";
 .document-view {
   padding-top: 70px;
   position: relative;
@@ -46,14 +47,12 @@
         width: 5rem;
         margin-top: 10px;
       }
-      &>* {
+      & > * {
         margin: 5px 0;
       }
       &[open] {
         animation: dialog-open 0.5s ease normal;
       }
-
-
     }
     .document-functions {
       position: fixed;
@@ -68,7 +67,7 @@
         display: flex;
         width: 100vw;
         max-width: 600px;
-        border: 1px solid #AAAAAA;
+        border: 1px solid #aaaaaa;
         border-bottom: 0;
         padding-top: 10px;
         button {
@@ -87,12 +86,15 @@
           }
         }
         button:nth-child(2n):not(:last-child) {
-          border-left: 2px solid #AAAAAA;
-          border-right: 2px solid #AAAAAA;
+          border-left: 2px solid #aaaaaa;
+          border-right: 2px solid #aaaaaa;
         }
         button:last-child:not(:nth-child(2n-1)) {
-          border-left: 2px solid #AAAAAA;
+          border-left: 2px solid #aaaaaa;
         }
+      }
+      .btnGroup2 {
+        display: none;
       }
     }
     .setting-form {
@@ -102,7 +104,7 @@
         margin-bottom: 15px;
         span {
           font-size: 0.8rem;
-          color: #AAAAAA;
+          color: #aaaaaa;
         }
       }
       .flex-wrap {
@@ -119,7 +121,7 @@
           }
         }
         .delete-info {
-          color: #AAAAAA;
+          color: #aaaaaa;
           font-size: 0.9rem;
           text-align: right;
         }
@@ -153,11 +155,11 @@
             background-color: inherit;
           }
           button:nth-child(2n):not(:last-child) {
-            border-left: 2px solid #AAAAAA;
-            border-right: 2px solid #AAAAAA;
+            border-left: 2px solid #aaaaaa;
+            border-right: 2px solid #aaaaaa;
           }
           button:last-child:not(:nth-child(2n-1)) {
-            border-left: 2px solid #AAAAAA;
+            border-left: 2px solid #aaaaaa;
           }
         }
       }
@@ -166,7 +168,7 @@
   // miniProfile완성후 삭제예정
   .writer-name {
     font-size: 1rem;
-    color: #AAAAAA;
+    color: #aaaaaa;
   }
   // ContentBox
   .content-main {
@@ -186,7 +188,7 @@
   }
   // PassInput
   .pass-input {
-    .passinput-main>* {
+    .passinput-main > * {
       margin: 10px 0;
     }
     .passinput-input {
@@ -195,7 +197,7 @@
       border-top: 0;
       border-left: 0;
       border-right: 0;
-      border-bottom: 3px solid #AAAAAA;
+      border-bottom: 3px solid #aaaaaa;
     }
     .passinput-button {
       margin-left: 1rem;
@@ -211,9 +213,7 @@
       }
     }
   }
-  
 }
-
 
 // animation
 
@@ -223,5 +223,37 @@
   }
   to {
     transform: translateY(0%);
+  }
+}
+
+//모바일 반응형 디자인
+@include mobile {
+  .document-view {
+    .document-main {
+      .document-functions {
+        bottom: -3.5rem;
+        flex-direction: column;
+        align-items: center;
+        .flex-wrap {
+          justify-content: space-evenly;
+          text-align: center;
+          padding-bottom: 5px;
+        }
+        .btnGroup2 {
+          display: flex;
+          width: 100%;
+          .docList-button {
+            margin: 0;
+            width: 50%;
+            max-width: none;
+          }
+          .mypage-button {
+            // margin-left: 20px;
+            width: 50%;
+            max-width: none;
+          }
+        }
+      }
+    }
   }
 }

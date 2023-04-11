@@ -110,8 +110,10 @@ const Header = (props) => {
 
   //미니프로필
   const [userName, setUserName] = useState("");
-
-  axios
+  // console.log("D23");
+  useEffect(() => {
+    console.log(props);
+    axios
     .post(
       "http://localhost:8000/main/get-profile/",
       {},
@@ -128,6 +130,8 @@ const Header = (props) => {
     .catch((err) => {
       console.error(err);
     });
+  });
+  
   return (
     <header className={`header`}>
       <div className={`header__content ${isScrolled ? "shadow" : ""}`}>

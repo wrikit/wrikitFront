@@ -10,6 +10,9 @@ const ProfileForm = (props) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [profileId, setProfileId] = useState(props.profileId);
   const [csrf, setCsrf] = useState("");
+  const [profileName, setProfileName] = useState(props.profileName);
+  const [message, setMessage] = useState(props.profileMessage);
+  const [imageSrc, setImageSrc] = useState(props.src);
   const [isImageChange, setIsImageChange] = useState(false);
   const [isNameChange, setIsNameChange] = useState(false);
   const [isMessageChange, setIsMessageChange] = useState(false);
@@ -25,6 +28,26 @@ const ProfileForm = (props) => {
     }
     setIsDisabled(!isDisabled);
   };
+  const profileNameHandler = event => {
+    setProfileName(event.target.value);
+    if (event.target.value != props.profileName) {
+      setIsNameChange(true);
+    } else {
+      setIsNameChange(false);
+    }
+  }
+  const messageHandler = event => {
+    setMessage(event.target.value);
+    if (event.target.value != props.profileMessage) {
+      setIsMessageChange(true);
+    } else {
+      setIsMessageChange(false);
+    }
+  }
+  const imageHandler = event => {
+    setImageSrc(URL.createObjectURL(event.target.files[0]));
+    setIsImageChange(true);
+  }
   const getCsrfToken = () => {
     let csrfToken = "";
     document.cookie.split("; ").map((element) => {
@@ -83,14 +106,30 @@ const ProfileForm = (props) => {
         id="form-csrftoken"
         value={csrf}
       />
-      <Information
+      {/* <Information
         type="image"
         src={props.src}
         isChange={setIsImageChange}
         isDisabled={isDisabled}
         formName="profileImg"
+      /> */}
+      <div>
+        <label htmlFor="profile-img">
+          <div className="image-container">
+            <img src={imageSrc} className="profile-img" />
+          </div>
+        </label>
+      <input
+        id="profile-img"
+        type="file"
+        className="image-input"
+        onChange={imageHandler}
+        disabled={isDisabled}
+        name="profileImg"
       />
-      <Information
+
+      </div>
+      {/* <Information
         type="text"
         isChange={setIsNameChange}
         isDisabled={isDisabled}
@@ -98,8 +137,20 @@ const ProfileForm = (props) => {
         placeHolder="Name"
         formName="profileName"
         infoName="Name"
-      />
-      <Information
+      /> */}
+      <div>
+        <div className="info_name">Name</div>
+        <input 
+          type="text"
+          className="text-input"
+          value={profileName}
+          onChange={profileNameHandler}
+          disabled={isDisabled}
+          placeholder="Name"
+          name="profileName"
+        />
+      </div>
+      {/* <Information
         type="text"
         isChange={setIsMessageChange}
         isDisabled={isDisabled}
@@ -107,7 +158,19 @@ const ProfileForm = (props) => {
         placeHolder="Status Message"
         formName="profileMessage"
         infoName="Message"
-      />
+      /> */}
+      <div>
+        <div className="info_name">Message</div>
+        <input 
+          type="text"
+          className="text-input"
+          value={message}
+          onChange={messageHandler}
+          disabled={isDisabled}
+          placeholder="Message"
+          name="profileMessage" 
+        />
+      </div>
       <div className="button_container">
         <button onClick={isDisabledHandler} type="button">
           {isDisabled ? "프로필 수정하기" : "저장하기"}

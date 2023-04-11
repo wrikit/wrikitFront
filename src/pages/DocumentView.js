@@ -17,8 +17,8 @@ import Mypage from "./Mypage.js";
 const DocumentView = () => {
   const { id } = useParams();
   const [docName, setDocName] = useState(false);
-  const [profileName, setProfileName] = useState('');
-  const [writer, setWriter] = useState('');
+  const [profileName, setProfileName] = useState("");
+  const [writer, setWriter] = useState("");
   const [isMine, setIsMine] = useState(false);
   const [saveKey, setSaveKey] = useState(false);
   const [updateKey, setUpdateKey] = useState("");
@@ -53,35 +53,36 @@ const DocumentView = () => {
         }
       });
   };
-  const inputKeyCB = (key, URL='http://localhost:8000/') => {
-    axios.post(
-      `${URL}main/get-document/`,
-      {documentid: id, documentkey: key})
-    .then(res => {
-      if (res.data.result) {
-        const data = res.data.result;
-        setContent(data.content);
-        if(data.username == getCookie('username') || data.editable) {
-          setEditable(true);
+  const inputKeyCB = (key, URL = "http://localhost:8000/") => {
+    axios
+      .post(`${URL}main/get-document/`, { documentid: id, documentkey: key })
+      .then((res) => {
+        if (res.data.result) {
+          const data = res.data.result;
+          setContent(data.content);
+          if (data.username == getCookie("username") || data.editable) {
+            setEditable(true);
+          } else {
+            setEditable(false);
+          }
+          if (getCookie("username") != "null") {
+            axios
+              .post(
+                `${URL}main/add-document-key/`,
+                { documentid: id, documentkey: key },
+                { withCredentials: true }
+              )
+              .then(() => {
+                softAlert("패스워드 저장완료");
+              });
+          }
+          setIsDisplay(true);
         } else {
-          setEditable(false);
+          softAlert("패스워드가 일치하지 않습니다");
+          passRef.current.focus();
         }
-        if (getCookie('username') != 'null') {
-          axios.post(
-            `${URL}main/add-document-key/`,
-            {documentid: id, documentkey: key},
-            { withCredentials: true })
-          .then(() => {
-            softAlert("패스워드 저장완료");
-          });
-        }
-        setIsDisplay(true);
-      } else {
-        softAlert("패스워드가 일치하지 않습니다");
-        passRef.current.focus();
-      }
-    });
-  }
+      });
+  };
   const copyContent = () => {
     const editorDiv = document.querySelector(".quill .ql-editor");
     if (copyToClipboard(editorDiv.innerText)) {
@@ -220,70 +221,77 @@ const DocumentView = () => {
   console.log("profileName", profileName);
 
   useEffect(() => {
-    axios.post(
-      "http://localhost:8000/main/get-profile/",
-      {},
-      { withCredentials: true }
-    )
-    .then(res => {
-      const data = res.data.data;
-      setProfileName(data.profileName);
-    })
-    axios.post(
-      "http://localhost:8000/main/get-document-name/",
-      { documentid: id },
-      { withCredentials: true })
-    .then(res => {
-      if (res.data.result) {
-        setDocName(res.data.data);
-        setWriter(res.data.username)
-        if (res.data.username == profileName) {
-          setIsMine(true);
-          //TODO: username형식이 카카오이면 
-          axios.post(
-            "http://localhost:8000/main/get-document/",
-            { documentid: id, documentkey:'' },
-            { withCredentials: true } )
-          .then(res => {
-            if (res.data.result) {
-              const data = res.data.result;
-              setEditable(true);
-              setContent(data.content);
-              setIsDisplay(true);
-              return res.data;
-            } else {
-              softAlert("오류발생 QoQ");
-              console.log('error >>>', res.data.message);
-              return false;
-            }
-          })
-          .then(data => {
-            if (data) {
-              settingsObj.write('name', data.result.docName);
-              settingsObj.write('editable', data.result.editable);
-              settingsObj.write('public', data.result.public);
-            }
-          });
-        } else if (res.data.public) {
-          axios.post(
-            "http://localhost:8000/main/get-document/",
-            { documentid: id, documentkey:'' })
-          .then(res => {
-            if (res.data.result) {
-              const data = res.data.result;
-              setEditable(data.editable);
-              setContent(data.content);
-              setIsDisplay(true);
-            } else {
-              softAlert("오류발생 QoQ");
-              console.log('error >>>', res.data.message);
-            }
-          });
+    axios
+      .post(
+        "http://localhost:8000/main/get-profile/",
+        {},
+        { withCredentials: true }
+      )
+      .then((res) => {
+        const data = res.data.data;
+        setProfileName(data.profileName);
+      });
+    axios
+      .post(
+        "http://localhost:8000/main/get-document-name/",
+        { documentid: id },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        if (res.data.result) {
+          setDocName(res.data.data);
+          setWriter(res.data.username);
+          if (res.data.username == profileName) {
+            setIsMine(true);
+            //TODO: username형식이 카카오이면
+            axios
+              .post(
+                "http://localhost:8000/main/get-document/",
+                { documentid: id, documentkey: "" },
+                { withCredentials: true }
+              )
+              .then((res) => {
+                if (res.data.result) {
+                  const data = res.data.result;
+                  setEditable(true);
+                  setContent(data.content);
+                  setIsDisplay(true);
+                  return res.data;
+                } else {
+                  softAlert("오류발생 QoQ");
+                  console.log("error >>>", res.data.message);
+                  return false;
+                }
+              })
+              .then((data) => {
+                if (data) {
+                  settingsObj.write("name", data.result.docName);
+                  settingsObj.write("editable", data.result.editable);
+                  settingsObj.write("public", data.result.public);
+                }
+              });
+          } else if (res.data.public) {
+            axios
+              .post("http://localhost:8000/main/get-document/", {
+                documentid: id,
+                documentkey: "",
+              })
+              .then((res) => {
+                if (res.data.result) {
+                  const data = res.data.result;
+                  setEditable(data.editable);
+                  setContent(data.content);
+                  setIsDisplay(true);
+                } else {
+                  softAlert("오류발생 QoQ");
+                  console.log("error >>>", res.data.message);
+                }
+              });
+          } else {
+            getSaveKey(id);
+          }
+          return true;
         } else {
-          getSaveKey(id);
-        }
-        return true;
-      } else {
           alert("문서가 존재하지 않습니다 :(");
           return false;
         }
@@ -319,11 +327,9 @@ const DocumentView = () => {
         } else {
           document.location.href = "/";
         }
-})
-    .then(() => {
-      
-    });
-  }, [saveKey, profileName])
+      })
+      .then(() => {});
+  }, [saveKey, profileName]);
 
   return (
     <div className="document-view">
@@ -365,9 +371,9 @@ const DocumentView = () => {
               <button className="mypage-button" onClick={mypageClick}>
                 마이페이지
               </button>
-              {showProfile && <Mypage />}
             </div>
           </div>
+          {showProfile && <Mypage />}
           <dialog ref={saveRef}>
             <h3>저장하기</h3>
             <div className="input-updatekey">

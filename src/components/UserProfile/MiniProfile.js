@@ -9,7 +9,8 @@ const MiniProfile = (props) => {
   const [imageClass, setImageClass] = useState("profile-image");
   const profileRef = useRef(null);
 
-  axios
+  if (name == '' && props.profileName != '') {
+    axios
     .post("http://localhost:8000/main/get-mini-profile/", {
       profileName: props.profileName,
     })
@@ -26,6 +27,8 @@ const MiniProfile = (props) => {
         }
       }
     });
+  
+  }
 
   return { loading } ? (
     <div className="mini-profile" ref={profileRef}>

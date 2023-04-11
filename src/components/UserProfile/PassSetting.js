@@ -12,7 +12,6 @@ const Setting = () => {
 
   const getCookie = (key) => {
     let value = document.cookie.match("(^|;) ?" + key + "=([^;]*)(;|$)");
-    console.log(value);
     return value ? value[2] : null;
   };
   const inputHandler = (settingFunc) => {
@@ -29,6 +28,7 @@ const Setting = () => {
     return length;
   };
   const passChangeHandler = (event) => {
+    event.preventDefault();
     const validity = passValidity(newPass);
     if (validity && newPass == confirm) {
       axios
@@ -38,7 +38,6 @@ const Setting = () => {
           { withCredentials: true }
         )
         .then((res) => {
-          console.log("res.data ::", res.data);
           if (res.data.result == "True") {
             axios
               .post(
@@ -67,6 +66,10 @@ const Setting = () => {
       confirmRef.current.focus();
     }
   };
+  const closeDialog = (event) => {
+    event.preventDefault();
+    settingDialogRef.current.close();
+  }
 
   return (
     <>
@@ -99,9 +102,7 @@ const Setting = () => {
           />
           <br />
           <button onClick={passChangeHandler}>패스워드 변경</button>
-          <form method="dialog">
-            <button>CLOSE</button>
-          </form>
+          <button onClick={closeDialog}>CLOSE</button>
         </dialog>
       </div>
     </>

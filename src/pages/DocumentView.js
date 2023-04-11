@@ -218,6 +218,11 @@ const DocumentView = () => {
   const mypageClick = () => {
     setShowProfile(true);
   };
+  // 마이페이지 닫힘 버튼 props 전달
+  const closeMypage = () => {
+    setShowProfile(false);
+  };
+
   console.log("profileName", profileName);
 
   useEffect(() => {
@@ -373,7 +378,7 @@ const DocumentView = () => {
               </button>
             </div>
           </div>
-          {showProfile && <Mypage />}
+          {showProfile && <Mypage onCloseClick={closeMypage} />}
           <dialog ref={saveRef}>
             <h3>저장하기</h3>
             <div className="input-updatekey">

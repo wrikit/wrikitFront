@@ -9,9 +9,11 @@ const DocumentItem = (props) => {
   return (
     <Link className="DocumentItem" to={"/document/" + document.id}>
       <div className="DocumentItems">
-        <HiDocumentText />
-        <span className="id">No. {document.id}</span>
-        <span className="docName">- {document.docName}</span>
+        <span className="DocumentItems__icon">
+          <HiDocumentText size={24} />
+        </span>
+        <span className="DocumentItems__id">No. {document.id}</span>
+        <span className="DocumentItems__docName">{document.docName}</span>
         {/* <span className="lastUpdate">- {document.lastUpdate}</span> */}
       </div>
     </Link>

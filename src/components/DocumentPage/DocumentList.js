@@ -49,8 +49,8 @@ const DocumentList = () => {
       <div>
         <DocumentNew />
       </div>
+      <h2>내 문서</h2>
       <div className="documentList">
-        <h2>내문서</h2>
         {documents.length < 1 ? <h2>"Loading..."</h2> : dataLoaded}
       </div>
     </>

@@ -20,3 +20,12 @@
     }
   }
 }
+
+@include mobile {
+  .DocumentNew {
+    padding: 5%;
+    &__btnArea {
+      opacity: 1;
+    }
+  }
+}

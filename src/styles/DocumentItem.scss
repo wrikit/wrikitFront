@@ -40,3 +40,16 @@
     }
   }
 }
+
+@include mobile {
+  .DocumentItem {
+    .DocumentItems {
+      color: rgba($primary-color, 0.8);
+      // min-height: 43px;
+      height: 70px;
+      &__docName {
+        font-size: $font-size-m;
+      }
+    }
+  }
+}

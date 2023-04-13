@@ -38,18 +38,20 @@ const DocumentNew = () => {
   };
   return (
     <div className="DocumentNew" onClick={onClickHandler}>
-      <IconContext.Provider
-        value={{
-          color: "#00917C",
-          className: "NewBtn",
-          size: "2em",
-        }}
-      >
-        <p className="NewText">새문서 만들기</p>
-        <div className="NewBtndiv">
-          <FaPlus />
-        </div>
-      </IconContext.Provider>
+      <div className="DocumentNew__btnArea">
+        <IconContext.Provider
+          value={{
+            color: "#00917C",
+            className: "NewBtn",
+            size: "2em",
+          }}
+        >
+          <p className="NewText">새문서 만들기</p>
+          <div className="NewBtndiv">
+            <FaPlus />
+          </div>
+        </IconContext.Provider>
+      </div>
     </div>
   );
 };

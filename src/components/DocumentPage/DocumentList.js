@@ -51,7 +51,14 @@ const DocumentList = () => {
       </div>
       <h2>내 문서</h2>
       <div className="documentList">
-        {documents.length < 1 ? <h2>"Loading..."</h2> : dataLoaded}
+        <div className="documentList__header">
+          <span></span>
+          <span>문서번호</span>
+          <span>문서이름</span>
+        </div>
+        <div className="documentList__contents">
+          {documents.length < 1 ? <h2>"Loading..."</h2> : dataLoaded}
+        </div>
       </div>
     </>
   );

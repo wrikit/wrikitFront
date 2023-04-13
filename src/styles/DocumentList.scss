@@ -10,7 +10,25 @@
   border-right: 0px;
   border-top: 0px;
   background-color: $white;
+
   @extend .shadow-lg, .br-4;
+  &__header {
+    display: flex;
+    align-items: center;
+    padding-left: 5%;
+    height: 43px;
+    color: $primary-color;
+    span {
+      padding: 0 8px;
+      &:first-child {
+        width: 24px;
+      }
+    }
+  }
+  &__contents {
+    max-height: calc(43px * 7.8);
+    overflow-y: auto;
+  }
 }
 h2 {
   padding-left: 5%;

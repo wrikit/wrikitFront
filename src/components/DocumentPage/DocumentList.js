@@ -10,7 +10,6 @@ const DocumentList = () => {
   // 2초기다리는건 처음에 state에 빈값이여야... 2초후바꾸기
   const [documents, setDocuments] = useState([]);
   // 가짜 데이터
-  const { recentDate, setrecentDate } = useState([]);
   // const getDocuments = () => {
   //   axios
   //     .post(
@@ -32,21 +31,6 @@ const DocumentList = () => {
   //     })
   //     .catch(function (err) {
   //       console.log(err);
-  //     });
-  // };
-
-  // const getDocDates = (documents) => {
-  //   axios
-  //     .post(
-  //       "http://localhost:8000/main/get-document/",
-  //       {
-  //         documentid: documents.id,
-  //         documentkey: "",
-  //       },
-  //       { withCredentials: true }
-  //     )
-  //     .then((res) => {
-  //       console.log(document.id, res.data.result.lastUpdate);
   //     });
   // };
   const getDocuments = async () => {

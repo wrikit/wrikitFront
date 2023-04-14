@@ -10,16 +10,21 @@ const DocumentItem = (props) => {
   console.log("DocumentItem컴포넌트key", document);
 
   return (
-    <Link className="DocumentItem" to={"/document/" + document.id}>
-      <div className="DocumentItems">
-        <span className="DocumentItems__icon">
-          <HiDocumentText size={24} />
-        </span>
-        <span className="DocumentItems__id">No. {document.id}</span>
-        <span className="DocumentItems__docName">{document.docName}</span>
-        <span className="DocumentItems__docDate">{document.date}</span>
-      </div>
-    </Link>
+    <div className="DocumentItem">
+      <span className="DocumentItem__checkbox">
+        <input type="checkbox" />
+      </span>
+      <Link className="DocumentItem__container" to={"/document/" + document.id}>
+        <div className="DocumentItems">
+          <span className="DocumentItems__icon">
+            <HiDocumentText size={24} />
+          </span>
+          <span className="DocumentItems__id">No. {document.id}</span>
+          <span className="DocumentItems__docName">{document.docName}</span>
+          <span className="DocumentItems__docDate">{document.date}</span>
+        </div>
+      </Link>
+    </div>
   );
 };
 

@@ -1,41 +1,48 @@
 @import "./utility";
 // Title
 .DocumentItem {
-  text-decoration-line: none;
-  color: inherit; /* 링크의 색상 제거 */
-  .DocumentItems {
-    display: flex;
-    align-items: center;
-    width: auto;
-    height: 43px;
-    border-top: 1px solid rgb(234, 232, 232);
-    padding-left: 5%;
-    color: rgba($primary-color, 0.6);
-    font-size: $font-size-s;
-    &:hover {
-      // background-color: #e2dcc8;
-      background-color: $secondary-background-color;
-      color: rgba($primary-color, 0.8);
-    }
-    &:last-child {
-      border-radius: 0 0 0.25rem 0.25rem;
-    }
-    &__icon {
-      padding: 0 8px;
+  display: flex;
+  width: auto;
+  height: 43px;
+  border-top: 1px solid rgb(234, 232, 232);
+  padding-left: 5%;
+  align-items: center;
+
+  &:hover {
+    // background-color: #e2dcc8;
+    background-color: $secondary-background-color;
+    color: rgba($primary-color, 0.8);
+  }
+  &:last-child {
+    border-radius: 0 0 0.25rem 0.25rem;
+  }
+  &__checkbox {
+    padding-right: 8px;
+  }
+  &__container {
+    text-decoration-line: none;
+    color: inherit; /* 링크의 색상 제거 */
+    .DocumentItems {
       display: flex;
-      align-items: center;
-    }
-    &__id {
-      display: inline-block;
-      padding-left: 8px;
-      padding-right: 8px;
-    }
-    &__docName {
-      display: inline-block;
-      padding-left: 8px;
-      padding-right: 8px;
-      &:hover {
-        text-decoration: underline;
+      color: rgba($primary-color, 0.6);
+      font-size: $font-size-s;
+      &__icon {
+        padding: 0 8px;
+        display: flex;
+        align-items: center;
+      }
+      &__id {
+        display: inline-block;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+      &__docName {
+        display: inline-block;
+        padding-left: 8px;
+        padding-right: 8px;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -43,12 +50,14 @@
 
 @include mobile {
   .DocumentItem {
-    .DocumentItems {
-      color: rgba($primary-color, 0.8);
-      // min-height: 43px;
-      height: 70px;
-      &__docName {
-        font-size: $font-size-m;
+    &__container {
+      .DocumentItems {
+        color: rgba($primary-color, 0.8);
+        // min-height: 43px;
+        height: 70px;
+        &__docName {
+          font-size: $font-size-m;
+        }
       }
     }
   }

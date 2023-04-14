@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { getCookie } from "../../tools";
 import PassSetting from "./PassSetting";
 import axios from "axios";
+import { FaEdit } from "react-icons/fa";
 
 const ProfileForm = (props) => {
   //TODO 카카오 연동하기 버튼 (카카오계정이 아니라면)
@@ -18,7 +19,6 @@ const ProfileForm = (props) => {
   const [isMessageChange, setIsMessageChange] = useState(false);
   const [isKakao, setIsKakao] = useState();
 
-
   const submitRef = useRef(null);
   const isDisabledHandler = (event) => {
     // event.preventDefault();
@@ -28,26 +28,26 @@ const ProfileForm = (props) => {
     }
     setIsDisabled(!isDisabled);
   };
-  const profileNameHandler = event => {
+  const profileNameHandler = (event) => {
     setProfileName(event.target.value);
     if (event.target.value != props.profileName) {
       setIsNameChange(true);
     } else {
       setIsNameChange(false);
     }
-  }
-  const messageHandler = event => {
+  };
+  const messageHandler = (event) => {
     setMessage(event.target.value);
     if (event.target.value != props.profileMessage) {
       setIsMessageChange(true);
     } else {
       setIsMessageChange(false);
     }
-  }
-  const imageHandler = event => {
+  };
+  const imageHandler = (event) => {
     setImageSrc(URL.createObjectURL(event.target.files[0]));
     setIsImageChange(true);
-  }
+  };
   const getCsrfToken = () => {
     let csrfToken = "";
     document.cookie.split("; ").map((element) => {
@@ -117,17 +117,22 @@ const ProfileForm = (props) => {
         <label htmlFor="profile-img">
           <div className="image-container">
             <img src={imageSrc} className="profile-img" />
+            {!isDisabled && (
+              <div className="editableIcon">
+                <FaEdit size={28} />
+              </div>
+            )}
           </div>
         </label>
-      <input
-        id="profile-img"
-        type="file"
-        className="image-input"
-        onChange={imageHandler}
-        disabled={isDisabled}
-        name="profileImg"
-      />
 
+        <input
+          id="profile-img"
+          type="file"
+          className="image-input"
+          onChange={imageHandler}
+          disabled={isDisabled}
+          name="profileImg"
+        />
       </div>
       {/* <Information
         type="text"
@@ -140,7 +145,7 @@ const ProfileForm = (props) => {
       /> */}
       <div>
         <div className="info_name">Name</div>
-        <input 
+        <input
           type="text"
           className="text-input"
           value={profileName}
@@ -161,30 +166,27 @@ const ProfileForm = (props) => {
       /> */}
       <div>
         <div className="info_name">Message</div>
-        <input 
+        <input
           type="text"
           className="text-input"
           value={message}
           onChange={messageHandler}
           disabled={isDisabled}
           placeholder="Message"
-          name="profileMessage" 
+          name="profileMessage"
         />
       </div>
       <div className="button_container">
         <button onClick={isDisabledHandler} type="button">
           {isDisabled ? "프로필 수정하기" : "저장하기"}
         </button>
-        {isKakao ? 
-        <button disabled>
-          패스워드 변경
-        </button>
-        : <PassSetting />}
-        
+        {isKakao ? <button disabled>패스워드 변경</button> : <PassSetting />}
       </div>
       <div className="button_container">
         <button type="button">회원탈퇴</button>
-        <button onClick={onLogout} type="button">로그아웃</button>
+        <button onClick={onLogout} type="button">
+          로그아웃
+        </button>
       </div>
     </form>
   );

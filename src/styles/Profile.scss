@@ -62,14 +62,15 @@
 }
 
 .side {
-  text-align: center;
+  // text-align: center;
+  // margin: 0 auto;
   label:first-child {
     max-width: 500px;
     min-width: 300px;
     width: 40vw;
     // margin: 0 auto;
     display: inline-block;
-    .image-container {
+    .image-container:not(.editableIcon) {
       margin: 0 auto;
       max-width: 220px;
       min-width: 180px;
@@ -79,6 +80,7 @@
       height: 24vw;
       border-radius: 50%;
       overflow: hidden;
+      // position: relative;
       img {
         max-width: 300px;
         min-width: 180px;
@@ -92,6 +94,7 @@
   }
   form {
     text-align: center;
+    position: relative;
     // padding-top: 70px;
     input {
       height: 2rem;
@@ -119,12 +122,20 @@
       margin-left: 10%;
       font-size: 0.8rem;
     }
+    .editableIcon {
+      position: absolute;
+      top: 38%;
+      right: 10%;
+      left: 41%;
+      // transform: translateY(-100%) ranslateX(100%);
+    }
   }
   .button_container {
     display: flex;
     justify-content: center;
     padding: 0 10vw;
   }
+
   button {
     width: 6rem;
     margin: 20px 1vw 0 1vw;

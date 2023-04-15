@@ -20,10 +20,6 @@ const Profile = (props) => {
     setSrc("");
   }
 
-  // if (window.location.href == "http://localhost:3000/profile/") {
-  //   window.history.go(-1);
-  // }
-
   const getCookie = (key) => {
     let value = document.cookie.match("(^|;) ?" + key + "=([^;]*)(;|$)");
     return value ? value[2] : null;
@@ -61,10 +57,8 @@ const Profile = (props) => {
           setProfileId(res.data.data.profileId);
         });
     };
-    // getData();
     if (window.location.href == "http://localhost:3000/profile/") {
     window.history.go(-1);
-    // console.log("this ->", window.location.href);
     } else {
       getData();
     }

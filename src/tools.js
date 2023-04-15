@@ -26,10 +26,15 @@ const ifKeyDownEnter = (callback=(() => {return true}), ...args) => {
 }
 
 const copyToClipboard = text => {
-  if (c2c_use_navigator(text)) {
+  try {
+    c2c_use_navigator(text);
     return true;
-  } else {
-    return c2c_exec_command(text);
+  } catch (error) {
+    try {
+      return c2c_exec_command(text);      
+    } catch (innerError) {
+      return false;
+    }
   }
 }
 const c2c_use_navigator = text => {

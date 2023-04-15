@@ -22,12 +22,12 @@ const QuillEditor = props => {
   // };
 
   // Quill.register(Link, true);
-
+  const toolBar = [
+    [{ 'font': [] }, {size: []}, {color: []}, {'list': 'ordered'}, {'list': 'bullet'}],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote', 'link', { 'align': [] }, {'indent': '+1'}]
+  ];
   const modules = {
-    toolbar: [
-      [{ 'font': [] }, {size: []}, {color: []}, {'list': 'ordered'}, {'list': 'bullet'}],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote', 'link', { 'align': [] }, {'indent': '+1'}]
-    ],
+    toolbar: toolBar,
     clipboard: {
       // toggle to add extra line breaks when pasting HTML:
       matchVisual: false,
@@ -46,6 +46,7 @@ const QuillEditor = props => {
         value={content} 
         onChange={changeHandler}
         modules={modules}
+        readOnly={props.type == "reader"}
         formats={formats} />
     </div>
   );

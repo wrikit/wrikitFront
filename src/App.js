@@ -112,9 +112,9 @@ function App() {
             <Route path="/document/:id" element={<DocumentView />} />
             <Route path="/register" element={<Register />} />
             <Route path="/lgpage" element={<LoginPage />} />
-            {/* <Route path="/textEditor" element={<TextEditor />} /> */}
-            <Route path="/profile" element={<Profile type="profile" />} />
+            <Route path="/textEditor" element={<TextEditor />} />
           </Route>
+          <Route path="/profile" element={<Profile type="profile" />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
         {/* <Register/> */}

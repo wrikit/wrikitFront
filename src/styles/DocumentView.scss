@@ -166,11 +166,6 @@
       }
     }
   }
-  // miniProfile완성후 삭제예정
-  .writer-name {
-    font-size: 1rem;
-    color: #aaaaaa;
-  }
   // ContentBox
   .content-main {
     margin: 0 0.5rem;
@@ -188,29 +183,86 @@
     opacity: 0.5;
   }
   // PassInput
-  .pass-input {
-    .passinput-main > * {
-      margin: 10px 0;
-    }
-    .passinput-input {
-      margin-left: 1rem;
-      height: 2rem;
-      border-top: 0;
-      border-left: 0;
-      border-right: 0;
-      border-bottom: 3px solid #aaaaaa;
-    }
-    .passinput-button {
-      margin-left: 1rem;
-      padding: 0 8px 0 8px;
-      font-size: 1rem;
-      width: 5rem;
-    }
-    .info {
-      padding: 1rem;
-      padding-top: 2rem;
-      a {
-        font-size: 1.5rem;
+  .passInputWrapper {
+    background-color: rgba($primary-color, 0.1);
+    height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    .pass-input {
+      text-align: center;
+      margin: 0 auto;
+      background-color: $secondary-background-color;
+      width: 60vh;
+      height: 50vh;
+      @extend .shadow-lg, .br-20;
+      .pass-input__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: calc(50% - 40px);
+        margin-top: 40px;
+        .passinput-main {
+          & > * {
+            display: flex;
+            flex-direction: column;
+            // margin: 20px 0;
+          }
+          .passinput-input {
+            // margin-left: 1rem;
+            text-align: center;
+            margin: 10px auto;
+            height: 2rem;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid $primary-color;
+            background-color: $secondary-background-color;
+
+            &:focus {
+              outline: none;
+              background-color: transparent;
+            }
+          }
+          .passinput-button {
+            margin: 0px auto;
+            text-decoration: none;
+            font-size: $font-size-s;
+            letter-spacing: 3px;
+            cursor: pointer;
+            padding: 6px 30px;
+            @extend .br-20;
+            background: $black;
+            color: whitesmoke;
+          }
+        }
+      }
+      .info__container {
+        height: 50%;
+
+        .info {
+          height: calc(100% - 40px);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 40px;
+          // margin: 10px;
+          span {
+            margin-bottom: 10px;
+          }
+          a {
+            // text-align: center;
+            width: fit-content;
+            text-decoration: none;
+            font-size: $font-size-s;
+            letter-spacing: 3px;
+            cursor: pointer;
+            padding: 6px 30px;
+            @extend .br-20;
+            background: $black;
+            color: whitesmoke;
+          }
+        }
       }
     }
   }
@@ -265,6 +317,14 @@
             max-width: none;
           }
         }
+      }
+    }
+    .passInputWrapper {
+      background-color: $secondary-background-color;
+      .pass-input {
+        background-color: $secondary-background-color;
+        border-radius: 0;
+        box-shadow: none;
       }
     }
   }

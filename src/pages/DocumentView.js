@@ -460,25 +460,37 @@ const DocumentView = () => {
           </dialog>
         </div>
       ) : (
-        <div className="pass-input">
-          <PassInput
-            callback={inputKeyCB}
-            placeHorder="password"
-            divClass="passinput-main"
-            buttonClass="passinput-button"
-            inputClass="passinput-input"
-            inputRef={passRef}
-          />
-          {getCookie("username") == "null" ? (
-            <p className="info">
-              로그인 하시면 한번 입력한 키를 저장해두고 사용가능해요. <br />
-              <a href="http://localhost:3000/lgpage">로그인 하러가기</a>
-            </p>
-          ) : (
-            <p className="info">
-              한번입력한 패스워드는 저장되고 다음에 자동으로 사용되요.
-            </p>
-          )}
+        <div className="passInputWrapper">
+          <div className="pass-input">
+            <div className="pass-input__container">
+              문서 비밀번호를 입력해 주세요.
+              <PassInput
+                callback={inputKeyCB}
+                placeHorder="password"
+                divClass="passinput-main"
+                buttonClass="passinput-button"
+                inputClass="passinput-input"
+                inputRef={passRef}
+              />
+            </div>
+            <div className="info__container">
+              {getCookie("username") == "null" ? (
+                <p className="info">
+                  <span>
+                    로그인 하면 한번 입력한 키를 저장해두고 사용가능해요.
+                  </span>
+                  <br />
+                  <a href="http://localhost:3000/lgpage">로그인 / 회원가입</a>
+                </p>
+              ) : (
+                <p className="info">
+                  <span>
+                    한번입력한 패스워드는 저장되고 다음에 자동으로 사용되요.
+                  </span>
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

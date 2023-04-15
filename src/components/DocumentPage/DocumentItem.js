@@ -3,6 +3,7 @@ import { HiDocumentText } from "react-icons/hi";
 import "../../styles/DocumentItem.scss";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import CheckedList from "./CheckedList";
 //documentItem컴포넌트 문서 번호, 이름, 마지막업데이트날짜
 const DocumentItem = (props) => {
   //   console.log(props);
@@ -12,7 +13,7 @@ const DocumentItem = (props) => {
   return (
     <div className="DocumentItem">
       <span className="DocumentItem__checkbox">
-        <input type="checkbox" />
+        <input type="checkbox" checked={<CheckedList props={document.id} />} />
       </span>
       <Link className="DocumentItem__container" to={"/document/" + document.id}>
         <div className="DocumentItems">

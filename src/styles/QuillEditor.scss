@@ -1,5 +1,4 @@
 .quill {
-
   .ql-toolbar {
     height: 5rem;
     padding: 0;
@@ -13,7 +12,7 @@
       .ql-picker-options {
         z-index: 3;
       }
-      &>span {
+      & > span {
         height: 2.5rem;
         span {
           line-height: 2.5rem;
@@ -30,7 +29,10 @@
       }
     }
   }
-  
+  .ql-container.ql-snow {
+    border: none;
+  }
+
   @media (max-width: 360px) {
     .ql-toolbar {
       .ql-formats {
@@ -49,13 +51,13 @@
           padding: 0;
         }
 
-        &>button {
+        & > button {
           margin: 3px;
         }
       }
     }
   }
-  
+
   .ql-container {
     .ql-editor {
       max-height: 65vh;

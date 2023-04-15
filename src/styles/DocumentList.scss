@@ -1,8 +1,54 @@
+@import "./utility";
+
 // Title
 .documentList {
-  margin-left: 10px;
-  margin-bottom: 10px;
+  // margin-left: 5%;
+  // margin-bottom: 5%;
+  margin: 5%;
+  margin-top: 0;
   border-left: 0px;
   border-right: 0px;
   border-top: 0px;
+  background-color: $white;
+
+  @extend .shadow-lg, .br-4;
+  &__header {
+    display: flex;
+    align-items: center;
+    padding-left: 5%;
+    height: 43px;
+    color: $primary-color;
+    span {
+      padding: 0 13px;
+      &:first-child {
+        width: 24px;
+      }
+    }
+  }
+  &__contents {
+    max-height: calc(43px * 7.8);
+    overflow-y: auto;
+  }
+}
+h2 {
+  padding-left: 5%;
+  padding-bottom: 2%;
+}
+@include mobile {
+  .documentList {
+    background-color: $background-color;
+    box-shadow: none;
+    margin: 2%;
+    &__header {
+      display: none;
+    }
+    &__contents {
+      max-height: 63vh;
+      overflow-y: auto;
+    }
+  }
+  h2 {
+    padding: 5%;
+    box-shadow: 0px 3px 7px -2px rgba($primary-color, 0.3);
+  }
 }

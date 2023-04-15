@@ -1,5 +1,6 @@
 @import "./utility";
 .document-view {
+  z-index: 1;
   padding-top: 70px;
   position: relative;
   // PassInput, ContentBox 공통
@@ -211,6 +212,17 @@
       a {
         font-size: 1.5rem;
       }
+    }
+  }
+}
+
+.document-view.reader {
+  .ql-toolbar {
+    z-index: 0;
+    height: 0;
+    * {
+      z-index: 0;
+      display: none;
     }
   }
 }

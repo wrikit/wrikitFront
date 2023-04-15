@@ -109,7 +109,7 @@ function App() {
           <Route element={<PageLayout />}>
             <Route path="/" element={<MainPage />} />
             <Route path="/document" element={<Document />} />
-            <Route path="/document/:id" element={<DocumentView />} />
+            <Route path="/document/:id/:type" element={<DocumentView />} />
             <Route path="/register" element={<Register />} />
             <Route path="/lgpage" element={<LoginPage />} />
             <Route path="/textEditor" element={<TextEditor />} />

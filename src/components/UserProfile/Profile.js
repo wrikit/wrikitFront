@@ -33,7 +33,6 @@ const Profile = (props) => {
     }
   });
   useEffect(() => {
-    console.log("this ->", window.location.href);
     const getData = async () => {
       axios
         .post(

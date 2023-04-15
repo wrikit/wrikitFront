@@ -15,7 +15,7 @@ import QuillEditor from "../components/TextEditor/QuillEditor";
 import Mypage from "./Mypage.js";
 
 const DocumentView = () => {
-  const { id } = useParams();
+  const { id, type } = useParams();
   const [docName, setDocName] = useState(false);
   const [profileName, setProfileName] = useState("");
   const [writer, setWriter] = useState("");
@@ -28,6 +28,11 @@ const DocumentView = () => {
   const [editable, setEditable] = useState(false);
   const [settings, setSettings] = useState({});
   const settingsObj = new reactStates(setSettings, settings);
+
+  let typeArr = ['editor', 'reader'];
+  if (!typeArr.includes(type)) {
+    window.history.go(-1);
+  }
 
   const passRef = useRef(null);
   const saveRef = useRef(null);
@@ -222,9 +227,6 @@ const DocumentView = () => {
   const closeMypage = () => {
     setShowProfile(false);
   };
-
-  console.log("profileName", profileName);
-
   useEffect(() => {
     axios
       .post(
@@ -337,14 +339,15 @@ const DocumentView = () => {
   }, [saveKey, profileName]);
 
   return (
-    <div className="document-view">
+    <div className={`${type} document-view`}>
       <div className="document-info">
         <div className="document-name">{docName}</div>
         <MiniProfile profileName={writer} />
+        
       </div>
       {isDisplay ? (
         <div className="document-main">
-          <QuillEditor data={content} />
+          <QuillEditor data={content} type={type} />
           <div className="document-functions">
             <div className="flex-wrap btnGroup1">
               <button className="copy-button" onClick={copyContent}>

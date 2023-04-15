@@ -20,9 +20,9 @@ const Profile = (props) => {
     setSrc("");
   }
 
-  if (window.location.href == "http://localhost:3000/profile/") {
-    window.history.go(-1);
-  }
+  // if (window.location.href == "http://localhost:3000/profile/") {
+  //   window.history.go(-1);
+  // }
 
   const getCookie = (key) => {
     let value = document.cookie.match("(^|;) ?" + key + "=([^;]*)(;|$)");
@@ -37,6 +37,7 @@ const Profile = (props) => {
     }
   });
   useEffect(() => {
+    console.log("this ->", window.location.href);
     const getData = async () => {
       axios
         .post(
@@ -60,7 +61,13 @@ const Profile = (props) => {
           setProfileId(res.data.data.profileId);
         });
     };
-    getData();
+    // getData();
+    if (window.location.href == "http://localhost:3000/profile/") {
+    window.history.go(-1);
+    // console.log("this ->", window.location.href);
+    } else {
+      getData();
+    }
   }, []);
   
   return (

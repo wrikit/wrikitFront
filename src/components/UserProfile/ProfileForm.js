@@ -20,11 +20,15 @@ const ProfileForm = (props) => {
   const [isKakao, setIsKakao] = useState();
 
   const submitRef = useRef(null);
+  const nameInputRef = useRef(null);
   const isDisabledHandler = (event) => {
     // event.preventDefault();
     if (!isDisabled && (isNameChange || isImageChange || isMessageChange)) {
       submitRef.current.submit();
       // window.history.back();
+    }
+    if (isDisabled) {
+      nameInputRef.current.focus();
     }
     setIsDisabled(!isDisabled);
   };
@@ -106,13 +110,53 @@ const ProfileForm = (props) => {
         id="form-csrftoken"
         value={csrf}
       />
-      {/* <Information
-        type="image"
-        src={props.src}
-        isChange={setIsImageChange}
-        isDisabled={isDisabled}
-        formName="profileImg"
-      /> */}
+      {isDisabled ? <>
+        <div>
+        <label htmlFor="profile-img">
+          <div className="image-container">
+            <img src={imageSrc} className="profile-img" />
+            {!isDisabled && (
+              <div className="editableIcon">
+                <FaEdit size={28} />
+              </div>
+            )}
+          </div>
+        </label>
+        <input
+          id="profile-img"
+          type="file"
+          className="image-input"
+          onChange={imageHandler}
+          readOnly
+          name="profileImg"
+        />
+      </div>
+      <div>
+        <div className="info_name">Name</div>
+        <input
+          type="text"
+          className="text-input"
+          value={profileName}
+          onChange={profileNameHandler}
+          readOnly
+          placeholder="Name"
+          name="profileName"
+          ref={nameInputRef}
+        />
+      </div>
+      <div>
+        <div className="info_name">Message</div>
+        <input
+          type="text"
+          className="text-input"
+          value={message}
+          onChange={messageHandler}
+          readOnly
+          placeholder="Message"
+          name="profileMessage"
+        />
+      </div>
+      </> : <>
       <div>
         <label htmlFor="profile-img">
           <div className="image-container">
@@ -124,25 +168,14 @@ const ProfileForm = (props) => {
             )}
           </div>
         </label>
-
         <input
           id="profile-img"
           type="file"
           className="image-input"
           onChange={imageHandler}
-          disabled={isDisabled}
           name="profileImg"
         />
       </div>
-      {/* <Information
-        type="text"
-        isChange={setIsNameChange}
-        isDisabled={isDisabled}
-        default={props.profileName}
-        placeHolder="Name"
-        formName="profileName"
-        infoName="Name"
-      /> */}
       <div>
         <div className="info_name">Name</div>
         <input
@@ -150,20 +183,11 @@ const ProfileForm = (props) => {
           className="text-input"
           value={profileName}
           onChange={profileNameHandler}
-          disabled={isDisabled}
           placeholder="Name"
+          ref={nameInputRef}
           name="profileName"
         />
       </div>
-      {/* <Information
-        type="text"
-        isChange={setIsMessageChange}
-        isDisabled={isDisabled}
-        default={props.profileMessage}
-        placeHolder="Status Message"
-        formName="profileMessage"
-        infoName="Message"
-      /> */}
       <div>
         <div className="info_name">Message</div>
         <input
@@ -171,11 +195,12 @@ const ProfileForm = (props) => {
           className="text-input"
           value={message}
           onChange={messageHandler}
-          disabled={isDisabled}
           placeholder="Message"
           name="profileMessage"
         />
       </div>
+      </>}
+      
       <div className="button_container">
         <button onClick={isDisabledHandler} type="button">
           {isDisabled ? "프로필 수정하기" : "저장하기"}

@@ -13,8 +13,9 @@ import {
 import MiniProfile from "../components/UserProfile/MiniProfile";
 import QuillEditor from "../components/TextEditor/QuillEditor";
 import Mypage from "./Mypage.js";
+import { Quill } from "react-quill";
 
-const DocumentView = () => {
+const DocumentView = (props) => {
   const { id, type } = useParams();
   const [docName, setDocName] = useState(false);
   const [profileName, setProfileName] = useState("");
@@ -29,7 +30,7 @@ const DocumentView = () => {
   const [settings, setSettings] = useState({});
   const settingsObj = new reactStates(setSettings, settings);
 
-  let typeArr = ['editor', 'reader'];
+  let typeArr = ["editor", "reader"];
   if (!typeArr.includes(type)) {
     window.history.go(-1);
   }
@@ -227,6 +228,11 @@ const DocumentView = () => {
   const closeMypage = () => {
     setShowProfile(false);
   };
+
+  //모바일 환경에서 문서작성 타이핑 중에는 하단 버튼 안 보이게 설정
+  const [isFocused, setIsFocused] = useState(false);
+  console.log("isFocused-docpage", isFocused);
+
   useEffect(() => {
     axios
       .post(
@@ -343,12 +349,16 @@ const DocumentView = () => {
       <div className="document-info">
         <div className="document-name">{docName}</div>
         <MiniProfile profileName={writer} />
-        
       </div>
       {isDisplay ? (
         <div className="document-main">
-          <QuillEditor data={content} type={type} />
-          <div className="document-functions">
+          <QuillEditor
+            data={content}
+            type={type}
+            isFocused={isFocused}
+            setIsFocused={setIsFocused}
+          />
+          <div className={`document-functions ${isFocused ? "hidden" : null}`}>
             <div className="flex-wrap btnGroup1">
               <button className="copy-button" onClick={copyContent}>
                 복사하기

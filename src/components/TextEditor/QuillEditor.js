@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
 import ReactQuill from "react-quill";
 import Quill from "quill";
 import "react-quill/dist/quill.snow.css";
@@ -10,6 +11,31 @@ const QuillEditor = (props) => {
     setContent(value);
   };
 
+  //텍스트 입력시 focus 감지
+  const quillRef = useRef(null);
+  const handleFocus = () => {
+    props.setIsFocused(true);
+  };
+  const handleBlur = () => {
+    props.setIsFocused(false);
+  };
+  useEffect(() => {
+    const quill = quillRef.current.getEditor();
+    quill.on("selection-change", (range, oldRange, source) => {
+      if (range) {
+        // props.onFocus();
+        handleFocus();
+      } else {
+        // props.onBlur();
+        handleBlur();
+      }
+    });
+
+    return () => {
+      quill.off("selection-change");
+    };
+  }, []);
+  // console.log("isFocused?", isFocused);
   // const Link = Quill.import('formats/link');
 
   // Link.sanitize = function(url) {
@@ -69,11 +95,14 @@ const QuillEditor = (props) => {
   return (
     <div>
       <ReactQuill
+        ref={quillRef}
         value={content}
         onChange={changeHandler}
         modules={modules}
         readOnly={props.type == "reader"}
         formats={formats}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
     </div>
   );

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import ReactQuill from "react-quill";
 import Quill from "quill";
@@ -5,6 +6,7 @@ import "react-quill/dist/quill.snow.css";
 
 const QuillEditor = (props) => {
   const [content, setContent] = useState(props.data);
+
   const changeHandler = (value) => {
     setContent(value);
   };
@@ -59,6 +61,7 @@ const QuillEditor = (props) => {
       "strike",
       "blockquote",
       "link",
+      "image",
       { align: [] },
       { indent: "+1" },
     ],
@@ -84,6 +87,7 @@ const QuillEditor = (props) => {
     "list",
     "bullet",
     "link",
+    "image",
     "indent",
     "align",
   ];

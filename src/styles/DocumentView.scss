@@ -4,9 +4,38 @@
   padding-top: 70px;
   position: relative;
   // PassInput, ContentBox 공통
-  .document-info {
+  .document-header {
     display: flex;
-    margin-top: 10px;
+    justify-content: space-between;
+    .document-info {
+      display: flex;
+      margin-top: 10px;
+    }
+    .header-button {
+      display: flex;
+      .edit-page {
+        display: flex;
+        justify-items: center;
+        font-size: 1.3rem;
+        line-height: 1.5rem;
+        margin: 1.7rem 10px 0 0;
+        cursor: pointer;
+        .edit-page-text {
+          font-size: 1rem;
+        }
+      }
+      .copy-link {
+        display: flex;
+        justify-items: center;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        margin: 1.7rem 10px 0 0;
+        cursor: pointer;
+        .copy-link-text {
+          font-size: 1rem;
+        }
+      }  
+    }
   }
   .document-name {
     font-size: 2.5rem;
@@ -217,9 +246,26 @@
 }
 
 .document-view.reader {
+  .document-info {
+    display: flex;
+    margin-top: 10px;
+  }
+  .document-name {
+    font-size: 2rem;
+    margin-left: 1rem;
+    height: 2rem;
+    line-height: 2rem;
+  }
+  .copy-link {
+    margin: 1.3rem 10px 0 0;
+  }
+}
+
+.document-view.reader {
   .ql-toolbar {
     z-index: 0;
     height: 0;
+    padding: 0;
     * {
       z-index: 0;
       display: none;
@@ -241,6 +287,24 @@
 //모바일 반응형 디자인
 @include mobile {
   .document-view {
+    .document-header {
+      .edit-page{
+        margin: 0.7rem 10px 0.1rem 0;
+        height: 1.5rem;
+        width: 1.5rem;
+        .edit-page-text {
+          display: none;
+        }
+      }
+      .copy-link{
+        margin: 0.7rem 10px 0.1rem 0;
+        height: 1.5rem;
+        width: 1.5rem;
+        .copy-link-text {
+          display: none;
+        }
+      }
+    }
     .document-main {
       .document-functions {
         bottom: -3.5rem;

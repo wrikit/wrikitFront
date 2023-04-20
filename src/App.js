@@ -81,7 +81,7 @@ const PageLayout = (props) => {
   };
 
   // 문서 작성 페이지에서 모바일환경에서는 헤더 숨김
-  const match = useMatch("/document/:id");
+  const match = useMatch("/document/:id/:type");
   const isMobile = useMediaQuery({ query: "(max-width : 767px)" });
   console.log(match, isMobile);
   return (

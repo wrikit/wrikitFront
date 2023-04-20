@@ -7,6 +7,7 @@
   padding-left: 5%;
   align-items: center;
   border-top: 1px solid rgb(234, 232, 232);
+  color: rgba($primary-color, 0.6);
 
   &:hover {
     // background-color: #e2dcc8;
@@ -24,7 +25,6 @@
     color: inherit; /* 링크의 색상 제거 */
     .DocumentItems {
       display: flex;
-      color: rgba($primary-color, 0.6);
       font-size: $font-size-s;
       align-items: center;
       &__icon {

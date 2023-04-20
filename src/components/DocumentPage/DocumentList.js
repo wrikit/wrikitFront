@@ -99,7 +99,7 @@ const DocumentList = () => {
           <span>수정한 날짜</span>
         </div>
         <div className="documentList__contents">
-          {documents.length < 1 ? <h2>"Loading..."</h2> : dataLoaded}
+          {documents.length < 1 ? <h4>문서함이 비어있습니다</h4> : dataLoaded}
         </div>
       </div>
     </>

@@ -13,6 +13,7 @@ import {
 import MiniProfile from "../components/UserProfile/MiniProfile";
 import QuillEditor from "../components/TextEditor/QuillEditor";
 import Mypage from "./Mypage.js";
+import { VscLink, VscEdit } from "react-icons/vsc";
 import { Quill } from "react-quill";
 
 const DocumentView = (props) => {
@@ -214,6 +215,21 @@ const DocumentView = (props) => {
     softAlert("업데이트 예정");
   };
 
+  //링크복사 버튼
+  const copyLink = () => {
+    let href = window.location.href;
+    let target = href.substring(0, href.lastIndexOf('/')+1) + 'reader';
+    copyToClipboard(target);
+    softAlert("링크 복사됨");
+  }
+
+  //편집페이지로 이동
+  const editPage = () => {
+    let href = window.location.href;
+    let target = href.substring(0, href.lastIndexOf('/')+1) + 'editor';
+    window.location.href = target;
+  }
+
   //문서리스트 페이지로 이동
   const goToDocList = () => {
     window.location.href = "http://localhost:3000/document";
@@ -346,9 +362,21 @@ const DocumentView = (props) => {
 
   return (
     <div className={`${type} document-view`}>
-      <div className="document-info">
-        <div className="document-name">{docName}</div>
-        <MiniProfile profileName={writer} />
+      <div className="document-header">
+        <div className="document-info">
+          <div className="document-name">{docName}</div>
+          <MiniProfile profileName={writer} />   
+        </div>
+        <div className="header-button" >
+            {type == "reader" ? (
+              <div className="edit-page" onClick={editPage}>
+                <VscEdit /><span className="edit-page-text">편집</span>
+              </div>
+            ) : (<></>)}
+          <div className="copy-link" onClick={copyLink}>
+            <VscLink /><span className="copy-link-text">링크복사</span>
+          </div>
+        </div>
       </div>
       {isDisplay ? (
         <div className="document-main">

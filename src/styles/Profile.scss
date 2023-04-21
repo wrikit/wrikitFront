@@ -147,8 +147,14 @@
     input {
       margin-bottom: 15px;
       border: 0;
-      // background-color: #eeeeee;
       padding: 4px;
+      width: 999rem;
+      background-color: #dddddd;
+    }
+    button {
+      border-radius: 0 10px 10px 0;
+      height: 1.8rem;
+      margin-left: 0;
     }
     h3 {
       margin: 20px 0;
@@ -156,6 +162,18 @@
     form {
       padding: 0;
       margin-bottom: 20px;
+      button {
+       background-color: inherit; 
+       display: flex;
+       font-size: 0.9rem;
+       line-height: 0.9rem;
+       height: 0.9rem;
+       border: 0;
+       cursor: pointer;
+       span {
+        margin-left: 5px;
+       }
+      }
     }
   }
 }

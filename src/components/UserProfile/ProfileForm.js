@@ -1,9 +1,9 @@
 import Information from "./Information";
 import { useState, useEffect, useRef } from "react";
-import { getCookie } from "../../tools";
+import { getCookie, inputHandler, softAlert } from "../../tools";
 import PassSetting from "./PassSetting";
 import axios from "axios";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaRegWindowClose } from "react-icons/fa";
 
 const ProfileForm = (props) => {
   //TODO 카카오 연동하기 버튼 (카카오계정이 아니라면)
@@ -18,9 +18,11 @@ const ProfileForm = (props) => {
   const [isNameChange, setIsNameChange] = useState(false);
   const [isMessageChange, setIsMessageChange] = useState(false);
   const [isKakao, setIsKakao] = useState();
+  const [confirmKey, setConfirmKey] = useState("");
 
   const submitRef = useRef(null);
   const nameInputRef = useRef(null);
+  const deleteAccountRef = useRef(null);
   const isDisabledHandler = (event) => {
     // event.preventDefault();
     if (!isDisabled && (isNameChange || isImageChange || isMessageChange)) {
@@ -96,8 +98,25 @@ const ProfileForm = (props) => {
     setCsrf(getCsrfToken());
   }, []);
 
+  const deleteAccountModal = () => {
+    deleteAccountRef.current.showModal();
+  }
+  const deleteAccount = () => {
+    axios.post(`${props.URL}/auth/delete/`,
+    { "userpass": confirmKey }, 
+    { withCredentials: true })
+    .then(res => {
+      if (res.data.result) {
+        window.location.href = "/";
+      } else {
+        softAlert("패스워드를 확인해주세요");
+      }
+    });
+  }
+
   const return_result = (
-    <form
+    <>
+        <form
       action={`${props.URL}/main/UserProfile/${profileId}/update/`}
       ref={submitRef}
       method="POST"
@@ -127,7 +146,7 @@ const ProfileForm = (props) => {
           type="file"
           className="image-input"
           onChange={imageHandler}
-          readOnly
+          disabled
           name="profileImg"
         />
       </div>
@@ -208,12 +227,23 @@ const ProfileForm = (props) => {
         {isKakao ? <button disabled>패스워드 변경</button> : <PassSetting />}
       </div>
       <div className="button_container">
-        <button type="button">회원탈퇴</button>
+        <button type="button" onClick={deleteAccountModal}>회원탈퇴</button>
         <button onClick={onLogout} type="button">
           로그아웃
         </button>
       </div>
     </form>
+    <dialog ref={deleteAccountRef} className="delete-confirm-modal">
+      <h3>회원탈퇴</h3>
+      <div className="delete-confirm">
+        <input type="password" onChange={inputHandler(setConfirmKey)} />
+        <button type="button" onClick={deleteAccount}>탈퇴하기</button>
+      </div>
+      <form method="dialog">
+        <button><FaRegWindowClose /><span>취소</span></button>
+      </form>
+    </dialog>
+    </>
   );
   return return_result;
 };

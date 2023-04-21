@@ -139,27 +139,19 @@ const DocumentView = (props) => {
       softAlert("패스워드는 최대20이고 비워둘수 없습니다");
     }
   };
-  const delete_mousedown = (event) => {
-    settingsObj.write("deleteMouseDown", new Date().getTime());
-  };
-  const documentDelete = (event) => {
-    const now = new Date().getTime();
-    if (now > settings.deleteMouseDown + 5000) {
-      axios
-        .post(
-          "http://localhost:8000/main/delete-document/",
-          { documentid: id },
-          { withCredentials: true }
-        )
-        .then((res) => {
-          if (res.data.result) {
-            document.location.href = "/document";
-          } else {
-            softAlert("삭제 실패");
-          }
-        });
-    }
-  };
+  const deleteDocument = () => {
+    axios.post(
+      "http://localhost:8000/main/delete-document/",
+      {"documentid": id}, 
+      { withCredentials: true }
+    ).then(res => {
+      if(res.data.result) {
+        alert("삭제완료");
+        window.location.href = "/document";
+      }
+    });
+  }
+
   const saveSettings = (event) => {
     const newName = settingFormRefs.name.current.value;
     if (newName.length) {
@@ -482,13 +474,12 @@ const DocumentView = (props) => {
                   required
                 />
               </div>
-              <span className="delete-info">삭제는 5초이상 눌러주세요</span>
+              <span className="delete-info">삭제는 더블클릭</span>
               <div className="buttons">
                 <button onClick={saveSettings}>변경 저장</button>
                 <button onClick={closeSettingForm}>닫기</button>
                 <button
-                  onClick={documentDelete}
-                  onMouseDown={delete_mousedown}
+                  onDoubleClick={deleteDocument}
                   className="delete-button"
                 >
                   삭제

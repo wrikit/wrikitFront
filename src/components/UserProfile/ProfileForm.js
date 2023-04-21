@@ -1,6 +1,6 @@
 import Information from "./Information";
 import { useState, useEffect, useRef } from "react";
-import { getCookie, inputHandler, softAlert } from "../../tools";
+import { getCookie, inputHandler, softAlert, ifKeyDownEnter } from "../../tools";
 import PassSetting from "./PassSetting";
 import axios from "axios";
 import { FaEdit, FaRegWindowClose } from "react-icons/fa";
@@ -236,7 +236,10 @@ const ProfileForm = (props) => {
     <dialog ref={deleteAccountRef} className="delete-confirm-modal">
       <h3>회원탈퇴</h3>
       <div className="delete-confirm">
-        <input type="password" onChange={inputHandler(setConfirmKey)} />
+        <input 
+          type="password" 
+          onChange={inputHandler(setConfirmKey)}
+          onKeyDown={ifKeyDownEnter(deleteAccount)} />
         <button type="button" onClick={deleteAccount}>탈퇴하기</button>
       </div>
       <form method="dialog">

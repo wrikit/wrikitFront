@@ -13,8 +13,9 @@ import {
 import MiniProfile from "../components/UserProfile/MiniProfile";
 import QuillEditor from "../components/TextEditor/QuillEditor";
 import Mypage from "./Mypage.js";
-import { VscLink, VscEdit } from "react-icons/vsc";
+import { VscLink, VscEdit, VscCloudDownload } from "react-icons/vsc";
 import { Quill } from "react-quill";
+import html2pdf from 'html2pdf.js';
 
 const DocumentView = (props) => {
   const { id, type } = useParams();
@@ -30,6 +31,7 @@ const DocumentView = (props) => {
   const [editable, setEditable] = useState(false);
   const [settings, setSettings] = useState({});
   const settingsObj = new reactStates(setSettings, settings);
+  // const [htmlPdf, setHtmlPdf] = useState("");
 
   let typeArr = ["editor", "reader"];
   if (!typeArr.includes(type)) {
@@ -40,6 +42,7 @@ const DocumentView = (props) => {
   const saveRef = useRef(null);
   const updateInputRef = useRef(null);
   const settingFormRefs = {};
+  const htmlPdfRef = useRef(null);
   settingFormRefs.settingForm = useRef(null);
   settingFormRefs.name = useRef(null);
   settingFormRefs.editable = useRef(null);
@@ -203,8 +206,20 @@ const DocumentView = (props) => {
   const cantSave = () => {
     softAlert("주인만 수정가능하도록 설정되있어요");
   };
-  const saveClone = () => {
-    softAlert("업데이트 예정");
+
+  //PDF저장
+  const savePdf = () => {
+    const editorDiv = document.querySelector(".quill .ql-editor");
+    htmlPdfRef.current.innerHTML = editorDiv.innerHTML;
+
+    const opt = {
+      margin: 0.5,
+      filename: `${docName}.pdf`,
+      image: {type: 'jpeg', quality: 0.98},
+      html2canvas: {scale:2},
+      jsPDF: {unit:'in', format:'letter', orientation: 'portrait'}
+    };
+    html2pdf().from(htmlPdfRef.current).set(opt).save();
   };
 
   //링크복사 버튼
@@ -396,11 +411,10 @@ const DocumentView = (props) => {
                 <button className="setting-button" onClick={settingForm}>
                   Setting
                 </button>
-              ) : (
-                <button className="clone-button" onClick={saveClone}>
-                  Save as
-                </button>
-              )}
+              ) : (<></>)}
+            <button className="pdf-button" onClick={savePdf}>
+              <VscCloudDownload /><span>PDF</span>
+            </button>
             </div>
             <div className="flex-wrap btnGroup2">
               <button className="docList-button" onClick={goToDocList}>
@@ -410,6 +424,9 @@ const DocumentView = (props) => {
                 마이페이지
               </button>
             </div>
+          </div>
+          <div className="pdf-html document-functions hidden" ref={htmlPdfRef}>
+            {/* {htmlPdf} */}
           </div>
           {showProfile && <Mypage onCloseClick={closeMypage} />}
           <dialog ref={saveRef}>

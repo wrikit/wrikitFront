@@ -35,17 +35,7 @@ const QuillEditor = (props) => {
       quill.off("selection-change");
     };
   }, []);
-  // console.log("isFocused?", isFocused);
-  // const Link = Quill.import('formats/link');
-
-  // Link.sanitize = function(url) {
-  //   if (url.indexOf('http') !== 0) {
-  //     url = 'http://' + url;
-  //   }
-  //   return url;
-  // };
-
-  // Quill.register(Link, true);
+  
   const toolBar = [
     [
       { font: [] },
@@ -110,6 +100,7 @@ const QuillEditor = (props) => {
 
 QuillEditor.defaultProps = {
   data: "",
+  contentRef: undefined
 };
 
 export default QuillEditor;

@@ -30,7 +30,7 @@ const DocumentNew = () => {
         console.log("create-document axios True", newObjectData.id);
         // setDocumentId(newObjectData.id);
         // 생성한 새문서로 이동
-        navigate(`/document/${newObjectData.id}`);
+        navigate(`/document/${newObjectData.id}/editor`);
       })
       .catch(function (err) {
         console.log(err);

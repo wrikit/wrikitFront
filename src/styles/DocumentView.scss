@@ -34,7 +34,7 @@
         .copy-link-text {
           font-size: 1rem;
         }
-      }  
+      }
     }
   }
   .document-name {
@@ -339,8 +339,10 @@
 //모바일 반응형 디자인
 @include mobile {
   .document-view {
+    padding-top: 20px;
     .document-header {
-      .edit-page{
+      padding-bottom: 20px;
+      .edit-page {
         margin: 0.7rem 10px 0.1rem 0;
         height: 1.5rem;
         width: 1.5rem;
@@ -348,7 +350,7 @@
           display: none;
         }
       }
-      .copy-link{
+      .copy-link {
         margin: 0.7rem 10px 0.1rem 0;
         height: 1.5rem;
         width: 1.5rem;

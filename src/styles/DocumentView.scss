@@ -93,6 +93,10 @@
       box-sizing: border-box;
       width: 100vw;
       height: 12rem;
+      z-index: 2;
+      &.pdf-html {
+        z-index: 1;
+      }
       .flex-wrap {
         display: flex;
         width: 100vw;

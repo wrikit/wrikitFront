@@ -31,6 +31,9 @@
   }
   .ql-container.ql-snow {
     border: none;
+    .ql-editor {
+      height: calc(100% - 4rem);
+    }
   }
 
   @media (max-width: 360px) {

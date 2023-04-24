@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { throttle } from "lodash";
 // import { GrCloudDownload } from "react-icons/gr";
 // import { IoCloudDownloadOutline } from "react-icons/io5";
@@ -14,30 +14,8 @@ import Mypage from "../pages/Mypage";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
+  const { pathname } = useLocation();
   // console.log("Header ::", userName);
-  const onLogout = () => {
-    // sessionStorage.removeItem("user_id");
-
-    axios
-      .post("http://localhost:8000/auth/logout/", {}, { withCredentials: true })
-      .then((res) => {
-        // if (Kakao.Auth.getAccessToken()) {
-        //   Kakao.API.request({
-        //     url: '/v1/user/unlink',
-        //     success: response => {
-        //       console.log(response);
-        //     },
-        //     fail: error => {
-        //       console.log(error);
-        //     },
-        //   })
-        //   Kakao.Auth.setAccessToken(undefined);
-        // }
-      })
-      .then(() => {
-        document.location.href = "/";
-      });
-  };
 
   // 스크롤 감지 (-> 헤더 그림자 + 높이 줄어듦 효과)
   // isScrolled가 true -> shadow 클래스 추가
@@ -104,6 +82,7 @@ const Header = (props) => {
   // }, [isDropdownOpened]);
 
   //마이페이지 클릭
+
   const MypageClick = () => {
     props.onMenuClick();
   };
@@ -114,24 +93,30 @@ const Header = (props) => {
   useEffect(() => {
     console.log(props);
     axios
-    .post(
-      "http://localhost:8000/main/get-profile/",
-      {},
-      {
-        withCredentials: true,
-      }
-    )
-    .then((res) => {
-      // console.log(res.data);
-      if (res.data.result) {
-        setUserName(res.data.data.profileName);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-  });
-  
+      .post(
+        "http://localhost:8000/main/get-profile/",
+        {},
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data.result) {
+          setUserName(res.data.data.profileName);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+  useEffect(() => {
+    if (pathname === "/document") {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [pathname]);
   return (
     <header className={`header`}>
       <div className={`header__content ${isScrolled ? "shadow" : ""}`}>
@@ -147,18 +132,16 @@ const Header = (props) => {
               id="icon"
               onMouseOver={handleMouseOver}
               onMouseOut={handleMouseOut}
-              onClick={() => {
-                showMydoc();
-              }}
             >
               <NavLink to="/document">
+                {/* <a href="/document"> */}
                 <FaFolderOpen size="24" />
               </NavLink>
               <p className={iconHover || isActive ? "active" : "hiddenName"}>
                 내 문서
               </p>
             </li>
-            <li onClick={hiddenMydoc}>
+            <li>
               {/* {isLogin ? (<button type="button" onClick={onLogout}>LOGOUT</button>) : (<NavLink to="/lgpage">시작하기</NavLink>)} */}
               {isLogin ? (
                 <div className="iconContainer">
@@ -168,9 +151,11 @@ const Header = (props) => {
               ) : (
                 <div className="iconContainer">
                   <NavLink to="/lgpage" className="lgbtn-show">
+                    {/* <a href="/lgpage" className="lgbtn-show"> */}
                     시작하기
                   </NavLink>
                   <NavLink to="/lgpage" className="lgbtn-hide">
+                    {/* <a href="/lgpage" className="lgbtn-hide"> */}
                     <SlLogin size="23"></SlLogin>
                   </NavLink>
                 </div>

@@ -53,7 +53,7 @@ const PageLayout = (props) => {
 
   // 로그인 후 메인페이지 x ->  문서페이지로 이동
   useEffect(() => {
-    if (isLogin && window.location.pathname === "/") {
+    if (isLogin && window.location.pathname === "/document") {
       navigate("/document");
     }
   }, [isLogin, navigate]);

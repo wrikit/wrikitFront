@@ -15,7 +15,7 @@ const DocumentItem = (props) => {
       <span className="DocumentItem__checkbox">
         <input type="checkbox" checked={<CheckedList props={document.id} />} />
       </span>
-      <Link className="DocumentItem__container" to={"/document/" + document.id}>
+      <Link className="DocumentItem__container" to={"/document/" + document.id + "/editor"}>
         <div className="DocumentItems">
           <span className="DocumentItems__icon">
             <HiDocumentText size={24} />

@@ -1,11 +1,41 @@
 @import "./utility";
 .document-view {
+  z-index: 1;
   padding-top: 70px;
   position: relative;
   // PassInput, ContentBox 공통
-  .document-info {
+  .document-header {
     display: flex;
-    margin-top: 10px;
+    justify-content: space-between;
+    .document-info {
+      display: flex;
+      margin-top: 10px;
+    }
+    .header-button {
+      display: flex;
+      .edit-page {
+        display: flex;
+        justify-items: center;
+        font-size: 1.3rem;
+        line-height: 1.5rem;
+        margin: 1.7rem 10px 0 0;
+        cursor: pointer;
+        .edit-page-text {
+          font-size: 1rem;
+        }
+      }
+      .copy-link {
+        display: flex;
+        justify-items: center;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        margin: 1.7rem 10px 0 0;
+        cursor: pointer;
+        .copy-link-text {
+          font-size: 1rem;
+        }
+      }
+    }
   }
   .document-name {
     font-size: 2.5rem;
@@ -63,6 +93,10 @@
       box-sizing: border-box;
       width: 100vw;
       height: 12rem;
+      z-index: 2;
+      &.pdf-html {
+        z-index: 1;
+      }
       .flex-wrap {
         display: flex;
         width: 100vw;
@@ -165,11 +199,6 @@
       }
     }
   }
-  // miniProfile완성후 삭제예정
-  .writer-name {
-    font-size: 1rem;
-    color: #aaaaaa;
-  }
   // ContentBox
   .content-main {
     margin: 0 0.5rem;
@@ -187,30 +216,115 @@
     opacity: 0.5;
   }
   // PassInput
-  .pass-input {
-    .passinput-main > * {
-      margin: 10px 0;
-    }
-    .passinput-input {
-      margin-left: 1rem;
-      height: 2rem;
-      border-top: 0;
-      border-left: 0;
-      border-right: 0;
-      border-bottom: 3px solid #aaaaaa;
-    }
-    .passinput-button {
-      margin-left: 1rem;
-      padding: 0 8px 0 8px;
-      font-size: 1rem;
-      width: 5rem;
-    }
-    .info {
-      padding: 1rem;
-      padding-top: 2rem;
-      a {
-        font-size: 1.5rem;
+  .passInputWrapper {
+    background-color: rgba($primary-color, 0.1);
+    height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    .pass-input {
+      text-align: center;
+      margin: 0 auto;
+      background-color: $secondary-background-color;
+      width: 60vh;
+      height: 50vh;
+      @extend .shadow-lg, .br-20;
+      .pass-input__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: calc(50% - 40px);
+        margin-top: 40px;
+        .passinput-main {
+          & > * {
+            display: flex;
+            flex-direction: column;
+            // margin: 20px 0;
+          }
+          .passinput-input {
+            // margin-left: 1rem;
+            text-align: center;
+            margin: 10px auto;
+            height: 2rem;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid $primary-color;
+            background-color: $secondary-background-color;
+
+            &:focus {
+              outline: none;
+              background-color: transparent;
+            }
+          }
+          .passinput-button {
+            margin: 0px auto;
+            text-decoration: none;
+            font-size: $font-size-s;
+            letter-spacing: 3px;
+            cursor: pointer;
+            padding: 6px 30px;
+            @extend .br-20;
+            background: $black;
+            color: whitesmoke;
+          }
+        }
       }
+      .info__container {
+        height: 50%;
+
+        .info {
+          height: calc(100% - 40px);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 40px;
+          // margin: 10px;
+          span {
+            margin-bottom: 10px;
+          }
+          a {
+            // text-align: center;
+            width: fit-content;
+            text-decoration: none;
+            font-size: $font-size-s;
+            letter-spacing: 3px;
+            cursor: pointer;
+            padding: 6px 30px;
+            @extend .br-20;
+            background: $black;
+            color: whitesmoke;
+          }
+        }
+      }
+    }
+  }
+}
+
+.document-view.reader {
+  .document-info {
+    display: flex;
+    margin-top: 10px;
+  }
+  .document-name {
+    font-size: 2rem;
+    margin-left: 1rem;
+    height: 2rem;
+    line-height: 2rem;
+  }
+  .copy-link {
+    margin: 1.3rem 10px 0 0;
+  }
+}
+
+.document-view.reader {
+  .ql-toolbar {
+    z-index: 0;
+    height: 0;
+    padding: 0;
+    * {
+      z-index: 0;
+      display: none;
     }
   }
 }
@@ -229,11 +343,34 @@
 //모바일 반응형 디자인
 @include mobile {
   .document-view {
+    padding-top: 20px;
+    .document-header {
+      padding-bottom: 20px;
+      .edit-page {
+        margin: 0.7rem 10px 0.1rem 0;
+        height: 1.5rem;
+        width: 1.5rem;
+        .edit-page-text {
+          display: none;
+        }
+      }
+      .copy-link {
+        margin: 0.7rem 10px 0.1rem 0;
+        height: 1.5rem;
+        width: 1.5rem;
+        .copy-link-text {
+          display: none;
+        }
+      }
+    }
     .document-main {
       .document-functions {
         bottom: -3.5rem;
         flex-direction: column;
         align-items: center;
+        &.hidden {
+          display: none;
+        }
         .flex-wrap {
           justify-content: space-evenly;
           text-align: center;
@@ -253,6 +390,14 @@
             max-width: none;
           }
         }
+      }
+    }
+    .passInputWrapper {
+      background-color: $secondary-background-color;
+      .pass-input {
+        background-color: $secondary-background-color;
+        border-radius: 0;
+        box-shadow: none;
       }
     }
   }

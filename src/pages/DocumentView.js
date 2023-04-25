@@ -13,9 +13,12 @@ import {
 import MiniProfile from "../components/UserProfile/MiniProfile";
 import QuillEditor from "../components/TextEditor/QuillEditor";
 import Mypage from "./Mypage.js";
+import { VscLink, VscEdit, VscCloudDownload } from "react-icons/vsc";
+import { Quill } from "react-quill";
+import html2pdf from 'html2pdf.js';
 
-const DocumentView = () => {
-  const { id } = useParams();
+const DocumentView = (props) => {
+  const { id, type } = useParams();
   const [docName, setDocName] = useState(false);
   const [profileName, setProfileName] = useState("");
   const [writer, setWriter] = useState("");
@@ -28,11 +31,18 @@ const DocumentView = () => {
   const [editable, setEditable] = useState(false);
   const [settings, setSettings] = useState({});
   const settingsObj = new reactStates(setSettings, settings);
+  // const [htmlPdf, setHtmlPdf] = useState("");
+
+  let typeArr = ["editor", "reader"];
+  if (!typeArr.includes(type)) {
+    window.history.go(-1);
+  }
 
   const passRef = useRef(null);
   const saveRef = useRef(null);
   const updateInputRef = useRef(null);
   const settingFormRefs = {};
+  const htmlPdfRef = useRef(null);
   settingFormRefs.settingForm = useRef(null);
   settingFormRefs.name = useRef(null);
   settingFormRefs.editable = useRef(null);
@@ -132,27 +142,19 @@ const DocumentView = () => {
       softAlert("패스워드는 최대20이고 비워둘수 없습니다");
     }
   };
-  const delete_mousedown = (event) => {
-    settingsObj.write("deleteMouseDown", new Date().getTime());
-  };
-  const documentDelete = (event) => {
-    const now = new Date().getTime();
-    if (now > settings.deleteMouseDown + 5000) {
-      axios
-        .post(
-          "http://localhost:8000/main/delete-document/",
-          { documentid: id },
-          { withCredentials: true }
-        )
-        .then((res) => {
-          if (res.data.result) {
-            document.location.href = "/document";
-          } else {
-            softAlert("삭제 실패");
-          }
-        });
-    }
-  };
+  const deleteDocument = () => {
+    axios.post(
+      "http://localhost:8000/main/delete-document/",
+      {"documentid": id}, 
+      { withCredentials: true }
+    ).then(res => {
+      if(res.data.result) {
+        alert("삭제완료");
+        window.location.href = "/document";
+      }
+    });
+  }
+
   const saveSettings = (event) => {
     const newName = settingFormRefs.name.current.value;
     if (newName.length) {
@@ -204,9 +206,36 @@ const DocumentView = () => {
   const cantSave = () => {
     softAlert("주인만 수정가능하도록 설정되있어요");
   };
-  const saveClone = () => {
-    softAlert("업데이트 예정");
+
+  //PDF저장
+  const savePdf = () => {
+    const editorDiv = document.querySelector(".quill .ql-editor");
+    htmlPdfRef.current.innerHTML = editorDiv.innerHTML;
+
+    const opt = {
+      margin: 0.5,
+      filename: `${docName}.pdf`,
+      image: {type: 'jpeg', quality: 0.98},
+      html2canvas: {scale:2},
+      jsPDF: {unit:'in', format:'letter', orientation: 'portrait'}
+    };
+    html2pdf().from(htmlPdfRef.current).set(opt).save();
   };
+
+  //링크복사 버튼
+  const copyLink = () => {
+    let href = window.location.href;
+    let target = href.substring(0, href.lastIndexOf('/')+1) + 'reader';
+    copyToClipboard(target);
+    softAlert("링크 복사됨");
+  }
+
+  //편집페이지로 이동
+  const editPage = () => {
+    let href = window.location.href;
+    let target = href.substring(0, href.lastIndexOf('/')+1) + 'editor';
+    window.location.href = target;
+  }
 
   //문서리스트 페이지로 이동
   const goToDocList = () => {
@@ -223,7 +252,9 @@ const DocumentView = () => {
     setShowProfile(false);
   };
 
-  console.log("profileName", profileName);
+  //모바일 환경에서 문서작성 타이핑 중에는 하단 버튼 안 보이게 설정
+  const [isFocused, setIsFocused] = useState(false);
+  console.log("isFocused-docpage", isFocused);
 
   useEffect(() => {
     axios
@@ -337,15 +368,32 @@ const DocumentView = () => {
   }, [saveKey, profileName]);
 
   return (
-    <div className="document-view">
-      <div className="document-info">
-        <div className="document-name">{docName}</div>
-        <MiniProfile profileName={writer} />
+    <div className={`${type} document-view`}>
+      <div className="document-header">
+        <div className="document-info">
+          <div className="document-name">{docName}</div>
+          <MiniProfile profileName={writer} />   
+        </div>
+        <div className="header-button" >
+            {type == "reader" ? (
+              <div className="edit-page" onClick={editPage}>
+                <VscEdit /><span className="edit-page-text">편집</span>
+              </div>
+            ) : (<></>)}
+          <div className="copy-link" onClick={copyLink}>
+            <VscLink /><span className="copy-link-text">링크복사</span>
+          </div>
+        </div>
       </div>
       {isDisplay ? (
         <div className="document-main">
-          <QuillEditor data={content} />
-          <div className="document-functions">
+          <QuillEditor
+            data={content}
+            type={type}
+            isFocused={isFocused}
+            setIsFocused={setIsFocused}
+          />
+          <div className={`document-functions ${isFocused ? "hidden" : null}`}>
             <div className="flex-wrap btnGroup1">
               <button className="copy-button" onClick={copyContent}>
                 복사하기
@@ -363,11 +411,10 @@ const DocumentView = () => {
                 <button className="setting-button" onClick={settingForm}>
                   Setting
                 </button>
-              ) : (
-                <button className="clone-button" onClick={saveClone}>
-                  Save as
-                </button>
-              )}
+              ) : (<></>)}
+            <button className="pdf-button" onClick={savePdf}>
+              <VscCloudDownload /><span>PDF</span>
+            </button>
             </div>
             <div className="flex-wrap btnGroup2">
               <button className="docList-button" onClick={goToDocList}>
@@ -377,6 +424,9 @@ const DocumentView = () => {
                 마이페이지
               </button>
             </div>
+          </div>
+          <div className="pdf-html document-functions hidden" ref={htmlPdfRef}>
+            {/* {htmlPdf} */}
           </div>
           {showProfile && <Mypage onCloseClick={closeMypage} />}
           <dialog ref={saveRef}>
@@ -441,13 +491,12 @@ const DocumentView = () => {
                   required
                 />
               </div>
-              <span className="delete-info">삭제는 5초이상 눌러주세요</span>
+              <span className="delete-info">삭제는 더블클릭</span>
               <div className="buttons">
                 <button onClick={saveSettings}>변경 저장</button>
                 <button onClick={closeSettingForm}>닫기</button>
                 <button
-                  onClick={documentDelete}
-                  onMouseDown={delete_mousedown}
+                  onDoubleClick={deleteDocument}
                   className="delete-button"
                 >
                   삭제
@@ -457,25 +506,37 @@ const DocumentView = () => {
           </dialog>
         </div>
       ) : (
-        <div className="pass-input">
-          <PassInput
-            callback={inputKeyCB}
-            placeHorder="password"
-            divClass="passinput-main"
-            buttonClass="passinput-button"
-            inputClass="passinput-input"
-            inputRef={passRef}
-          />
-          {getCookie("username") == "null" ? (
-            <p className="info">
-              로그인 하시면 한번 입력한 키를 저장해두고 사용가능해요. <br />
-              <a href="http://localhost:3000/lgpage">로그인 하러가기</a>
-            </p>
-          ) : (
-            <p className="info">
-              한번입력한 패스워드는 저장되고 다음에 자동으로 사용되요.
-            </p>
-          )}
+        <div className="passInputWrapper">
+          <div className="pass-input">
+            <div className="pass-input__container">
+              문서 비밀번호를 입력해 주세요.
+              <PassInput
+                callback={inputKeyCB}
+                placeHorder="password"
+                divClass="passinput-main"
+                buttonClass="passinput-button"
+                inputClass="passinput-input"
+                inputRef={passRef}
+              />
+            </div>
+            <div className="info__container">
+              {getCookie("username") == "null" ? (
+                <p className="info">
+                  <span>
+                    로그인 하면 한번 입력한 키를 저장해두고 사용가능해요.
+                  </span>
+                  <br />
+                  <a href="http://localhost:3000/lgpage">로그인 / 회원가입</a>
+                </p>
+              ) : (
+                <p className="info">
+                  <span>
+                    한번입력한 패스워드는 저장되고 다음에 자동으로 사용되요.
+                  </span>
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

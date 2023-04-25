@@ -53,7 +53,7 @@ const PageLayout = (props) => {
 
   // 로그인 후 메인페이지 x ->  문서페이지로 이동
   useEffect(() => {
-    if (isLogin && window.location.pathname === "/") {
+    if (isLogin && window.location.pathname === "/document") {
       navigate("/document");
     }
   }, [isLogin, navigate]);
@@ -81,7 +81,7 @@ const PageLayout = (props) => {
   };
 
   // 문서 작성 페이지에서 모바일환경에서는 헤더 숨김
-  const match = useMatch("/document/:id");
+  const match = useMatch("/document/:id/:type");
   const isMobile = useMediaQuery({ query: "(max-width : 767px)" });
   console.log(match, isMobile);
   return (
@@ -109,7 +109,7 @@ function App() {
           <Route element={<PageLayout />}>
             <Route path="/" element={<MainPage />} />
             <Route path="/document" element={<Document />} />
-            <Route path="/document/:id" element={<DocumentView />} />
+            <Route path="/document/:id/:type" element={<DocumentView />} />
             <Route path="/register" element={<Register />} />
             <Route path="/lgpage" element={<LoginPage />} />
             <Route path="/textEditor" element={<TextEditor />} />

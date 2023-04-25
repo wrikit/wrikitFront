@@ -94,6 +94,7 @@
       width: 100vw;
       height: 12rem;
       z-index: 2;
+      background-color: $background-color;
       &.pdf-html {
         z-index: 1;
       }

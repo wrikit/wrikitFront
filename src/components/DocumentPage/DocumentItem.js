@@ -8,14 +8,23 @@ import CheckedList from "./CheckedList";
 const DocumentItem = (props) => {
   //   console.log(props);
   const { document } = props;
+  const [checkedDoc, setCheckeddoc] = useState([]);
   console.log("DocumentItem컴포넌트key", document);
+  const checkedCheck = () => {
+    setCheckeddoc(True);
+    // check된 문서들모아둔 컴포넌트로 아이디 전송
+    return <CheckedList props={document.id} />;
+  };
 
   return (
     <div className="DocumentItem">
       <span className="DocumentItem__checkbox">
-        <input type="checkbox" checked={<CheckedList props={document.id} />} />
+        <input type="checkbox" checked={checkedDoc} />
       </span>
-      <Link className="DocumentItem__container" to={"/document/" + document.id + "/editor"}>
+      <Link
+        className="DocumentItem__container"
+        to={"/document/" + document.id + "/editor"}
+      >
         <div className="DocumentItems">
           <span className="DocumentItems__icon">
             <HiDocumentText size={24} />

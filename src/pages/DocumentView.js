@@ -8,8 +8,7 @@ import {
   softAlert,
   inputHandler,
   ifKeyDownEnter,
-  reactStates,
-} from "../tools";
+  reactStates} from "../tools";
 import MiniProfile from "../components/UserProfile/MiniProfile";
 import QuillEditor from "../components/TextEditor/QuillEditor";
 import Mypage from "./Mypage.js";
@@ -207,13 +206,24 @@ const DocumentView = (props) => {
     softAlert("주인만 수정가능하도록 설정되있어요");
   };
 
-  //PDF저장
+  // PDF저장
   const savePdf = () => {
     const editorDiv = document.querySelector(".quill .ql-editor");
     htmlPdfRef.current.innerHTML = editorDiv.innerHTML;
+    console.log(htmlPdfRef.current.className);
+
+    const quotes = htmlPdfRef.current.querySelectorAll('blockquote');
+    quotes.forEach(element => {
+      element.innerHTML = `<p style="border-left: 5px solid #bbbbbb; padding: 0 0 0 8px; margin: 2px 0 2px 0;">${element.innerText}</p>`;
+    });
+
+    const images = htmlPdfRef.current.querySelectorAll("img");
+    images.forEach(element => {
+      element.style['max-width'] = "100%";
+    });
 
     const opt = {
-      margin: 0.5,
+      margin: 0.3,
       filename: `${docName}.pdf`,
       image: {type: 'jpeg', quality: 0.98},
       html2canvas: {scale:2},
@@ -221,6 +231,9 @@ const DocumentView = (props) => {
     };
     html2pdf().from(htmlPdfRef.current).set(opt).save();
   };
+  // const savePdf = () => {
+  //   printElement(".quill .ql-editor");
+  // }
 
   //링크복사 버튼
   const copyLink = () => {
@@ -425,7 +438,7 @@ const DocumentView = (props) => {
               </button>
             </div>
           </div>
-          <div className="pdf-html document-functions hidden" ref={htmlPdfRef}>
+          <div className="pdf-html document-functions hidden quill ql-editor" ref={htmlPdfRef}>
             {/* {htmlPdf} */}
           </div>
           {showProfile && <Mypage onCloseClick={closeMypage} />}

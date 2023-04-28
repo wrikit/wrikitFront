@@ -1,7 +1,7 @@
 .quill {
   .ql-toolbar {
     height: 5rem;
-    padding: 0;
+    padding: 0 !important;
     .ql-formats {
       margin-left: 5vw;
       display: flex;
@@ -38,6 +38,7 @@
 
   @media (max-width: 360px) {
     .ql-toolbar {
+      padding-top: 0;
       .ql-formats {
         margin: 0 3px;
         justify-content: space-between;

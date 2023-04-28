@@ -35,7 +35,7 @@ const QuillEditor = (props) => {
       quill.off("selection-change");
     };
   }, []);
-  
+
   const toolBar = [
     [
       { font: [] },

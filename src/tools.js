@@ -148,14 +148,17 @@ class reactStates {
     this.set(this.data);
   }
 
-  handle(key) {
+  handle(key, callback=false, ...apply) {
     return event => {
       const key_string = String(key);
       if (event.target.type == "checkbox") {
         this.write(key_string, event.target.checked);
       } else {
         this.write(key_string, event.target.value);
-      }      
+      }
+      if (callback) {
+        callback.apply(null, apply);
+      }     
     }
   }
 }

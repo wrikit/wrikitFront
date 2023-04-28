@@ -26,10 +26,11 @@ const DocumentView = (props) => {
   const [updateKey, setUpdateKey] = useState("");
   const [isDisplay, setIsDisplay] = useState(false);
   const [content, setContent] = useState(false);
-  const [updateContent, setUpdateContent] = useState("");
   const [editable, setEditable] = useState(false);
   const [settings, setSettings] = useState({});
   const settingsObj = new reactStates(setSettings, settings);
+  const [autosave, setAutosave] = useState({});
+  const autosaveObj = new reactStates(setAutosave, autosave);
   // const [htmlPdf, setHtmlPdf] = useState("");
 
   let typeArr = ["editor", "reader"];
@@ -47,6 +48,7 @@ const DocumentView = (props) => {
   settingFormRefs.editable = useRef(null);
   settingFormRefs.public = useRef(null);
   settingFormRefs.newPassword = useRef(null);
+  const autosaveRef = useRef(null);
 
   const getSaveKey = (docId) => {
     axios
@@ -71,6 +73,11 @@ const DocumentView = (props) => {
           setContent(data.content);
           if (data.username == getCookie("username") || data.editable) {
             setEditable(true);
+            autosaveObj.write("autosave", true);
+            const intervalId = setInterval(() => {
+              update();
+            }, 120*1000);
+            autosaveObj.write("intervalId", intervalId);
           } else {
             setEditable(false);
           }
@@ -101,8 +108,6 @@ const DocumentView = (props) => {
     }
   };
   const saveForm = (event) => {
-    const editorDiv = document.querySelector(".quill .ql-editor");
-    setUpdateContent(editorDiv.innerHTML);
     event.preventDefault();
     saveRef.current.showModal();
     if (saveKey) {
@@ -184,10 +189,11 @@ const DocumentView = (props) => {
     }
   };
   const update = () => {
+    const editorDiv = document.querySelector(".quill .ql-editor");
     axios
       .post(
         "http://localhost:8000/main/update-document/",
-        { documentid: id, documentkey: updateKey, content: updateContent },
+        { documentid: id, documentkey: updateKey, content: editorDiv.innerHTML },
         { withCredentials: true }
       )
       .then((res) => {
@@ -197,7 +203,8 @@ const DocumentView = (props) => {
           softAlert("저장실패 :(");
         }
         saveRef.current.close();
-      });
+    });
+    autosaveObj.write("ischange", false);
   };
   const closeSettingForm = () => {
     settingFormRefs.settingForm.current.close();
@@ -231,9 +238,6 @@ const DocumentView = (props) => {
     };
     html2pdf().from(htmlPdfRef.current).set(opt).save();
   };
-  // const savePdf = () => {
-  //   printElement(".quill .ql-editor");
-  // }
 
   //링크복사 버튼
   const copyLink = () => {
@@ -292,7 +296,6 @@ const DocumentView = (props) => {
           setWriter(res.data.username);
           if (res.data.username == profileName) {
             setIsMine(true);
-            //TODO: username형식이 카카오이면
             axios
               .post(
                 "http://localhost:8000/main/get-document/",
@@ -305,6 +308,11 @@ const DocumentView = (props) => {
                   setEditable(true);
                   setContent(data.content);
                   setIsDisplay(true);
+                  autosaveObj.write("autosave", true);
+                  const intervalId = setInterval(() => {
+                    update();
+                  }, 120*1000);
+                  autosaveObj.write("intervalId", intervalId);
                   return res.data;
                 } else {
                   softAlert("오류발생 QoQ");
@@ -358,6 +366,11 @@ const DocumentView = (props) => {
                   const data = res.data.result;
                   if (data.username == getCookie("username") || data.editable) {
                     setEditable(true);
+                    autosaveObj.write("autosave", true);
+                    const intervalId = setInterval(() => {
+                      update();
+                    }, 120*1000);
+                    autosaveObj.write("intervalId", intervalId);
                   } else {
                     setEditable(false);
                   }
@@ -456,6 +469,26 @@ const DocumentView = (props) => {
               <button className="save-button" onClick={update}>
                 저장
               </button>
+            </div>
+            <div className="auto-save">
+              <span>자동저장</span>
+              <input 
+                type="checkbox" 
+                ref={autosaveRef}
+                checked={autosaveObj.data['autosave']} 
+                onChange={autosaveObj.handle("autosave", () => {
+                  if (autosaveObj.data['autosave']) {
+                    softAlert("자동저장 켜짐");
+                    const intervalId = setInterval(() => {
+                      update();
+                    }, 120*1000);
+                    autosaveObj.write("intervalId", intervalId);
+                  } else {
+                    softAlert("자동저장 꺼짐");
+                    clearInterval(autosaveObj.data['intervalId']);
+                  }
+                })} /><br />
+              <span className="info">2분마다 저장, 키가 저장되야 합니다</span>
             </div>
             <form method="dialog">
               <button>취소</button>

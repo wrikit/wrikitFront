@@ -56,6 +56,10 @@
       border-radius: 0 0 30px 30px;
       text-align: center;
       transition: 1s;
+      .info {
+        color: #aaaaaa;
+        font-size: 12px;
+      }
       input {
         max-width: 100px;
         width: 80%;

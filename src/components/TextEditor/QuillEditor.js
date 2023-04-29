@@ -1,8 +1,10 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import ReactQuill from "react-quill";
 import Quill from "quill";
+import ImageResize from "quill-image-resize";
 import "react-quill/dist/quill.snow.css";
+
+Quill.register("modules/ImageResize", ImageResize);
 
 const QuillEditor = (props) => {
   const [content, setContent] = useState(props.data);
@@ -58,6 +60,9 @@ const QuillEditor = (props) => {
   ];
   const modules = {
     toolbar: toolBar,
+    ImageResize: {
+      parchment: Quill.import("parchment"),
+    },
     clipboard: {
       // toggle to add extra line breaks when pasting HTML:
       matchVisual: false,
@@ -100,7 +105,7 @@ const QuillEditor = (props) => {
 
 QuillEditor.defaultProps = {
   data: "",
-  contentRef: undefined
+  contentRef: undefined,
 };
 
 export default QuillEditor;

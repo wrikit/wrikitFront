@@ -45,6 +45,11 @@
           text-decoration: underline;
         }
       }
+      &__button {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+      }
     }
   }
 }

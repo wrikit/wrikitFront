@@ -4,7 +4,7 @@
   display: flex;
   width: auto;
   height: 43px;
-  padding-left: 5%;
+  padding: 0 5%;
   align-items: center;
   border-top: 1px solid rgb(234, 232, 232);
   color: rgba($primary-color, 0.6);
@@ -47,8 +47,16 @@
       }
     }
   }
+  &__button {
+    display: none;
+    align-items: center;
+    margin-left: 5%;
+    padding: 3px 6px;
+  }
 }
-
+.DocumentItem:hover .DocumentItem__button {
+  display: flex;
+}
 @include mobile {
   .DocumentItem {
     &__container {

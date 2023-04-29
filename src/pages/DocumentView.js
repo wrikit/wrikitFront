@@ -8,13 +8,14 @@ import {
   softAlert,
   inputHandler,
   ifKeyDownEnter,
-  reactStates} from "../tools";
+  reactStates,
+} from "../tools";
 import MiniProfile from "../components/UserProfile/MiniProfile";
 import QuillEditor from "../components/TextEditor/QuillEditor";
 import Mypage from "./Mypage.js";
 import { VscLink, VscEdit, VscCloudDownload } from "react-icons/vsc";
 import { Quill } from "react-quill";
-import html2pdf from 'html2pdf.js';
+import html2pdf from "html2pdf.js";
 
 const DocumentView = (props) => {
   const { id, type } = useParams();
@@ -76,7 +77,7 @@ const DocumentView = (props) => {
             autosaveObj.write("autosave", true);
             const intervalId = setInterval(() => {
               update();
-            }, 120*1000);
+            }, 120 * 1000);
             autosaveObj.write("intervalId", intervalId);
           } else {
             setEditable(false);
@@ -147,17 +148,19 @@ const DocumentView = (props) => {
     }
   };
   const deleteDocument = () => {
-    axios.post(
-      "http://localhost:8000/main/delete-document/",
-      {"documentid": id}, 
-      { withCredentials: true }
-    ).then(res => {
-      if(res.data.result) {
-        alert("삭제완료");
-        window.location.href = "/document";
-      }
-    });
-  }
+    axios
+      .post(
+        "http://localhost:8000/main/delete-document/",
+        { documentid: id },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        if (res.data.result) {
+          alert("삭제완료");
+          window.location.href = "/document";
+        }
+      });
+  };
 
   const saveSettings = (event) => {
     const newName = settingFormRefs.name.current.value;
@@ -193,7 +196,11 @@ const DocumentView = (props) => {
     axios
       .post(
         "http://localhost:8000/main/update-document/",
-        { documentid: id, documentkey: updateKey, content: editorDiv.innerHTML },
+        {
+          documentid: id,
+          documentkey: updateKey,
+          content: editorDiv.innerHTML,
+        },
         { withCredentials: true }
       )
       .then((res) => {
@@ -203,7 +210,7 @@ const DocumentView = (props) => {
           softAlert("저장실패 :(");
         }
         saveRef.current.close();
-    });
+      });
     autosaveObj.write("ischange", false);
   };
   const closeSettingForm = () => {
@@ -219,22 +226,22 @@ const DocumentView = (props) => {
     htmlPdfRef.current.innerHTML = editorDiv.innerHTML;
     console.log(htmlPdfRef.current.className);
 
-    const quotes = htmlPdfRef.current.querySelectorAll('blockquote');
-    quotes.forEach(element => {
+    const quotes = htmlPdfRef.current.querySelectorAll("blockquote");
+    quotes.forEach((element) => {
       element.innerHTML = `<p style="border-left: 5px solid #bbbbbb; padding: 0 0 0 8px; margin: 2px 0 2px 0;">${element.innerText}</p>`;
     });
 
     const images = htmlPdfRef.current.querySelectorAll("img");
-    images.forEach(element => {
-      element.style['max-width'] = "100%";
+    images.forEach((element) => {
+      element.style["max-width"] = "100%";
     });
 
     const opt = {
       margin: 0.3,
       filename: `${docName}.pdf`,
-      image: {type: 'jpeg', quality: 0.98},
-      html2canvas: {scale:2},
-      jsPDF: {unit:'in', format:'letter', orientation: 'portrait'}
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
     };
     html2pdf().from(htmlPdfRef.current).set(opt).save();
   };
@@ -242,17 +249,17 @@ const DocumentView = (props) => {
   //링크복사 버튼
   const copyLink = () => {
     let href = window.location.href;
-    let target = href.substring(0, href.lastIndexOf('/')+1) + 'reader';
+    let target = href.substring(0, href.lastIndexOf("/") + 1) + "reader";
     copyToClipboard(target);
     softAlert("링크 복사됨");
-  }
+  };
 
   //편집페이지로 이동
   const editPage = () => {
     let href = window.location.href;
-    let target = href.substring(0, href.lastIndexOf('/')+1) + 'editor';
+    let target = href.substring(0, href.lastIndexOf("/") + 1) + "editor";
     window.location.href = target;
-  }
+  };
 
   //문서리스트 페이지로 이동
   const goToDocList = () => {
@@ -311,7 +318,7 @@ const DocumentView = (props) => {
                   autosaveObj.write("autosave", true);
                   const intervalId = setInterval(() => {
                     update();
-                  }, 120*1000);
+                  }, 120 * 1000);
                   autosaveObj.write("intervalId", intervalId);
                   return res.data;
                 } else {
@@ -369,7 +376,7 @@ const DocumentView = (props) => {
                     autosaveObj.write("autosave", true);
                     const intervalId = setInterval(() => {
                       update();
-                    }, 120*1000);
+                    }, 120 * 1000);
                     autosaveObj.write("intervalId", intervalId);
                   } else {
                     setEditable(false);
@@ -398,16 +405,20 @@ const DocumentView = (props) => {
       <div className="document-header">
         <div className="document-info">
           <div className="document-name">{docName}</div>
-          <MiniProfile profileName={writer} />   
+          <MiniProfile profileName={writer} />
         </div>
-        <div className="header-button" >
-            {type == "reader" ? (
-              <div className="edit-page" onClick={editPage}>
-                <VscEdit /><span className="edit-page-text">편집</span>
-              </div>
-            ) : (<></>)}
+        <div className="header-button">
+          {type == "reader" ? (
+            <div className="edit-page" onClick={editPage}>
+              <VscEdit />
+              <span className="edit-page-text">편집</span>
+            </div>
+          ) : (
+            <></>
+          )}
           <div className="copy-link" onClick={copyLink}>
-            <VscLink /><span className="copy-link-text">링크복사</span>
+            <VscLink />
+            <span className="copy-link-text">링크복사</span>
           </div>
         </div>
       </div>
@@ -437,10 +448,13 @@ const DocumentView = (props) => {
                 <button className="setting-button" onClick={settingForm}>
                   Setting
                 </button>
-              ) : (<></>)}
-            <button className="pdf-button" onClick={savePdf}>
-              <VscCloudDownload /><span>PDF</span>
-            </button>
+              ) : (
+                <></>
+              )}
+              <button className="pdf-button" onClick={savePdf}>
+                <VscCloudDownload />
+                <span>PDF</span>
+              </button>
             </div>
             <div className="flex-wrap btnGroup2">
               <button className="docList-button" onClick={goToDocList}>
@@ -451,7 +465,10 @@ const DocumentView = (props) => {
               </button>
             </div>
           </div>
-          <div className="pdf-html document-functions hidden quill ql-editor" ref={htmlPdfRef}>
+          <div
+            className="pdf-html document-functions hidden quill ql-editor"
+            ref={htmlPdfRef}
+          >
             {/* {htmlPdf} */}
           </div>
           {showProfile && <Mypage onCloseClick={closeMypage} />}
@@ -472,22 +489,24 @@ const DocumentView = (props) => {
             </div>
             <div className="auto-save">
               <span>자동저장</span>
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 ref={autosaveRef}
-                checked={autosaveObj.data['autosave']} 
+                checked={autosaveObj.data["autosave"]}
                 onChange={autosaveObj.handle("autosave", () => {
-                  if (autosaveObj.data['autosave']) {
+                  if (autosaveObj.data["autosave"]) {
                     softAlert("자동저장 켜짐");
                     const intervalId = setInterval(() => {
                       update();
-                    }, 120*1000);
+                    }, 120 * 1000);
                     autosaveObj.write("intervalId", intervalId);
                   } else {
                     softAlert("자동저장 꺼짐");
-                    clearInterval(autosaveObj.data['intervalId']);
+                    clearInterval(autosaveObj.data["intervalId"]);
                   }
-                })} /><br />
+                })}
+              />
+              <br />
               <span className="info">2분마다 저장, 키가 저장되야 합니다</span>
             </div>
             <form method="dialog">

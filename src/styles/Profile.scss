@@ -72,9 +72,9 @@
     display: inline-block;
     .image-container:not(.editableIcon) {
       margin: 0 auto;
-      max-width: 220px;
+      max-width: 255px;
       min-width: 180px;
-      max-height: 220px;
+      max-height: 255px;
       min-height: 180px;
       width: 24vw;
       height: 24vw;
@@ -82,9 +82,9 @@
       overflow: hidden;
       // position: relative;
       img {
-        max-width: 300px;
+        max-width: 255px;
         min-width: 180px;
-        max-height: 300px;
+        max-height: 255px;
         min-height: 180px;
         width: 24vw;
         height: 24vw;

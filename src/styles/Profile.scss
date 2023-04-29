@@ -72,9 +72,9 @@
     display: inline-block;
     .image-container:not(.editableIcon) {
       margin: 0 auto;
-      max-width: 220px;
+      max-width: 255px;
       min-width: 180px;
-      max-height: 220px;
+      max-height: 255px;
       min-height: 180px;
       width: 24vw;
       height: 24vw;
@@ -82,9 +82,9 @@
       overflow: hidden;
       // position: relative;
       img {
-        max-width: 300px;
+        max-width: 255px;
         min-width: 180px;
-        max-height: 300px;
+        max-height: 255px;
         min-height: 180px;
         width: 24vw;
         height: 24vw;
@@ -149,40 +149,219 @@
       color: $white;
     }
   }
-  dialog {
-    margin: 70px auto 0 auto;
-    border-radius: 20px;
-    padding: 20px;
-    input {
-      margin-bottom: 15px;
-      border: 0;
-      padding: 4px;
-      width: 999rem;
-      background-color: #dddddd;
-    }
-    button {
-      border-radius: 0 10px 10px 0;
-      height: 1.8rem;
-      margin-left: 0;
-    }
-    h3 {
-      margin: 20px 0;
-    }
-    form {
-      padding: 0;
-      margin-bottom: 20px;
-      button {
-        background-color: inherit;
+  // dialog {
+  //   margin: 70px auto 0 auto;
+  //   border-radius: 20px;
+  //   padding: 20px;
+  //   input {
+  //     margin-bottom: 15px;
+  //     border: 0;
+  //     padding: 4px;
+  //     width: 999rem;
+  //     background-color: #dddddd;
+  //   }
+  //   button {
+  //     border-radius: 0 10px 10px 0;
+  //     height: 1.8rem;
+  //     margin-left: 0;
+  //   }
+  //   h3 {
+  //     margin: 20px 0;
+  //   }
+  //   form {
+  //     padding: 0;
+  //     margin-bottom: 20px;
+  //     button {
+  //       background-color: inherit;
+  //       display: flex;
+  //       font-size: 0.9rem;
+  //       line-height: 0.9rem;
+  //       height: 0.9rem;
+  //       border: 0;
+  //       cursor: pointer;
+  //       span {
+  //         margin-left: 5px;
+  //       }
+  //     }
+  //   }
+  // }
+
+  .pass-setting {
+    dialog {
+      margin: auto auto;
+      border: none;
+      padding: 30px 50px;
+      text-align: center;
+      // @extend .br-20, .shadow-lg;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 10px 4px rgba(#13232f, 0.3);
+      h2 {
+        text-align: center;
+        margin: 20px 0;
+      }
+      .pass-setting-wrapper {
         display: flex;
-        font-size: 0.9rem;
-        line-height: 0.9rem;
-        height: 0.9rem;
-        border: 0;
-        cursor: pointer;
-        span {
-          margin-left: 5px;
+        flex-direction: column;
+        justify-content: space-between;
+
+        label {
+          display: inline-block;
+          text-align: left;
+          margin-left: 15px;
+          color: rgb(154, 153, 153);
+        }
+        input {
+          width: 93%;
+        }
+      }
+      .button-wrapper {
+        margin-bottom: 20px;
+        button {
+          margin-top: 0;
+          padding: 6px 0;
+          color: $primary-color;
+          &:hover {
+            background-color: $black;
+            @extend .br-20;
+            color: whitesmoke;
+          }
         }
       }
     }
+  }
+
+  .delete-confirm-modal {
+    margin: auto auto;
+    border: none;
+    padding: 30px 50px;
+    text-align: center;
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 10px 4px rgba(#13232f, 0.3);
+
+    h2 {
+      text-align: center;
+      margin: 20px 0;
+      text-decoration: underline;
+    }
+    button {
+      padding: 6px 0;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: $primary-color;
+      &:hover {
+        background-color: $black;
+        @extend .br-20;
+        color: whitesmoke;
+      }
+    }
+    span {
+      margin: 3px;
+    }
+    .delete-confirm {
+      display: flex;
+      align-items: center;
+      button {
+        margin: 0 10px;
+        padding: 6px 0;
+        color: $primary-color;
+        &:hover {
+          background-color: $black;
+          @extend .br-20;
+          color: whitesmoke;
+        }
+      }
+      input {
+        height: 2rem;
+        // width: 50%;
+        border-top: 0;
+        border-right: 0;
+        border-left: 0;
+        border-bottom: 2px solid $secondary-color;
+        font-size: 0.9rem;
+        margin: 0 0 5px 10px;
+        background: transparent;
+        font-weight: 500;
+        &:focus {
+          background-color: rgba($secondary-color, 0.5);
+          color: $primary-color;
+          outline: 0;
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .side {
+    .pass-setting {
+      dialog {
+        padding: 50px 20px;
+        border-radius: 0px 0px 20px 20px;
+        box-shadow: 2px 2px 5px gray;
+        margin: 0 auto;
+        animation: slidedown 1.3s forwards;
+        h2 {
+          border: none;
+          box-shadow: none;
+          text-decoration: underline;
+        }
+        .pass-setting-wrapper {
+          input {
+            max-width: 300px;
+            border-radius: 0;
+            text-align: left;
+            padding-left: 10px;
+            margin: 0 auto 5px auto;
+          }
+        }
+        .button-wrapper {
+          margin-bottom: 20px;
+          button {
+            margin: 0 15px 0 15px;
+            background-color: $black;
+            color: whitesmoke;
+            border-radius: 1.25rem;
+          }
+        }
+      }
+    }
+    .delete-confirm-modal {
+      margin: 0 auto;
+      padding: 50px 20px;
+      border-radius: 0px 0px 20px 20px;
+      box-shadow: 2px 2px 5px gray;
+
+      button {
+        padding: 4px 0;
+        margin-top: 30px;
+        background-color: $black;
+        color: whitesmoke;
+        border-radius: 1.25rem;
+      }
+      .delete-confirm {
+        flex-direction: column;
+        button {
+          margin-top: 30px;
+          padding: 3px 0;
+          color: gray;
+          border: 2px solid lightgray;
+          border-radius: 1.25rem;
+          font-size: 0.9rem;
+          background-color: $background-color;
+        }
+        input {
+          background: transparent;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+@keyframes slidedown {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }

@@ -1,6 +1,11 @@
 import Information from "./Information";
 import { useState, useEffect, useRef } from "react";
-import { getCookie, inputHandler, softAlert, ifKeyDownEnter } from "../../tools";
+import {
+  getCookie,
+  inputHandler,
+  softAlert,
+  ifKeyDownEnter,
+} from "../../tools";
 import PassSetting from "./PassSetting";
 import axios from "axios";
 import { FaEdit, FaRegWindowClose } from "react-icons/fa";
@@ -100,152 +105,167 @@ const ProfileForm = (props) => {
 
   const deleteAccountModal = () => {
     deleteAccountRef.current.showModal();
-  }
+  };
   const deleteAccount = () => {
-    axios.post(`${props.URL}/auth/delete/`,
-    { "userpass": confirmKey }, 
-    { withCredentials: true })
-    .then(res => {
-      if (res.data.result) {
-        window.location.href = "/";
-      } else {
-        softAlert("패스워드를 확인해주세요");
-      }
-    });
-  }
+    axios
+      .post(
+        `${props.URL}/auth/delete/`,
+        { userpass: confirmKey },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        if (res.data.result) {
+          window.location.href = "/";
+        } else {
+          softAlert("패스워드를 확인해주세요");
+        }
+      });
+  };
 
   const return_result = (
     <>
-        <form
-      action={`${props.URL}/main/UserProfile/${profileId}/update/`}
-      ref={submitRef}
-      method="POST"
-      data-method="PUT"
-      encType="multipart/form-data"
-    >
-      <input
-        type="hidden"
-        name="csrfmiddlewaretoken"
-        id="form-csrftoken"
-        value={csrf}
-      />
-      {isDisabled ? <>
-        <div>
-        <label htmlFor="profile-img">
-          <div className="image-container">
-            <img src={imageSrc} className="profile-img" />
-            {!isDisabled && (
-              <div className="editableIcon">
-                <FaEdit size={28} />
-              </div>
-            )}
-          </div>
-        </label>
+      <form
+        action={`${props.URL}/main/UserProfile/${profileId}/update/`}
+        ref={submitRef}
+        method="POST"
+        data-method="PUT"
+        encType="multipart/form-data"
+      >
         <input
-          id="profile-img"
-          type="file"
-          className="image-input"
-          onChange={imageHandler}
-          disabled
-          name="profileImg"
+          type="hidden"
+          name="csrfmiddlewaretoken"
+          id="form-csrftoken"
+          value={csrf}
         />
-      </div>
-      <div>
-        <div className="info_name">Name</div>
-        <input
-          type="text"
-          className="text-input"
-          value={profileName}
-          onChange={profileNameHandler}
-          readOnly
-          placeholder="Name"
-          name="profileName"
-          ref={nameInputRef}
-        />
-      </div>
-      <div>
-        <div className="info_name">Message</div>
-        <input
-          type="text"
-          className="text-input"
-          value={message}
-          onChange={messageHandler}
-          readOnly
-          placeholder="Message"
-          name="profileMessage"
-        />
-      </div>
-      </> : <>
-      <div>
-        <label htmlFor="profile-img">
-          <div className="image-container">
-            <img src={imageSrc} className="profile-img" />
-            {!isDisabled && (
-              <div className="editableIcon">
-                <FaEdit size={28} />
-              </div>
-            )}
-          </div>
-        </label>
-        <input
-          id="profile-img"
-          type="file"
-          className="image-input"
-          onChange={imageHandler}
-          name="profileImg"
-        />
-      </div>
-      <div>
-        <div className="info_name">Name</div>
-        <input
-          type="text"
-          className="text-input"
-          value={profileName}
-          onChange={profileNameHandler}
-          placeholder="Name"
-          ref={nameInputRef}
-          name="profileName"
-        />
-      </div>
-      <div>
-        <div className="info_name">Message</div>
-        <input
-          type="text"
-          className="text-input"
-          value={message}
-          onChange={messageHandler}
-          placeholder="Message"
-          name="profileMessage"
-        />
-      </div>
-      </>}
-      
-      <div className="button_container">
-        <button onClick={isDisabledHandler} type="button">
-          {isDisabled ? "프로필 수정하기" : "저장하기"}
-        </button>
-        {isKakao ? <button disabled>패스워드 변경</button> : <PassSetting />}
-      </div>
-      <div className="button_container">
-        <button type="button" onClick={deleteAccountModal}>회원탈퇴</button>
-        <button onClick={onLogout} type="button">
-          로그아웃
-        </button>
-      </div>
-    </form>
-    <dialog ref={deleteAccountRef} className="delete-confirm-modal">
-      <h3>회원탈퇴</h3>
-      <div className="delete-confirm">
-        <input 
-          type="password" 
-          onChange={inputHandler(setConfirmKey)}
-          onKeyDown={ifKeyDownEnter(deleteAccount)} />
-        <button type="button" onClick={deleteAccount}>탈퇴하기</button>
-      </div>
-      <form method="dialog">
-        <button><FaRegWindowClose /><span>취소</span></button>
+        {isDisabled ? (
+          <>
+            <div>
+              <label htmlFor="profile-img">
+                <div className="image-container">
+                  <img src={imageSrc} className="profile-img" />
+                  {!isDisabled && (
+                    <div className="editableIcon">
+                      <FaEdit size={28} />
+                    </div>
+                  )}
+                </div>
+              </label>
+              <input
+                id="profile-img"
+                type="file"
+                className="image-input"
+                onChange={imageHandler}
+                disabled
+                name="profileImg"
+              />
+            </div>
+            <div>
+              <div className="info_name">Name</div>
+              <input
+                type="text"
+                className="text-input"
+                value={profileName}
+                onChange={profileNameHandler}
+                readOnly
+                placeholder="Name"
+                name="profileName"
+                ref={nameInputRef}
+              />
+            </div>
+            <div>
+              <div className="info_name">Message</div>
+              <input
+                type="text"
+                className="text-input"
+                value={message}
+                onChange={messageHandler}
+                readOnly
+                placeholder="Message"
+                name="profileMessage"
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <label htmlFor="profile-img">
+                <div className="image-container">
+                  <img src={imageSrc} className="profile-img" />
+                  {!isDisabled && (
+                    <div className="editableIcon">
+                      <FaEdit size={28} />
+                    </div>
+                  )}
+                </div>
+              </label>
+              <input
+                id="profile-img"
+                type="file"
+                className="image-input"
+                onChange={imageHandler}
+                name="profileImg"
+              />
+            </div>
+            <div>
+              <div className="info_name">Name</div>
+              <input
+                type="text"
+                className="text-input"
+                value={profileName}
+                onChange={profileNameHandler}
+                placeholder="Name"
+                ref={nameInputRef}
+                name="profileName"
+              />
+            </div>
+            <div>
+              <div className="info_name">Message</div>
+              <input
+                type="text"
+                className="text-input"
+                value={message}
+                onChange={messageHandler}
+                placeholder="Message"
+                name="profileMessage"
+              />
+            </div>
+          </>
+        )}
+
+        <div className="button_container">
+          <button onClick={isDisabledHandler} type="button">
+            {isDisabled ? "프로필 수정하기" : "저장하기"}
+          </button>
+          {isKakao ? <button disabled>패스워드 변경</button> : <PassSetting />}
+        </div>
+        <div className="button_container">
+          <button type="button" onClick={deleteAccountModal}>
+            회원탈퇴
+          </button>
+          <button onClick={onLogout} type="button">
+            로그아웃
+          </button>
+        </div>
       </form>
-    </dialog>
+      <dialog ref={deleteAccountRef} className="delete-confirm-modal">
+        <h2>회원탈퇴</h2>
+        <div className="delete-confirm">
+          <input
+            type="password"
+            onChange={inputHandler(setConfirmKey)}
+            onKeyDown={ifKeyDownEnter(deleteAccount)}
+          />
+          <button type="button" onClick={deleteAccount}>
+            탈퇴하기
+          </button>
+        </div>
+        <form method="dialog">
+          <button>
+            <FaRegWindowClose />
+            <span> 취소</span>
+          </button>
+        </form>
+      </dialog>
     </>
   );
   return return_result;

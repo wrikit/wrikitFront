@@ -56,6 +56,10 @@
       border-radius: 0 0 30px 30px;
       text-align: center;
       transition: 1s;
+      .info {
+        color: #aaaaaa;
+        font-size: 12px;
+      }
       input {
         max-width: 100px;
         width: 80%;
@@ -94,6 +98,7 @@
       width: 100vw;
       height: 12rem;
       z-index: 2;
+      background-color: $background-color;
       &.pdf-html {
         z-index: 1;
       }

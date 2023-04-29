@@ -100,7 +100,8 @@ const softAlert = (content, displayTime=1, inTime=1, outTime=1, maxOpacity=0.6) 
     'position': 'fixed',
     'bottom': '3rem',
     'width': '100%',
-    'opacity': '0'
+    'opacity': '0',
+    'z-index': 5
   }
   const messageStyles = {
     'font-size': '1rem',
@@ -147,14 +148,17 @@ class reactStates {
     this.set(this.data);
   }
 
-  handle(key) {
+  handle(key, callback=false, ...apply) {
     return event => {
       const key_string = String(key);
       if (event.target.type == "checkbox") {
         this.write(key_string, event.target.checked);
       } else {
         this.write(key_string, event.target.value);
-      }      
+      }
+      if (callback) {
+        callback.apply(null, apply);
+      }     
     }
   }
 }

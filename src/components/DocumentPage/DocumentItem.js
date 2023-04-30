@@ -10,28 +10,8 @@ const DocumentItem = (props) => {
 
   const { document } = props;
   console.log("DocumentItem컴포넌트key", document);
-  // const deleteDocument = () => {
-  //   axios
-  //     .post(
-  //       "http://localhost:8000/main/delete-document/",
-  //       { documentid: document.id },
-  //       { withCredentials: true }
-  //     )
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       if (res.data.result) {
-  //         alert("삭제완료");
-  //         window.location.href = "/document";
-  //       }
-  //     });
-  // };
-
   return (
-    <div
-      className="DocumentItem"
-      // onMouseOver={handleHover}
-      // onMouseOut={handleMouseOut}
-    >
+    <div className="DocumentItem">
       <span className="DocumentItem__checkbox">
         <input type="checkbox" />
       </span>

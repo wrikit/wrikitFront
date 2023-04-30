@@ -124,7 +124,7 @@ const Header = (props) => {
             >
               <NavLink to="/document">
                 {/* <a href="/document"> */}
-                <FaFolderOpen size="24" />
+                <FaFolderOpen size="24" title="내 문서" />
               </NavLink>
               <p className={iconHover || isActive ? "active" : "hiddenName"}>
                 내 문서
@@ -134,7 +134,11 @@ const Header = (props) => {
               {/* {isLogin ? (<button type="button" onClick={onLogout}>LOGOUT</button>) : (<NavLink to="/lgpage">시작하기</NavLink>)} */}
               {isLogin ? (
                 <div className="iconContainer">
-                  <BsPersonCircle size="24" onClick={MypageClick} />
+                  <BsPersonCircle
+                    size="24"
+                    onClick={MypageClick}
+                    title="마이페이지"
+                  />
                   {/* <li onClick={onLogout}>Logout</li> */}
                 </div>
               ) : (

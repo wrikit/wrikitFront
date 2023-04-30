@@ -52,6 +52,9 @@
     align-items: center;
     margin-left: 5%;
     padding: 3px 6px;
+    background-color: $secondary-background-color;
+    border: none;
+    cursor: pointer;
   }
 }
 .DocumentItem:hover .DocumentItem__button {

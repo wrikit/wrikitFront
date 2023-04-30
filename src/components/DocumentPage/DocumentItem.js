@@ -48,7 +48,11 @@ const DocumentItem = (props) => {
           <span className="DocumentItems__docDate">{document.date}</span>
         </div>
       </Link>
-      <button className="DocumentItem__button" onClick={props.deleteDocument}>
+      <button
+        className="DocumentItem__button"
+        onClick={props.deleteDocument}
+        title="삭제하기"
+      >
         <MdDeleteForever size={24} />
       </button>
     </div>

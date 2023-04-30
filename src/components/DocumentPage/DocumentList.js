@@ -74,15 +74,39 @@ const DocumentList = () => {
     }
   };
 
+  //삭제 버튼
+
   useEffect(() => {
     getDocuments();
   }, []);
 
   //document리스트 map
   const dataLoaded = documents.map((document) => {
-    // console.log("dataLoaded", document.id);
-
-    return <DocumentItem key={document.id} document={document} />;
+    console.log("dataLoaded", document.id);
+    const deleteDocument = () => {
+      if (window.confirm("정말 삭제하시겠습니까?")) {
+        axios
+          .post(
+            "http://localhost:8000/main/delete-document/",
+            { documentid: document.id },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.result) {
+              alert("삭제되었습니다.");
+              window.location.href = "/document";
+            }
+          });
+      }
+    };
+    return (
+      <DocumentItem
+        key={document.id}
+        document={document}
+        deleteDocument={deleteDocument}
+      />
+    );
   });
 
   return (

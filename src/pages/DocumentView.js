@@ -70,7 +70,9 @@ const DocumentView = (props) => {
       .then((res) => {
         if (res.data.result) {
           const data = res.data.result;
-          setContent(data.content);
+          const doc_html = data.content;
+          console.log(doc_html);
+          setContent(doc_html);
           if (data.username == getCookie("username") || data.editable) {
             setEditable(true);
             autosaveObj.write("autosave", true);

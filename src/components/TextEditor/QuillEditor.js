@@ -86,6 +86,12 @@ const QuillEditor = (props) => {
     "indent",
     "align",
   ];
+  
+  useEffect(() => {
+    const editorDiv = document.querySelector(".quill .ql-editor");
+    editorDiv.innerHTML=content
+  
+  }, [])
 
   return (
     <div>

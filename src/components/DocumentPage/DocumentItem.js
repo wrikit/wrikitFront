@@ -7,13 +7,22 @@ import { useEffect, useState } from "react";
 //documentItem컴포넌트 문서 번호, 이름, 마지막업데이트날짜
 const DocumentItem = (props) => {
   //   console.log(props);
+  const [isChecked, setIsChecked] = useState(props.checked);
+  const onChange = props.onChange;
+  const handleCheck = (e) => {
+    const selectedValue = e.target.checked;
+    setIsChecked(selectedValue);
+    onChange(selectedValue, document);
+  };
 
+  // console.log(isChecked);
   const { document } = props;
   console.log("DocumentItem컴포넌트key", document);
+
   return (
     <div className="DocumentItem">
       <span className="DocumentItem__checkbox">
-        <input type="checkbox" />
+        <input type="checkbox" checked={isChecked} onChange={handleCheck} />
       </span>
       <Link
         className="DocumentItem__container"

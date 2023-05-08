@@ -31,7 +31,7 @@ const DocumentView = (props) => {
   const [settings, setSettings] = useState({});
   const settingsObj = new reactStates(setSettings, settings);
   const [autosave, setAutosave] = useState({});
-  const autosaveObj = new reactStates(setAutosave, autosave);
+  const autosaveObj = new reactStates(setAutosave, autosave); 
   // const [htmlPdf, setHtmlPdf] = useState("");
 
   let typeArr = ["editor", "reader"];

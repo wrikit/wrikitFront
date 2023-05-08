@@ -80,6 +80,20 @@ const DocumentList = () => {
     getDocuments();
   }, []);
 
+  //체크 박스
+  const [isSelected, setIsSelected] = useState([]);
+  const handleCheckbox= (isChecked, document) => {
+    if (isChecked) {
+      setIsSelected((prevSelectedDocuments) => [
+        ...prevSelectedDocuments,
+        document,
+      ]);
+    } else {
+      setIsSelected((prevSelectedDocuments) =>
+        prevSelectedDocuments.filter((item) => item.id !== document.id)
+      );
+    }
+  };
   //document리스트 map
   const dataLoaded = documents.map((document) => {
     console.log("dataLoaded", document.id);
@@ -105,6 +119,8 @@ const DocumentList = () => {
         key={document.id}
         document={document}
         deleteDocument={deleteDocument}
+        checked={isSelected.some((item) => item.id === document.id)}
+        onChange={(isChecked) => handleCheckbox(isChecked, document)}
       />
     );
   });

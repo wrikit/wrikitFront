@@ -82,6 +82,8 @@ const DocumentList = () => {
 
   //체크 박스
   const [isSelected, setIsSelected] = useState([]);
+  // 문서 전체 체크
+  const [isAllSelected, setIsAllSelected] = useState(false);
   const handleCheckbox= (isChecked, document) => {
     if (isChecked) {
       setIsSelected((prevSelectedDocuments) => [
@@ -90,7 +92,17 @@ const DocumentList = () => {
       ]);
     } else {
       setIsSelected((prevSelectedDocuments) =>
-        prevSelectedDocuments.filter((item) => item.id !== document.id)
+      prevSelectedDocuments.filter((item) => item.id !== document.id)
+      );
+      // setIsAllSelected(false)
+    }
+  };
+  const handleAllCheckboxes = (e) => {
+    const isChecked= e.target.checked;
+    setIsAllSelected(isChecked);
+    if(isChecked){
+      setIsSelected((prevSelectedDocuments) =>
+      prevSelectedDocuments.filter((item) => item.id !== document.id)
       );
     }
   };
@@ -121,6 +133,7 @@ const DocumentList = () => {
         deleteDocument={deleteDocument}
         checked={isSelected.some((item) => item.id === document.id)}
         onChange={(isChecked) => handleCheckbox(isChecked, document)}
+        isAllSelected={isAllSelected}
       />
     );
   });
@@ -133,6 +146,8 @@ const DocumentList = () => {
       <h2>내 문서</h2>
       <div className="documentList">
         <div className="documentList__header">
+          <input type="checkbox"  checked={isAllSelected} 
+          onChange={handleAllCheckboxes}/>
           <span></span>
           <span>문서번호</span>
           <span>문서이름</span>

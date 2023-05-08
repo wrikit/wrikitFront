@@ -8,17 +8,25 @@ import { useEffect, useState } from "react";
 const DocumentItem = (props) => {
   //   console.log(props);
   const [isChecked, setIsChecked] = useState(props.checked);
+  const isAllSelected = props.isAllSelected;
   const onChange = props.onChange;
   const handleCheck = (e) => {
     const selectedValue = e.target.checked;
     setIsChecked(selectedValue);
     onChange(selectedValue, document);
+   
   };
+  useEffect(()=>{
+    if(isAllSelected){
+      setIsChecked(true);
+    }
+    else{
+      setIsChecked(false)
+    }
+  },[isAllSelected]);
 
-  // console.log(isChecked);
   const { document } = props;
-  console.log("DocumentItem컴포넌트key", document);
-
+  console.log("전ㅊ[", document);
   return (
     <div className="DocumentItem">
       <span className="DocumentItem__checkbox">

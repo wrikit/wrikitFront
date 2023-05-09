@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import "../../styles/lgpage.scss";
-import descImg1 from "../../img/desc01.png";
 import { getCookie } from "../../tools";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
@@ -38,7 +37,6 @@ const LoginPage = () => {
     setLogin(getCookie('username') != "null");
   }, []);
 
-  // console.log(user);
   return (
     <div>
     {login ? (

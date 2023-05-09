@@ -12,7 +12,6 @@ import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
 import Document from "./pages/Document";
 import DocumentView from "./pages/DocumentView";
-import TextEditor from "./components/DocumentPage/TextEditor";
 import LoginPage from "./components/LoginPage/LoginTemplate";
 import Register from "./components/LoginPage/Register";
 import Profile from "./components/UserProfile/Profile";
@@ -112,7 +111,6 @@ function App() {
             <Route path="/document/:id/:type" element={<DocumentView />} />
             <Route path="/register" element={<Register />} />
             <Route path="/lgpage" element={<LoginPage />} />
-            <Route path="/textEditor" element={<TextEditor />} />
           </Route>
           <Route path="/profile" element={<Profile type="profile" />} />
           <Route path="/*" element={<NotFound />} />

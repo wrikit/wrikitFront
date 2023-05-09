@@ -11,12 +11,6 @@ const ContentBox = props => {
   }, []);
 
   return <div className={props.divClass}>
-    {/* { props.editable ? (<CKEditor 
-      editor={ClassicEditor}
-      data={props.content}
-      onReady={(editor) => {
-        console.log("Editor is ready to use!", editor);
-      }} />) : (<div ref={contentRef} ></div>)} */}
     <div ref={contentRef} ></div>
   </div>;
 }

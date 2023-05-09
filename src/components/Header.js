@@ -50,34 +50,6 @@ const Header = (props) => {
     setIconHover(false);
   };
 
-  // 반응형 드롭다운 -> X 버튼(닫기) 생성
-  // const dropdownRef = useRef();
-  // const [closeBtn, setCloseBtn] = useState(false);
-
-  // useEffect(() => {
-  //   function handleResize() {
-  //     if (window.innerWidth <= 767) {
-  //       setCloseBtn(true);
-  //     } else {
-  //       setCloseBtn(false);
-  //     }
-  //   }
-  // 드롭다운 외 다른 곳 클릭시 드롭다운 닫힘
-  //   function handleClickOutside(e) {
-  //     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-  //       setDropdownOpened(false);
-  //     }
-  //   }
-
-  //   handleResize();
-  //   window.addEventListener("resize", handleResize);
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [isDropdownOpened]);
-
   const MypageClick = () => {
     props.onMenuClick();
   };

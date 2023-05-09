@@ -31,7 +31,7 @@
 
     &__title {
       @extend .mb-20;
-      font-size: $font-size-xlg;
+      line-height: 3rem;
     }
     &__desc {
       font-size: $font-size-lg;

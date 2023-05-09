@@ -6,13 +6,13 @@ const MainPage = (isLogin) => {
     <main className="MainPage">
       <div className="banner index-img">
         <div className="main__textwrapper">
-          <h1 className="main__textwrapper__title">[ 한 줄 문구 ]</h1>
+          <h1 className="main__textwrapper__title">어디든, 언제든!<br /> 간편한 문서공유</h1>
           <div className="main__textwrapper__desc">
-            설명설명설명
+            이메일 초대없이 링크하나로 협업
             <br />
-            설명설명설명
+            간단하고 직관적인 편집툴
             <br />
-            설명설명설명
+            작성한 문서를 PDF로 다운받아 보세요
             <br />
           </div>
           <div className="main__textwrapper__btnArea">

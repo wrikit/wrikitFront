@@ -14,8 +14,8 @@ const DocumentItem = (props) => {
     const selectedValue = e.target.checked;
     setIsChecked(selectedValue);
     onChange(selectedValue, document);
-   
   };
+  //문서 전체 선택/해제 기능
   useEffect(()=>{
     if(isAllSelected){
       setIsChecked(true);

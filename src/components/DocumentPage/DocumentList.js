@@ -74,7 +74,6 @@ const DocumentList = () => {
     }
   };
 
-  //삭제 버튼
 
   useEffect(() => {
     getDocuments();
@@ -82,8 +81,9 @@ const DocumentList = () => {
 
   //체크 박스
   const [isSelected, setIsSelected] = useState([]);
-  // 문서 전체 체크
   const [isAllSelected, setIsAllSelected] = useState(false);
+
+  //개별 체크박스
   const handleCheckbox= (isChecked, document) => {
     if (isChecked) {
       setIsSelected((prevSelectedDocuments) => [
@@ -97,16 +97,40 @@ const DocumentList = () => {
       // setIsAllSelected(false)
     }
   };
+  //문서 전체 클릭
   const handleAllCheckboxes = (e) => {
     const isChecked= e.target.checked;
     setIsAllSelected(isChecked);
     if(isChecked){
-      setIsSelected((prevSelectedDocuments) =>
-      prevSelectedDocuments.filter((item) => item.id !== document.id)
-      );
-    }
+      setIsSelected(documents);
+    }else {
+      setIsSelected([]);}
   };
+  // console.log("서택", isSelected[0].id);
+  
+  // 체크된 문서 삭제
+  const handleDeleteButon = ()=>{
+    const docsToDelete = isSelected.map((document)=> document.id);
+    console.log(docsToDelete);
+    if(window.confirm("정말 삭제하시겠습니까?")){
+    docsToDelete.forEach((id)=>{
+      axios.post("http://localhost:8000/main/delete-document/", 
+      {documentid : id},
+      {withCredentials:true})
+      .then((res)=>{
+        console.log(res.data);
+        if(res.data.result){
+          alert("삭제되었습니다.");
+          window.location.href = "/document";
+        }
+        return;
+      })
+    })}    
+    
+  }
+
   //document리스트 map
+  //삭제 버튼
   const dataLoaded = documents.map((document) => {
     console.log("dataLoaded", document.id);
     const deleteDocument = () => {
@@ -152,6 +176,7 @@ const DocumentList = () => {
           <span>문서번호</span>
           <span>문서이름</span>
           <span>수정한 날짜</span>
+          <button onClick={handleDeleteButon}>삭제하기</button>
         </div>
         <div className="documentList__contents">
           {documents.length < 1 ? <h4>문서함이 비어있습니다</h4> : dataLoaded}

@@ -176,6 +176,7 @@ const DocumentList = () => {
           <span>문서번호</span>
           <span>문서이름</span>
           <span>수정한 날짜</span>
+          <span></span>
           <button onClick={handleDeleteButon}>삭제하기</button>
         </div>
         <div className="documentList__contents">

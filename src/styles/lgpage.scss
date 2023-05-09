@@ -5,8 +5,8 @@
   @extend.pt-80;
   @extend.d-flex;
   flex-direction: row;
-  height: 100vh;
-
+  height: 100%;
+  
   &__section {
     // width: 100%;
     // &__desc {
@@ -26,9 +26,11 @@
       padding: 40px;
       max-width: 600px;
       margin: 40px auto;
+      height: fit-content;
       @extend .br-4;
       @extend .shadow-lg;
       background-color: $secondary-background-color;
+      overflow: hidden;
 
       .tabGroup {
         list-style-type: none;

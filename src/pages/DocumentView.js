@@ -31,7 +31,6 @@ const DocumentView = (props) => {
   const settingsObj = new reactStates(setSettings, settings);
   const [autosave, setAutosave] = useState({});
   const autosaveObj = new reactStates(setAutosave, autosave); 
-  // const [htmlPdf, setHtmlPdf] = useState("");
 
   let typeArr = ["editor", "reader"];
   if (!typeArr.includes(type)) {
@@ -262,7 +261,7 @@ const DocumentView = (props) => {
 
   //문서리스트 페이지로 이동
   const goToDocList = () => {
-    window.location.href = "http://localhost:3000/document";
+    window.location.href = "/document";
   };
 
   //마이페이지 클릭
@@ -465,7 +464,6 @@ const DocumentView = (props) => {
             className="pdf-html document-functions hidden quill ql-editor"
             ref={htmlPdfRef}
           >
-            {/* {htmlPdf} */}
           </div>
           {showProfile && <Mypage onCloseClick={closeMypage} />}
           <dialog ref={saveRef}>

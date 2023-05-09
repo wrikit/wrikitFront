@@ -82,19 +82,16 @@ const DocumentList = () => {
     }else {
       setIsSelected([]);}
   };
-  // console.log("서택", isSelected[0].id);
   
   // 체크된 문서 삭제
   const handleDeleteButon = ()=>{
     const docsToDelete = isSelected.map((document)=> document.id);
-    console.log(docsToDelete);
     if(window.confirm("정말 삭제하시겠습니까?")){
     docsToDelete.forEach((id)=>{
       axios.post("http://localhost:8000/main/delete-document/", 
       {documentid : id},
       {withCredentials:true})
       .then((res)=>{
-        console.log(res.data);
         if(res.data.result){
           alert("삭제되었습니다.");
           window.location.href = "/document";
@@ -108,7 +105,6 @@ const DocumentList = () => {
   //document리스트 map
   //삭제 버튼
   const dataLoaded = documents.map((document) => {
-    console.log("dataLoaded", document.id);
     const deleteDocument = () => {
       if (window.confirm("정말 삭제하시겠습니까?")) {
         axios
@@ -118,7 +114,6 @@ const DocumentList = () => {
             { withCredentials: true }
           )
           .then((res) => {
-            console.log(res.data);
             if (res.data.result) {
               alert("삭제되었습니다.");
               window.location.href = "/document";

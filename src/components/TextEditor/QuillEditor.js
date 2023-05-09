@@ -23,12 +23,10 @@ const QuillEditor = (props) => {
   };
   useEffect(() => {
     const quill = quillRef.current.getEditor();
-    quill.on("selection-change", (range, oldRange, source) => {
+    quill.on("selection-change", (range) => {
       if (range) {
-        // props.onFocus();
         handleFocus();
       } else {
-        // props.onBlur();
         handleBlur();
       }
     });
@@ -64,7 +62,6 @@ const QuillEditor = (props) => {
       parchment: Quill.import("parchment"),
     },
     clipboard: {
-      // toggle to add extra line breaks when pasting HTML:
       matchVisual: false,
     },
   };

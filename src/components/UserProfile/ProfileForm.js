@@ -1,4 +1,3 @@
-import Information from "./Information";
 import { useState, useEffect, useRef } from "react";
 import {
   getCookie,
@@ -29,10 +28,8 @@ const ProfileForm = (props) => {
   const nameInputRef = useRef(null);
   const deleteAccountRef = useRef(null);
   const isDisabledHandler = (event) => {
-    // event.preventDefault();
     if (!isDisabled && (isNameChange || isImageChange || isMessageChange)) {
       submitRef.current.submit();
-      // window.history.back();
     }
     if (isDisabled) {
       nameInputRef.current.focus();

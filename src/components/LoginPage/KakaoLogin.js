@@ -13,11 +13,9 @@ const KakaoLogin = () => {
   const KakaoLogin = () => {
     Kakao.Auth.login({
       success: response => {
-        // console.log("TRUE >>>",response);
         Kakao.API.request({
           url: '/v2/user/me',
           success: response => {
-            // console.log(response['id']);
             const ID = response['id'];
             const Properties = response['properties'];
             // 카카오 가입이아닌 로그인 함수로 대체, 회원가입이 필요한경우는 Django에서 예외처리

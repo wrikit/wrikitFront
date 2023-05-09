@@ -5,7 +5,6 @@ import { MdDeleteForever } from "react-icons/md";
 import { useEffect, useState } from "react";
 //documentItem컴포넌트 문서 번호, 이름, 마지막업데이트날짜
 const DocumentItem = (props) => {
-  //   console.log(props);
   const [isChecked, setIsChecked] = useState(props.checked);
   const isAllSelected = props.isAllSelected;
   const onChange = props.onChange;

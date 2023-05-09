@@ -7,7 +7,7 @@ import {
   useNavigate,
   useMatch,
 } from "react-router-dom";
-import axios, { formToJSON } from "axios";
+import axios from "axios";
 import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
 import Document from "./pages/Document";
@@ -82,13 +82,11 @@ const PageLayout = (props) => {
   // 문서 작성 페이지에서 모바일환경에서는 헤더 숨김
   const match = useMatch("/document/:id/:type");
   const isMobile = useMediaQuery({ query: "(max-width : 767px)" });
-  console.log(match, isMobile);
   return (
     <>
       {!match || (match && !isMobile) ? (
         <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} />
       ) : null}
-      {/* <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} /> */}
       {isSidebarOpen && (
         <div ref={mypageRef}>
           <Mypage onCloseClick={handleSidebarToggle} />
@@ -103,7 +101,6 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {/* <Header isLogin={isLogin} /> */}
         <Routes>
           <Route element={<PageLayout />}>
             <Route path="/" element={<MainPage />} />
@@ -115,8 +112,6 @@ function App() {
           <Route path="/profile" element={<Profile type="profile" />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
-        {/* <Register/> */}
-        {/* <TextEditor  /> */}
       </BrowserRouter>
     </div>
   );

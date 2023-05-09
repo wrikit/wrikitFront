@@ -1,11 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 @import "./utility";
-// :root {
-//   --pink1: #ef73cb;
-//   --pink2: #dc5f89;
-// }
 .NotFound {
-  // margin-top: 300px;
   align-items: center;
   background-image: linear-gradient(to bottom right, #fbfbf8, #f1ead5);
   color: $white;
@@ -50,7 +45,6 @@
       background-image: linear-gradient(to top right, $background-color, #f1ead5);
       border-radius: 50%;
       position: absolute;
-      // z-index: -1;
 
       &.small {
         top: 200px;

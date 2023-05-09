@@ -1,21 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { throttle } from "lodash";
-// import { GrCloudDownload } from "react-icons/gr";
-// import { IoCloudDownloadOutline } from "react-icons/io5";
 import { FaFolderOpen } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { SlLogin } from "react-icons/sl";
-import { FaWindowClose } from "react-icons/fa";
-import { RiLoginBoxFill } from "react-icons/ri";
 import axios from "axios";
-import MiniProfile from "./UserProfile/MiniProfile";
-import Mypage from "../pages/Mypage";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
-  // console.log("Header ::", userName);
-
   // 스크롤 감지 (-> 헤더 그림자 + 높이 줄어듦 효과)
   // isScrolled가 true -> shadow 클래스 추가
   const [isScrolled, setIsScrolled] = useState(false);
@@ -56,9 +47,7 @@ const Header = (props) => {
 
   //미니프로필
   const [userName, setUserName] = useState("");
-  // console.log("D23");
   useEffect(() => {
-    console.log(props);
     axios
       .post(
         "http://localhost:8000/main/get-profile/",
@@ -68,7 +57,6 @@ const Header = (props) => {
         }
       )
       .then((res) => {
-        // console.log(res.data);
         if (res.data.result) {
           setUserName(res.data.data.profileName);
         }
@@ -95,7 +83,6 @@ const Header = (props) => {
               onMouseOut={handleMouseOut}
             >
               <NavLink to="/document">
-                {/* <a href="/document"> */}
                 <FaFolderOpen size="24" title="내 문서" />
               </NavLink>
               <p className={iconHover || isActive ? "active" : "hiddenName"}>
@@ -103,7 +90,6 @@ const Header = (props) => {
               </p>
             </li>
             <li>
-              {/* {isLogin ? (<button type="button" onClick={onLogout}>LOGOUT</button>) : (<NavLink to="/lgpage">시작하기</NavLink>)} */}
               {isLogin ? (
                 <div className="iconContainer">
                   <BsPersonCircle
@@ -111,16 +97,13 @@ const Header = (props) => {
                     onClick={MypageClick}
                     title="마이페이지"
                   />
-                  {/* <li onClick={onLogout}>Logout</li> */}
                 </div>
               ) : (
                 <div className="iconContainer">
                   <NavLink to="/lgpage" className="lgbtn-show">
-                    {/* <a href="/lgpage" className="lgbtn-show"> */}
                     시작하기
                   </NavLink>
                   <NavLink to="/lgpage" className="lgbtn-hide">
-                    {/* <a href="/lgpage" className="lgbtn-hide"> */}
                     <SlLogin size="23"></SlLogin>
                   </NavLink>
                 </div>

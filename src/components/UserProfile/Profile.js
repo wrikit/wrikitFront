@@ -1,6 +1,7 @@
 import ProfileForm from "./ProfileForm";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { getCookie } from "../../tools";
 
 const Profile = (props) => {
   const [name, setName] = useState(false);
@@ -18,11 +19,6 @@ const Profile = (props) => {
   if (src == null) {
     setSrc("");
   }
-
-  const getCookie = (key) => {
-    let value = document.cookie.match("(^|;) ?" + key + "=([^;]*)(;|$)");
-    return value ? value[2] : null;
-  };
 
   useEffect(() => {
     if (getCookie("isKakao") == "true") {

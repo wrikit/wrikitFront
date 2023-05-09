@@ -1,12 +1,10 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import KakaoLogin from "./KakaoLogin";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginTemplate = () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const navigate = useNavigate();
 
   const onIdHandler = (e) => {
     setId(e.target.value);
@@ -29,7 +27,6 @@ const LoginTemplate = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        // console.dir(res.data);
         if (res.data.result === "True") {
           alert(`${id}님 안녕하세요!`);
           document.location.href = "/document";

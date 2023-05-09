@@ -1,7 +1,6 @@
 @import "./utility";
 
 .MainPage {
-  // padding-top: 50px;
   max-height: 100vh;
   background: $background-color;
   overflow: hidden;
@@ -44,29 +43,11 @@
       margin-right: auto;
 
       button {
-        // margin: 20px;
-        // width: 130px;
-        // height: 40px;
-        // color: $background-color;
-        // @extend .br-20;
-        // padding: 10px 25px;
-        // font-family: "Lato", sans-serif;
-        // font-weight: 500;
-        // background: transparent;
-        // cursor: pointer;
-        // transition: all 0.3s ease;
-        // position: relative;
-        // @extend .d-inline-block;
-        // box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.2),
-        //   7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-        //   4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-        // outline: none;
         padding: 12px 36px;
         background: none;
         border: none;
         position: relative;
         text-transform: uppercase;
-        // font-weight: bold;
         box-shadow: 5px 7px 7px;
         font-size: $font-size-m;
         letter-spacing: 3px;
@@ -99,24 +80,6 @@
           }
         }
       }
-      // .runBtn {
-      // background: rgb(16, 15, 15);
-      // background: linear-gradient(
-      //   0deg,
-      //   rgba(16, 15, 15, 1) 0%,
-      //   rgb(41, 38, 38) 100%
-      // );
-      // border: none;
-
-      // &::before {
-      //   height: 0%;
-      //   width: 2px;
-      // }
-      // &:hover {
-      //   box-shadow: inset -3px -3px 6px 0 rgba(255, 255, 255, 0.25),
-      //     inset 3px 3px 6px 0 rgba(0, 0, 0, 0.4);
-      // }
-      // }
     }
   }
 }

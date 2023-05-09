@@ -13,11 +13,6 @@ const NotFound = () => {
             home page
           </a>{" "}
           로 이동해 서비스를 이용해 보세요!
-          {/* or{" "}
-          <a href="#" target="_blank">
-            contact
-          </a>{" "}
-          me */}
         </small>
         <div className="circle small"></div>
         <div className="circle medium"></div>

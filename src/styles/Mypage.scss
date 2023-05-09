@@ -8,12 +8,9 @@
   max-width: 500px;
   min-width: 300px;
   height: 100%;
-  //   @extend .pt-80;
   padding-top: 3rem;
   overflow: hidden;
   background-color: $point-color;
-  // background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-  // box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: -15px 0px 10px -15px rgba(57, 63, 72, 0.5);
   -moz-box-shadow: -15px 0px 10px -15px rgba(57, 63, 72, 0.5);
   box-shadow: -15px 0px 10px -15px rgba(57, 63, 72, 0.5);

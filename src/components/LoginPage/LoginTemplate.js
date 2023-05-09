@@ -33,7 +33,6 @@ const LoginPage = () => {
       : setDisplay(<Register setContent={setContent} />);
   }, [content]);
   useEffect(() => {
-    console.log(getCookie('username'));
     setLogin(getCookie('username') != "null");
   }, []);
 

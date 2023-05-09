@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import axios from "axios";
+import { getCookie } from "../../tools";
 
 const Setting = () => {
   const settingDialogRef = useRef(null);
@@ -10,10 +11,6 @@ const Setting = () => {
   const [newPass, setNewPass] = useState("");
   const [confirm, setConfirm] = useState("");
 
-  const getCookie = (key) => {
-    let value = document.cookie.match("(^|;) ?" + key + "=([^;]*)(;|$)");
-    return value ? value[2] : null;
-  };
   const inputHandler = (settingFunc) => {
     return (event) => {
       settingFunc(event.target.value);

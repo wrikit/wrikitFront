@@ -7,7 +7,6 @@ const ContentBox = props => {
     if (!props.editable) {
       contentRef.current.innerHTML = props.content;
     }
-
   }, []);
 
   return <div className={props.divClass}>

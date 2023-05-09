@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import "../../styles/lgpage.scss";
-import descImg1 from "../../img/desc01.png";
 import { getCookie } from "../../tools";
 import axios from "axios";
 
@@ -37,7 +36,6 @@ const LoginPage = () => {
     setLogin(getCookie('username') != "null");
   }, []);
 
-  // console.log(user);
   return (
     <div>
     {login ? (

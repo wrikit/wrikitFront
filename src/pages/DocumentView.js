@@ -14,7 +14,6 @@ import MiniProfile from "../components/UserProfile/MiniProfile";
 import QuillEditor from "../components/TextEditor/QuillEditor";
 import Mypage from "./Mypage.js";
 import { VscLink, VscEdit, VscCloudDownload } from "react-icons/vsc";
-import { Quill } from "react-quill";
 import html2pdf from "html2pdf.js";
 
 const DocumentView = (props) => {
@@ -72,7 +71,6 @@ const DocumentView = (props) => {
         if (res.data.result) {
           const data = res.data.result;
           const doc_html = data.content;
-          console.log(doc_html);
           setContent(doc_html);
           if (data.username == getCookie("username") || data.editable) {
             setEditable(true);
@@ -226,7 +224,6 @@ const DocumentView = (props) => {
   const savePdf = () => {
     const editorDiv = document.querySelector(".quill .ql-editor");
     htmlPdfRef.current.innerHTML = editorDiv.innerHTML;
-    console.log(htmlPdfRef.current.className);
 
     const quotes = htmlPdfRef.current.querySelectorAll("blockquote");
     quotes.forEach((element) => {
@@ -280,7 +277,6 @@ const DocumentView = (props) => {
 
   //모바일 환경에서 문서작성 타이핑 중에는 하단 버튼 안 보이게 설정
   const [isFocused, setIsFocused] = useState(false);
-  console.log("isFocused-docpage", isFocused);
 
   useEffect(() => {
     axios
@@ -325,7 +321,6 @@ const DocumentView = (props) => {
                   return res.data;
                 } else {
                   softAlert("오류발생 QoQ");
-                  console.log("error >>>", res.data.message);
                   return false;
                 }
               })
@@ -350,7 +345,6 @@ const DocumentView = (props) => {
                   setIsDisplay(true);
                 } else {
                   softAlert("오류발생 QoQ");
-                  console.log("error >>>", res.data.message);
                 }
               });
           } else {

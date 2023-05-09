@@ -1,5 +1,4 @@
 import ProfileForm from "./ProfileForm";
-import PassSetting from "./PassSetting";
 import axios from "axios";
 import { useState, useEffect } from "react";
 

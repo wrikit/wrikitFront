@@ -56,7 +56,7 @@ const PageLayout = (props) => {
       navigate("/document");
     }
   }, [isLogin, navigate]);
-  //마이페이지 사이드바
+  // 마이페이지 사이드바
   const mypageRef = useRef(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

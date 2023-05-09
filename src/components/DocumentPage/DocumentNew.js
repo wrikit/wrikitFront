@@ -23,7 +23,6 @@ const DocumentNew = () => {
     })
       .then((res) => {
         const newObjectData = res.data;
-        console.log("create-document axios True", newObjectData.id);
         // 생성한 새문서로 이동
         navigate(`/document/${newObjectData.id}/editor`);
       })

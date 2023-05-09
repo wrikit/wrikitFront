@@ -95,7 +95,7 @@ const PageLayout = (props) => {
           <Mypage onCloseClick={handleSidebarToggle} />
         </div>
       )}
-      <Outlet />
+      <Outlet isLogin={isLogin}/>
     </>
   );
 };

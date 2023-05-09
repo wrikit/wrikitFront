@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "../styles/MainPage.scss";
 
-const MainPage = () => {
+const MainPage = (isLogin) => {
   return (
     <main className="MainPage">
       <div className="banner index-img">
@@ -16,11 +16,18 @@ const MainPage = () => {
             <br />
           </div>
           <div className="main__textwrapper__btnArea">
-            <NavLink to="/lgpage">
-              <button className="runBtn">
-                <span>시작하기</span>
-              </button>
-            </NavLink>
+            {isLogin ? (
+                <NavLink to="/document">
+                <button className="runBtn">
+                  <span>시작하기</span>
+                </button>
+              </NavLink>
+            ) : (  <NavLink to="/lgpage">
+            <button className="runBtn">
+              <span>시작하기</span>
+            </button>
+          </NavLink>)}
+          
           </div>
         </div>
       </div>

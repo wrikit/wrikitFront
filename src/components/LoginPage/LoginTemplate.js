@@ -5,6 +5,7 @@ import "../../styles/lgpage.scss";
 import descImg1 from "../../img/desc01.png";
 import { getCookie } from "../../tools";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 const LoginPage = () => {
   const [content, setContent] = useState("login");
@@ -44,9 +45,10 @@ const LoginPage = () => {
       <div className="logined">
         <div className="flex-item"></div>
         <div className="flex-item"></div>
-        <h1>이미 로그인 되있어요</h1>
+        <h1>이미 로그인한 상태입니다.</h1>
         <div className="flex-item"></div>
         <button onClick={logout_login}>로그아웃하고 다시 로그인 하기</button>
+        <NavLink to="/document"><button>내 문서로 이동하기</button></NavLink>
         <div className="flex-item"></div>
       </div>
     ) : (

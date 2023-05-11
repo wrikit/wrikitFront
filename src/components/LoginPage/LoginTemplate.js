@@ -5,6 +5,7 @@ import "../../styles/lgpage.scss";
 import { getCookie } from "../../tools";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import { URL } from "../../settings";
 
 const LoginPage = () => {
   const [content, setContent] = useState("login");
@@ -16,7 +17,7 @@ const LoginPage = () => {
 
   const logout_login = () => {
     axios.post(
-      "http://localhost:8000/auth/logout/",
+      `http://${URL}/auth/logout/`,
       {},
       { withCredentials: true } 
     )

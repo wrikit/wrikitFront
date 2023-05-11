@@ -1,5 +1,6 @@
 import axios from "axios";
 import kakao_login_png from "../../img/kakao_login.png";
+import { URL } from "../../settings";
 
 const KakaoLogin = () => {
   // index.html <head>에서 스크립트 연결필요
@@ -19,7 +20,7 @@ const KakaoLogin = () => {
             const ID = response['id'];
             const Properties = response['properties'];
             // 카카오 가입이아닌 로그인 함수로 대체, 회원가입이 필요한경우는 Django에서 예외처리
-            axios.post("http://localhost:8000/auth/kakao-login/",
+            axios.post(`http://${URL}/auth/kakao-login/`,
             {
               // Data here
               kakaoid: ID,

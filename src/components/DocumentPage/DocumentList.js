@@ -5,6 +5,7 @@ import moment from "moment/moment";
 import DocumentItem from "./DocumentItem";
 import DocumentNew from "./DocumentNew";
 import "../../styles/DocumentList.scss";
+import { URL } from "../../settings";
 
 const DocumentList = () => {
   // 2초기다리는건 처음에 state에 빈값이여야... 2초후바꾸기
@@ -12,7 +13,7 @@ const DocumentList = () => {
   const getDocuments = async () => {
     try {
       const res1 = await axios.post(
-        "http://localhost:8000/main/get-profile/",
+        `http://${URL}/main/get-profile/`,
         {},
         { withCredentials: true }
       );
@@ -27,7 +28,7 @@ const DocumentList = () => {
       const addDocumentDate = await Promise.all(
         TransDocuments.map(async (document) => {
           const res2 = await axios.post(
-            "http://localhost:8000/main/get-document/",
+            `http://${URL}/main/get-document/`,
             {
               documentid: document.id,
               documentkey: "",
@@ -88,7 +89,7 @@ const DocumentList = () => {
     const docsToDelete = isSelected.map((document)=> document.id);
     if(window.confirm("정말 삭제하시겠습니까?")){
     docsToDelete.forEach((id)=>{
-      axios.post("http://localhost:8000/main/delete-document/", 
+      axios.post(`http://${URL}/main/delete-document/`, 
       {documentid : id},
       {withCredentials:true})
       .then((res)=>{
@@ -109,7 +110,7 @@ const DocumentList = () => {
       if (window.confirm("정말 삭제하시겠습니까?")) {
         axios
           .post(
-            "http://localhost:8000/main/delete-document/",
+            `http://${URL}/main/delete-document/`,
             { documentid: document.id },
             { withCredentials: true }
           )

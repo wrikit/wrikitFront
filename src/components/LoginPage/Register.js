@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useRef } from "react";
+import { URL } from "../../settings";
 
 const Register = (props) => {
   const [id, setId] = useState("");
@@ -25,7 +26,7 @@ const Register = (props) => {
     } else {
       axios({
         method: "POST",
-        url: "http://localhost:8000/auth/create/",
+        url: `http://${URL}/auth/create/`,
         data: {
           username: id,
           userpass: pw,

@@ -15,6 +15,7 @@ import QuillEditor from "../components/TextEditor/QuillEditor";
 import Mypage from "./Mypage.js";
 import { VscLink, VscEdit, VscCloudDownload } from "react-icons/vsc";
 import html2pdf from "html2pdf.js";
+import { URL } from "../settings";
 
 const DocumentView = (props) => {
   const { id, type } = useParams();
@@ -52,7 +53,7 @@ const DocumentView = (props) => {
   const getSaveKey = (docId) => {
     axios
       .post(
-        "http://localhost:8000/main/get-documentkey/",
+        `http://${URL}/main/get-documentkey/`,
         {},
         { withCredentials: true }
       )
@@ -63,7 +64,7 @@ const DocumentView = (props) => {
         }
       });
   };
-  const inputKeyCB = (key, URL = "http://localhost:8000/") => {
+  const inputKeyCB = (key, URL = `http://${URL}/`) => {
     axios
       .post(`${URL}main/get-document/`, { documentid: id, documentkey: key })
       .then((res) => {
@@ -126,7 +127,7 @@ const DocumentView = (props) => {
     if (newPass.length && newPass.length <= 20) {
       axios
         .post(
-          "http://localhost:8000/main/set-documentkey/",
+          `http://${URL}/main/set-documentkey/`,
           {
             documentid: id,
             newkey: newPass,
@@ -149,7 +150,7 @@ const DocumentView = (props) => {
   const deleteDocument = () => {
     axios
       .post(
-        "http://localhost:8000/main/delete-document/",
+        `http://${URL}/main/delete-document/`,
         { documentid: id },
         { withCredentials: true }
       )
@@ -166,7 +167,7 @@ const DocumentView = (props) => {
     if (newName.length) {
       axios
         .post(
-          "http://localhost:8000/main/update-document/",
+          `http://${URL}/main/update-document/`,
           {
             documentid: id,
             documentkey: "",
@@ -194,7 +195,7 @@ const DocumentView = (props) => {
     const editorDiv = document.querySelector(".quill .ql-editor");
     axios
       .post(
-        "http://localhost:8000/main/update-document/",
+        `http://${URL}/main/update-document/`,
         {
           documentid: id,
           documentkey: updateKey,
@@ -280,7 +281,7 @@ const DocumentView = (props) => {
   useEffect(() => {
     axios
       .post(
-        "http://localhost:8000/main/get-profile/",
+        `http://${URL}/main/get-profile/`,
         {},
         { withCredentials: true }
       )
@@ -290,7 +291,7 @@ const DocumentView = (props) => {
       });
     axios
       .post(
-        "http://localhost:8000/main/get-document-name/",
+        `http://${URL}/main/get-document-name/`,
         { documentid: id },
         { withCredentials: true }
       )
@@ -302,7 +303,7 @@ const DocumentView = (props) => {
             setIsMine(true);
             axios
               .post(
-                "http://localhost:8000/main/get-document/",
+                `http://${URL}/main/get-document/`,
                 { documentid: id, documentkey: "" },
                 { withCredentials: true }
               )
@@ -332,7 +333,7 @@ const DocumentView = (props) => {
               });
           } else if (res.data.public) {
             axios
-              .post("http://localhost:8000/main/get-document/", {
+              .post(`http://${URL}/main/get-document/`, {
                 documentid: id,
                 documentkey: "",
               })
@@ -359,7 +360,7 @@ const DocumentView = (props) => {
         if (isExist) {
           if (saveKey) {
             axios
-              .post("http://localhost:8000/main/get-document/", {
+              .post(`http://${URL}/main/get-document/`, {
                 documentid: id,
                 documentkey: saveKey,
               })
@@ -381,7 +382,7 @@ const DocumentView = (props) => {
                 } else {
                   setSaveKey(false);
                   axios.post(
-                    "http://localhost:8000/main/delete-document-key/",
+                    `http://${URL}/main/delete-document-key/`,
                     { delete: id },
                     { withCredentials: true }
                   );
@@ -585,7 +586,7 @@ const DocumentView = (props) => {
                     로그인 하면 한번 입력한 키를 저장해두고 사용가능해요.
                   </span>
                   <br />
-                  <a href="http://localhost:3000/lgpage">로그인 / 회원가입</a>
+                  <a href="/lgpage">로그인 / 회원가입</a>
                 </p>
               ) : (
                 <p className="info">

@@ -2,6 +2,7 @@ import ProfileForm from "./ProfileForm";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { getCookie } from "../../tools";
+import { URL } from "../../settings";
 
 const Profile = (props) => {
   const [name, setName] = useState(false);
@@ -31,7 +32,7 @@ const Profile = (props) => {
     const getData = async () => {
       axios
         .post(
-          "http://localhost:8000/main/get-profile/",
+          `http://${URL}/main/get-profile/`,
           {},
           { withCredentials: true }
         )
@@ -44,14 +45,14 @@ const Profile = (props) => {
           setName(res.data.data.profileName);
           setMessage(res.data.data.profileMessage);
           setSrc(
-            "http://localhost:8000/media/user_profile/" +
+            `http://${URL}/media/user_profile/` +
               res.data.data.profileImg
           );
           setUserId(res.data.data.userId);
           setProfileId(res.data.data.profileId);
         });
     };
-    if (window.location.href == "http://localhost:3000/profile/") {
+    if (window.location.href == `http://localhost:3000/profile/` || window.location.href == `http://115.85.180.7:3000/profile/`) {
     window.history.go(-1);
     } else {
       getData();

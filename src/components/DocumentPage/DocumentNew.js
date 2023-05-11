@@ -6,12 +6,14 @@ import { FaPlus } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import "../../styles/DocumentNew.scss";
 import { useNavigate } from "react-router-dom";
+import { URL } from "../../settings";
+
 const DocumentNew = () => {
   let navigate = useNavigate();
   const onClickHandler = async (e) => {
     await axios({
       method: "POST",
-      url: "http://localhost:8000/main/create-document/",
+      url: `http://${URL}/main/create-document/`,
       data: {
         name: "제목없는문서",
         type: "text",

@@ -8,6 +8,7 @@ import {
 import PassSetting from "./PassSetting";
 import axios from "axios";
 import { FaEdit, FaRegWindowClose } from "react-icons/fa";
+import { URL } from "../../settings";
 
 const ProfileForm = (props) => {
   //TODO 카카오 연동하기 버튼 (카카오계정이 아니라면)
@@ -77,7 +78,7 @@ const ProfileForm = (props) => {
 
   const onLogout = () => {
     axios
-      .post("http://localhost:8000/auth/logout/", {}, { withCredentials: true })
+      .post(`http://${URL}/auth/logout/`, {}, { withCredentials: true })
       .then((res) => {
         document.location.href = "/";
       });
@@ -255,8 +256,8 @@ const ProfileForm = (props) => {
 };
 
 ProfileForm.defaultProps = {
-  URL: "http://localhost:8000",
-  src: "http://localhost:8000/media/user_profile/default1.jpg",
+  URL: `http://${URL}`,
+  src: `http://${URL}/media/user_profile/default1.jpg`,
   userId: 0,
 };
 

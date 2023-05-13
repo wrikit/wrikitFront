@@ -15,7 +15,7 @@ import QuillEditor from "../components/TextEditor/QuillEditor";
 import Mypage from "./Mypage.js";
 import { VscLink, VscEdit, VscCloudDownload } from "react-icons/vsc";
 import html2pdf from "html2pdf.js";
-import { URL } from "../settings";
+import { serverURL } from "../settings";
 
 const DocumentView = (props) => {
   const { id, type } = useParams();
@@ -53,7 +53,7 @@ const DocumentView = (props) => {
   const getSaveKey = (docId) => {
     axios
       .post(
-        `http://${URL}/main/get-documentkey/`,
+        `http://${serverURL}/main/get-documentkey/`,
         {},
         { withCredentials: true }
       )
@@ -64,9 +64,9 @@ const DocumentView = (props) => {
         }
       });
   };
-  const inputKeyCB = (key, URL = `http://${URL}/`) => {
+  const inputKeyCB = (key, URL = `http://${serverURL}/`) => {
     axios
-      .post(`${URL}main/get-document/`, { documentid: id, documentkey: key })
+      .post(`${serverURL}main/get-document/`, { documentid: id, documentkey: key })
       .then((res) => {
         if (res.data.result) {
           const data = res.data.result;
@@ -85,7 +85,7 @@ const DocumentView = (props) => {
           if (getCookie("username") != "null") {
             axios
               .post(
-                `${URL}main/add-document-key/`,
+                `${serverURL}main/add-document-key/`,
                 { documentid: id, documentkey: key },
                 { withCredentials: true }
               )
@@ -127,7 +127,7 @@ const DocumentView = (props) => {
     if (newPass.length && newPass.length <= 20) {
       axios
         .post(
-          `http://${URL}/main/set-documentkey/`,
+          `http://${serverURL}/main/set-documentkey/`,
           {
             documentid: id,
             newkey: newPass,
@@ -150,7 +150,7 @@ const DocumentView = (props) => {
   const deleteDocument = () => {
     axios
       .post(
-        `http://${URL}/main/delete-document/`,
+        `http://${serverURL}/main/delete-document/`,
         { documentid: id },
         { withCredentials: true }
       )
@@ -167,7 +167,7 @@ const DocumentView = (props) => {
     if (newName.length) {
       axios
         .post(
-          `http://${URL}/main/update-document/`,
+          `http://${serverURL}/main/update-document/`,
           {
             documentid: id,
             documentkey: "",
@@ -195,7 +195,7 @@ const DocumentView = (props) => {
     const editorDiv = document.querySelector(".quill .ql-editor");
     axios
       .post(
-        `http://${URL}/main/update-document/`,
+        `http://${serverURL}/main/update-document/`,
         {
           documentid: id,
           documentkey: updateKey,
@@ -281,7 +281,7 @@ const DocumentView = (props) => {
   useEffect(() => {
     axios
       .post(
-        `http://${URL}/main/get-profile/`,
+        `http://${serverURL}/main/get-profile/`,
         {},
         { withCredentials: true }
       )
@@ -291,7 +291,7 @@ const DocumentView = (props) => {
       });
     axios
       .post(
-        `http://${URL}/main/get-document-name/`,
+        `http://${serverURL}/main/get-document-name/`,
         { documentid: id },
         { withCredentials: true }
       )
@@ -303,7 +303,7 @@ const DocumentView = (props) => {
             setIsMine(true);
             axios
               .post(
-                `http://${URL}/main/get-document/`,
+                `http://${serverURL}/main/get-document/`,
                 { documentid: id, documentkey: "" },
                 { withCredentials: true }
               )
@@ -333,7 +333,7 @@ const DocumentView = (props) => {
               });
           } else if (res.data.public) {
             axios
-              .post(`http://${URL}/main/get-document/`, {
+              .post(`http://${serverURL}/main/get-document/`, {
                 documentid: id,
                 documentkey: "",
               })
@@ -360,7 +360,7 @@ const DocumentView = (props) => {
         if (isExist) {
           if (saveKey) {
             axios
-              .post(`http://${URL}/main/get-document/`, {
+              .post(`http://${serverURL}/main/get-document/`, {
                 documentid: id,
                 documentkey: saveKey,
               })
@@ -382,7 +382,7 @@ const DocumentView = (props) => {
                 } else {
                   setSaveKey(false);
                   axios.post(
-                    `http://${URL}/main/delete-document-key/`,
+                    `http://${serverURL}/main/delete-document-key/`,
                     { delete: id },
                     { withCredentials: true }
                   );

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import KakaoLogin from "./KakaoLogin";
 import axios from "axios";
-import { URL } from "../../settings";
+import { serverURL } from "../../settings";
 
 const LoginTemplate = () => {
   const [id, setId] = useState("");
@@ -20,7 +20,7 @@ const LoginTemplate = () => {
 
     axios
       .post(
-        `http://${URL}/auth/login/`,
+        `http://${serverURL}/auth/login/`,
         {
           username: id,
           userpass: pw,

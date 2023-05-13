@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { getCookie } from "../../tools";
-import { URL } from "../../settings";
+import { serverURL } from "../../settings";
 
 const Setting = () => {
   const settingDialogRef = useRef(null);
@@ -31,7 +31,7 @@ const Setting = () => {
     if (validity && newPass == confirm) {
       axios
         .post(
-          `http://${URL}/auth/login/`,
+          `http://${serverURL}/auth/login/`,
           { username: getCookie("username"), userpass: pass },
           { withCredentials: true }
         )
@@ -39,7 +39,7 @@ const Setting = () => {
           if (res.data.result == "True") {
             axios
               .post(
-                `http://${URL}/auth/set-password/`,
+                `http://${serverURL}/auth/set-password/`,
                 { newpass: newPass },
                 { withCredentials: true }
               )

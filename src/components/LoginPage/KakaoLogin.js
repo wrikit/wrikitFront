@@ -1,6 +1,6 @@
 import axios from "axios";
 import kakao_login_png from "../../img/kakao_login.png";
-import { URL } from "../../settings";
+import { serverURL } from "../../settings";
 
 const KakaoLogin = () => {
   // index.html <head>에서 스크립트 연결필요

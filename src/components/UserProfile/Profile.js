@@ -2,7 +2,7 @@ import ProfileForm from "./ProfileForm";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { getCookie } from "../../tools";
-import { URL } from "../../settings";
+import { serverURL } from "../../settings";
 
 const Profile = (props) => {
   const [name, setName] = useState(false);
@@ -32,7 +32,7 @@ const Profile = (props) => {
     const getData = async () => {
       axios
         .post(
-          `http://${URL}/main/get-profile/`,
+          `http://${serverURL}/main/get-profile/`,
           {},
           { withCredentials: true }
         )
@@ -45,7 +45,7 @@ const Profile = (props) => {
           setName(res.data.data.profileName);
           setMessage(res.data.data.profileMessage);
           setSrc(
-            `http://${URL}/media/user_profile/` +
+            `http://${serverURL}/media/user_profile/` +
               res.data.data.profileImg
           );
           setUserId(res.data.data.userId);

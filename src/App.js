@@ -19,7 +19,7 @@ import NotFound from "./pages/NotFound";
 import Mypage from "./pages/Mypage";
 import "./styles/App.scss";
 import { useMediaQuery } from "react-responsive";
-import { URL } from "./settings.js";
+import { serverURL } from "./settings.js";
 
 const setCookie = (name, value, exp = 7) => {
   let date = new Date();
@@ -34,7 +34,7 @@ const PageLayout = (props) => {
   const navigate = useNavigate();
   const refreshIsLogin = () => {
     axios
-      .post(`http://${URL}/auth/ping/`, {}, { withCredentials: true })
+      .post(`http://${serverURL}/auth/ping/`, {}, { withCredentials: true })
       .then((res) => {
         setCookie("username", res.data["user"]);
         setCookie("isKakao", res.data["isKakao"]);

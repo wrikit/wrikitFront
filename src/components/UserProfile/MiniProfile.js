@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import axios from "axios";
-import { URL } from "../../settings";
+import { serverURL } from "../../settings";
 
 const MiniProfile = (props) => {
   const [loading, setLoading] = useState(false);
@@ -12,7 +12,7 @@ const MiniProfile = (props) => {
 
   if (name == '' && props.profileName != '') {
     axios
-    .post(`http://${URL}/main/get-mini-profile/`, {
+    .post(`http://${serverURL}/main/get-mini-profile/`, {
       profileName: props.profileName,
     })
     .then((res) => {
@@ -21,7 +21,7 @@ const MiniProfile = (props) => {
         setName(res.data.profileName);
         setMessage(res.data.profileMessage);
         setImage(
-          `http://${URL}/media/user_profile/${res.data.profileImg}`
+          `http://${serverURL}/media/user_profile/${res.data.profileImg}`
         );
         if (res.data.profileName == "탈퇴한 회원입니다") {
           setImageClass("profile-image gray-scale");

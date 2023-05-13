@@ -4,7 +4,7 @@ import { FaFolderOpen } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { SlLogin } from "react-icons/sl";
 import axios from "axios";
-import { URL } from "../settings.js";
+import { serverURL } from "../settings.js";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
@@ -51,7 +51,7 @@ const Header = (props) => {
   useEffect(() => {
     axios
       .post(
-        `http://${URL}/main/get-profile/`,
+        `http://${serverURL}/main/get-profile/`,
         {},
         {
           withCredentials: true,

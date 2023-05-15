@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "../styles/MainPage.scss";
 import Slider from 'react-slick';
+import {VscFilePdf} from "react-icons/vsc";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
@@ -51,6 +52,36 @@ const MainPage = (isLogin) => {
           <div className="second-textwrapper">
             이메일 초대 없이 링크만으로 간편한 공유!
             <div className="main__textwrapper__btnArea">
+            {isLogin ? (
+                <NavLink to="/document">
+                <button className="runBtn">
+                  <span>시작하기</span>
+                </button>
+              </NavLink>
+            ) : (  <NavLink to="/lgpage">
+            <button className="runBtn">
+              <span>시작하기</span>
+            </button>
+          </NavLink>)}
+          
+          </div>
+          </div>
+        </div>
+      </div>
+      <div className="third-banner">
+        <div className="third-img">
+          <div className="third-textwrapper">
+          <h1 className="third-textwrapper__title"> 효율적인 문서관리의 시작!
+          </h1>
+          <div className="third-textwrapper__desc">
+            단순하면서 핵심적인 편집툴로 손쉽게 작성하고, 수정하고, 저장하세요.
+            <br />
+            <p>
+            <VscFilePdf size="18"/>
+            PDF 문서 다운로드 가능
+            </p>
+          </div>
+          <div className="main__textwrapper__btnArea">
             {isLogin ? (
                 <NavLink to="/document">
                 <button className="runBtn">

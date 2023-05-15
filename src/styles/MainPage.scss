@@ -5,7 +5,36 @@
   background: $background-color;
   overflow: hidden;
   flex: 1;
-
+  .slick-prev{
+    left: 0;
+  }
+  .slick-next{
+    right: 0;
+  }
+  .slick-prev, .slick-next{
+    top: 35%;
+    width: 100px;
+    height: 100px;
+    &::before{
+      color: lightgrey;
+      font-size: 30px;
+    }
+  }
+  .slick-dots{
+    bottom: 460px;
+  }
+  .slick-dots li button::before{
+    color: $point-color;
+  }
+  .slick-dots li.slick-active button::before {
+    opacity: .75;
+    color: $primary-color;
+  }
+  .slick-prev, .slick-next, .slick-dots{
+   display: initial;
+   z-index: 3;
+// 
+  }
   .banner {
     background-size: cover;
     height: 100vh;
@@ -21,6 +50,66 @@
       ),
       url(/img/meeting.jpg);
   }
+  .second-banner{
+    position: relative;
+    .second-img {
+      float: left;
+      margin-top: calc(50vh - (60vh / 2));
+      margin-left: 5%;
+      height: 60vh;
+      width: 50vw;
+      background-image:
+        url(/img/copylink.jpg);
+      background-repeat: no-repeat;
+      background-size:contain;
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
+    }
+    .second-textwrapper{
+      font-size: $font-size-lg;
+      position: absolute;
+      transform: translateX(190%) translateY(120%);
+      margin: 0 auto;
+      width: 30vw;
+      max-width: 1180px;
+      margin-right: 0;
+      @extend .text-center;
+    }
+  }
+  .third-banner{
+    position: relative;
+    .third-img{
+      float: right;
+      margin-top: calc(50vh - (60vh / 2));
+      margin-left: 5%;
+      height: 60vh;
+      width: 50vw;
+      background-image:
+        url(/img/easy_to_use.jpg);
+      background-repeat: no-repeat;
+      background-size:contain;
+    }
+    .third-textwrapper{
+      position: absolute;
+      transform: translateX(-130%) translateY(40%);
+      @extend .text-center;
+      width: 30vw;
+      &__title{
+      font-size: $font-size-lg;
+      max-width: 1180px;
+      margin-right: 0;
+      margin-bottom: 30px;
+      line-height: 3rem;
+    }
+    &__desc{
+      font-size: $font-size-s;
+      line-height: 2rem;
+      p{
+        color: $point-color;
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
   .main__textwrapper {
     max-width: 1180px;
     margin-left: auto;
@@ -81,5 +170,73 @@
         }
       }
     }
+  }
+}
+
+@include mobile{
+  .MainPage{
+    .slick-prev, .slick-next{
+      z-index: -1;
+    }
+    .second-banner{
+      position: relative;
+      .second-img {
+        float: none;
+        margin: 0 auto;
+        margin-top: calc(50vh - (50vh / 2));
+        height: 35vh;
+        width: 35vw;
+        background-image:
+          url(/img/link.png);
+        background-repeat: no-repeat;
+        background-size:contain;
+        box-shadow: none;
+      }
+      .second-textwrapper{
+        text-align: center;
+        font-size: $font-size-lg;
+        position: absolute;
+        transform: translateX(-25%) translateY(150%);
+        max-width: 1180px;
+        width: auto;
+        padding: 0 10px;
+        margin: 0 auto;
+      }
+    }
+    .third-banner{
+      position: relative;
+      .third-img{
+        float:none;
+        margin-top: calc(50vh - (60vh / 2));
+        margin-left: 7%;
+        height: 50vh;
+        width: 90vw;
+        background-image:
+          url(/img/easy_to_use.jpg);
+        background-repeat: no-repeat;
+        background-size:contain;
+      }
+      .third-textwrapper{
+        position: absolute;
+        transform: translateX(0%) translateY(80%);
+        margin-right: 5%;
+        width: auto;
+        &__title{
+        font-size: $font-size-lg;
+        max-width: 1180px;
+        margin-bottom: 30px;
+        line-height: 3rem;
+      }
+      &__desc{
+        font-size: $font-size-s;
+        line-height: 2rem;
+        padding: 0 30px;
+        p{
+          color: $point-color;
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
   }
 }

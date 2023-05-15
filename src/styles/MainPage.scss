@@ -206,7 +206,6 @@
     .third-banner{
       position: relative;
       .third-img{
-        // background-position:right;
         float:none;
         margin-top: calc(50vh - (60vh / 2));
         margin-left: 7%;
@@ -216,7 +215,6 @@
           url(/img/easy_to_use.jpg);
         background-repeat: no-repeat;
         background-size:contain;
-        // box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
       }
       .third-textwrapper{
         position: absolute;

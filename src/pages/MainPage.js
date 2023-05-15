@@ -9,11 +9,10 @@ const MainPage = (isLogin) => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 4000, // 이미지가 바뀌는 속도
-    slidesToShow: 1,
+    speed: 3000, // 이미지가 바뀌는 속도
+    slidesToShow: 1, // 한 화면에 보여지는 슬라이더 개수
     slidesToScroll: 1,
-    autoplay: true, // 자동 슬라이드
-    autoplaySpeed: 5000, // 다음 이미지로 넘어가는 시간
+    autoplay: false, // 자동 슬라이드
     pauseOnHover: false, // 마우스 호버시 자동 슬라이드 멈춤 여부
     arrows: true,
   }

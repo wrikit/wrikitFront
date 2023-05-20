@@ -3,11 +3,15 @@ import { NavLink, useLocation } from "react-router-dom";
 import { FaFolderOpen } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { SlLogin } from "react-icons/sl";
+import {FiSun} from "react-icons/fi";
+import {MdDarkMode} from "react-icons/md";
 import axios from "axios";
 import { serverURL } from "../settings.js";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
+  const toggleDarkMode = props.toggleDarkMode;
+  const isDarkMode = props.isDarkMode;
   // 스크롤 감지 (-> 헤더 그림자 + 높이 줄어듦 효과)
   // isScrolled가 true -> shadow 클래스 추가
   const [isScrolled, setIsScrolled] = useState(false);
@@ -109,6 +113,9 @@ const Header = (props) => {
                   </NavLink>
                 </div>
               )}
+            </li>
+            <li onClick={toggleDarkMode}>
+              {isDarkMode ? <MdDarkMode size="23"/> : <FiSun size="23" />}
             </li>
           </ul>
         </nav>

@@ -80,13 +80,20 @@ const PageLayout = (props) => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  //다크모드
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   // 문서 작성 페이지에서 모바일환경에서는 헤더 숨김
   const match = useMatch("/document/:id/:type");
   const isMobile = useMediaQuery({ query: "(max-width : 767px)" });
   return (
     <>
+        <div className={isDarkMode ? 'dark-mode':''}>
       {!match || (match && !isMobile) ? (
-        <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} />
+        <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
       ) : null}
       {isSidebarOpen && (
         <div ref={mypageRef}>
@@ -94,6 +101,7 @@ const PageLayout = (props) => {
         </div>
       )}
       <Outlet isLogin={isLogin}/>
+      </div>
     </>
   );
 };

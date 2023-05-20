@@ -13,3 +13,127 @@
   scroll-behavior: smooth;
   font-family: "Poppins", "Do Hyeon", sans-serif;
 }
+.dark-mode{
+  .header{
+  &__content{
+      background: $primary-color !important;
+      &__logo{
+        color:$white;
+        opacity: 0.8;
+      }
+      &__nav ul li:not(.dropdownMenu li) a:not(.lgbtn-hide){
+        color: $white;
+        opacity: 0.8;
+
+      }
+      &__nav ul #icon p{
+        background-color: transparent;
+        opacity: 0.8;
+
+      }
+    }
+}
+  .MainPage{
+    background: $primary-color;
+    .documentList{
+      background-color: #272829;
+      &__header{
+        color: $secondary-color;
+        & button{
+          color: $secondary-color;
+        }
+        & button:hover{
+          background-color: #313233;
+          color: rgba($white, 0.8);
+        }
+      }
+    }
+    .DocumentItem{
+      color:rgba($white, 0.8);
+      &:hover{
+        background-color: #313233;
+        color: $secondary-background-color;
+      }
+      &__button{
+        background-color: #313233;
+        color: $secondary-background-color;
+      }
+    }
+  }
+  .editor{
+    background-color: $primary-color;
+    height: calc(100vh - 70px);
+    .document-functions{
+      background-color: $primary-color;
+      & button{
+        color: rgba($white, 0.8);
+      &:hover{color: $white;}
+      }
+    }
+    .passInputWrapper{
+      background-color: #272829;
+      color: rgba($white,0.8);
+      .pass-input{
+        background-color: #313233;
+        .passinput-main .passinput-input{
+          background-color: #313233;
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+  .loginPage{
+    background-color: $primary-color;
+    height: calc(100vh - 70px);
+    &__section__login{
+      background-color: #272829;
+      & .tabGroup {
+        .active a{
+          color: #a0b3b0;
+        }
+        li a{
+       color: $point-color;
+       &:hover{
+        color: $point-color-light;
+       }
+      }
+    }
+      .templateBlock{
+        background-color: #272829;
+        .whiteBox{
+          background-color: #272829;
+          & h1{
+            color: $secondary-color;
+          }
+          & input{
+            background-color: #272829;
+            color: $secondary-color;
+          }
+          & button{
+            color: rgba($white, 0.8);
+          }
+          .kakao-login{
+            opacity: 0.6;
+            &:hover{
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+    }
+  }
+  .logined{
+    background-color: $primary-color;
+    height: calc(100vh - 70px);
+    button{
+      color: rgba($white, 0.8);
+      border: 2px solid rgba($white, 0.8);
+      &:hover{
+        background-color: #272829;
+      }
+    }
+
+  }
+  color: rgba($white, 0.8);
+
+}

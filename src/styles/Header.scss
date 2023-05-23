@@ -12,6 +12,9 @@
   box-sizing: border-box;
   background-color: $background-color;
   z-index: 2;
+  .header__content__logo {
+    user-select: none;
+  }
 
   &.shadow {
     position: fixed;

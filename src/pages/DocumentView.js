@@ -72,13 +72,16 @@ const DocumentView = (props) => {
           const data = res.data.result;
           const doc_html = data.content;
           setContent(doc_html);
+          // 자동저장
           if (data.username == getCookie("username") || data.editable) {
             setEditable(true);
-            autosaveObj.write("autosave", true);
-            const intervalId = setInterval(() => {
-              update();
-            }, 120 * 1000);
-            autosaveObj.write("intervalId", intervalId);
+            if (type == 'editor') {
+              autosaveObj.write("autosave", true);
+              const intervalId = setInterval(() => {
+                update();
+              }, 120 * 1000);
+              autosaveObj.write("intervalId", intervalId);  
+            }
           } else {
             setEditable(false);
           }
@@ -211,7 +214,6 @@ const DocumentView = (props) => {
         }
         saveRef.current.close();
       });
-    autosaveObj.write("ischange", false);
   };
   const closeSettingForm = () => {
     settingFormRefs.settingForm.current.close();
@@ -288,7 +290,6 @@ const DocumentView = (props) => {
       .then((res) => {
         if (res.data.result) {
           const data = res.data.data;
-          console.log(res.data);
           setProfileName(data.profileName);  
         }
       });
@@ -316,11 +317,13 @@ const DocumentView = (props) => {
                   setEditable(true);
                   setContent(data.content);
                   setIsDisplay(true);
-                  autosaveObj.write("autosave", true);
-                  const intervalId = setInterval(() => {
-                    update();
-                  }, 120 * 1000);
-                  autosaveObj.write("intervalId", intervalId);
+                  if (type == 'editor') {
+                    autosaveObj.write("autosave", true);
+                    const intervalId = setInterval(() => {
+                      update();
+                    }, 120 * 1000);
+                    autosaveObj.write("intervalId", intervalId);
+                  }
                   return res.data;
                 } else {
                   softAlert("오류발생 QoQ");
@@ -372,11 +375,13 @@ const DocumentView = (props) => {
                   const data = res.data.result;
                   if (data.username == getCookie("username") || data.editable) {
                     setEditable(true);
-                    autosaveObj.write("autosave", true);
-                    const intervalId = setInterval(() => {
-                      update();
-                    }, 120 * 1000);
-                    autosaveObj.write("intervalId", intervalId);
+                    if (type == 'editor') {
+                      autosaveObj.write("autosave", true);
+                      const intervalId = setInterval(() => {
+                        update();
+                      }, 120 * 1000);
+                      autosaveObj.write("intervalId", intervalId);  
+                    }
                   } else {
                     setEditable(false);
                   }
@@ -492,7 +497,7 @@ const DocumentView = (props) => {
                 ref={autosaveRef}
                 checked={autosaveObj.data["autosave"]}
                 onChange={autosaveObj.handle("autosave", () => {
-                  if (autosaveObj.data["autosave"]) {
+                  if (autosaveObj.data["autosave"] && type == 'editor') {
                     softAlert("자동저장 켜짐");
                     const intervalId = setInterval(() => {
                       update();

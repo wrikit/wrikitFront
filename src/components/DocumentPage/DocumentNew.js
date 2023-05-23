@@ -7,17 +7,21 @@ import { IconContext } from "react-icons";
 import "../../styles/DocumentNew.scss";
 import { useNavigate } from "react-router-dom";
 import { serverURL } from "../../settings";
+import { nanoid } from "nanoid";
 
 const DocumentNew = () => {
   let navigate = useNavigate();
   const onClickHandler = async (e) => {
+    const randomPW = nanoid(6);
+    console.log(randomPW);
+
     await axios({
       method: "POST",
       url: `http://${serverURL}/main/create-document/`,
       data: {
         name: "제목없는문서",
         type: "text",
-        key: "test11",
+        key: randomPW,
         editable: 1,
         public: 0,
       },

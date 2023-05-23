@@ -3,6 +3,10 @@
   z-index: 1;
   padding-top: 70px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 70px);
+  overflow-x: hidden;
   // PassInput, ContentBox 공통
   .document-header {
     display: flex;
@@ -44,6 +48,13 @@
     line-height: 2.5rem;
   }
   .document-main {
+    flex-grow: 1;
+    &>div:first-child {
+      height: 100%;
+      .quill {
+        height: 100%;
+      }
+    }
     dialog {
       box-sizing: border-box;
       margin: 0 auto;
@@ -92,7 +103,6 @@
       bottom: -9rem;
       display: flex;
       justify-content: center;
-      padding: 5px 0;
       box-sizing: border-box;
       width: 100vw;
       height: 12rem;
@@ -315,22 +325,22 @@
   .copy-link {
     margin: 1.3rem 10px 0 0;
   }
-}
-
-.document-view.reader {
   .ql-toolbar {
     z-index: 0;
     height: 0;
     padding: 0;
+    display: none;
     * {
       z-index: 0;
       display: none;
     }
   }
+  .document-functions {
+    display: none;
+  }
 }
 
 // animation
-
 @keyframes dialog-open {
   from {
     transform: translateY(-110%);
@@ -344,6 +354,7 @@
 @include mobile {
   .document-view {
     padding-top: 20px;
+    height: calc(100vh - 20px);
     .document-header {
       padding-bottom: 20px;
       .edit-page {
@@ -365,14 +376,15 @@
     }
     .document-main {
       .document-functions {
-        bottom: -3.5rem;
+        bottom: 0rem;
+        height: 6rem;
         flex-direction: column;
         align-items: center;
+        justify-content: none;
         &.hidden {
           display: none;
         }
         .flex-wrap {
-          justify-content: space-evenly;
           text-align: center;
           padding-bottom: 5px;
         }

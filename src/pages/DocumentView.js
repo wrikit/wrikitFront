@@ -66,7 +66,7 @@ const DocumentView = (props) => {
   };
   const inputKeyCB = (key, URL = `http://${serverURL}/`) => {
     axios
-      .post(`${serverURL}main/get-document/`, { documentid: id, documentkey: key })
+      .post(`${URL}main/get-document/`, { documentid: id, documentkey: key })
       .then((res) => {
         if (res.data.result) {
           const data = res.data.result;
@@ -286,8 +286,11 @@ const DocumentView = (props) => {
         { withCredentials: true }
       )
       .then((res) => {
-        const data = res.data.data;
-        setProfileName(data.profileName);
+        if (res.data.result) {
+          const data = res.data.data;
+          console.log(res.data);
+          setProfileName(data.profileName);  
+        }
       });
     axios
       .post(

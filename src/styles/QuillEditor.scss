@@ -32,7 +32,8 @@
   .ql-container.ql-snow {
     border: none;
     .ql-editor {
-      height: calc(100% - 4rem);
+      // height: calc(100% - 4rem);
+      width: 100vw;
     }
   }
 
@@ -64,7 +65,7 @@
 
   .ql-container {
     .ql-editor {
-      max-height: 65vh;
+      // max-height: 65vh;
       min-height: 15rem;
     }
   }

@@ -20,7 +20,7 @@ const KakaoLogin = () => {
             const ID = response['id'];
             const Properties = response['properties'];
             // 카카오 가입이아닌 로그인 함수로 대체, 회원가입이 필요한경우는 Django에서 예외처리
-            axios.post(`http://${URL}/auth/kakao-login/`,
+            axios.post(`http://${serverURL}/auth/kakao-login/`,
             {
               // Data here
               kakaoid: ID,

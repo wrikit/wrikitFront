@@ -107,6 +107,7 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
+  height: calc(100vh - 80px);
   padding: 0 10px;
   &>* {
     height: 4rem;

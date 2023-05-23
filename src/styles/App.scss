@@ -50,6 +50,7 @@
     }
     .DocumentItem{
       color:rgba($white, 0.8);
+      border-top: 1px solid rgba(234, 232, 232, 0.3);
       &:hover{
         background-color: #313233;
         color: $secondary-background-color;
@@ -132,8 +133,47 @@
         background-color: #272829;
       }
     }
-
   }
   color: rgba($white, 0.8);
-
+}
+@include mobile{
+.dark-mode{
+  .header{
+    &__content{
+      &__nav {
+       ul{
+      color:$secondary-color;
+      svg{
+        stroke: $point-color-light;
+        fill: $point-color-light;
+      }
+      .active{
+        svg{
+          stroke: $secondary-color;
+          fill: $secondary-color;
+        }
+      }
+      }
+    }
+  }
+}
+  .MainPage{
+    height: 100vh;
+  }
+  .loginPage{
+    &__section__login{
+      background-color: $primary-color;
+      .templateBlock{
+        background-color: $primary-color;
+        .whiteBox{
+          background-color: $primary-color;
+          & input{
+            background-color: $primary-color;
+            border-bottom: 1px solid $secondary-color;
+          }
+        }
+      }
+    }
+  }
+}
 }

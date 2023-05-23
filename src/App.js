@@ -20,6 +20,7 @@ import Mypage from "./pages/Mypage";
 import "./styles/App.scss";
 import { useMediaQuery } from "react-responsive";
 import { serverURL } from "./settings.js";
+import { getCookie } from "./tools";
 
 const setCookie = (name, value, exp = 7) => {
   let date = new Date();
@@ -82,7 +83,16 @@ const PageLayout = (props) => {
 
   //다크모드
   const [isDarkMode, setIsDarkMode] = useState(false);
+  useEffect(() => {
+    // console.log('darkmode_effect >>>', getCookie('darkmode'));
+    if (getCookie('darkmode') == 'true') {
+      // setCookie('darkmode', true);
+      setIsDarkMode(true);
+    }
+  }, []);
   const toggleDarkMode = () => {
+    // console.log('darkmode >>>', isDarkMode);
+    setCookie('darkmode', !isDarkMode);
     setIsDarkMode(!isDarkMode);
   };
 

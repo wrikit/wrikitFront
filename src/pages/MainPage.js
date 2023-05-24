@@ -5,7 +5,8 @@ import {VscFilePdf} from "react-icons/vsc";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
-const MainPage = (isLogin) => {
+const MainPage = (props) => {
+  const isLogin = props.isLogin;
   const settings = {
     dots: true,
     infinite: true,

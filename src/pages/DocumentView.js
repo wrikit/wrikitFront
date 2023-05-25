@@ -16,6 +16,9 @@ import Mypage from "./Mypage.js";
 import { VscLink, VscEdit, VscCloudDownload } from "react-icons/vsc";
 import html2pdf from "html2pdf.js";
 import { serverURL } from "../settings";
+import { FiSun } from "react-icons/fi";
+import { MdDarkMode } from "react-icons/md";
+
 
 const DocumentView = (props) => {
   const { id, type } = useParams();
@@ -423,6 +426,10 @@ const DocumentView = (props) => {
           <div className="copy-link" onClick={copyLink}>
             <VscLink />
             <span className="copy-link-text">링크복사</span>
+          </div>
+          <div className="mobile-darkmode" onClick={props.setDarkMode}>
+            {props.isDarkMode ? (<MdDarkMode size={23} />) : (<FiSun size={23} />)}
+            <span></span>
           </div>
         </div>
       </div>

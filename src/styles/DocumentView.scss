@@ -7,45 +7,44 @@
   flex-direction: column;
   height: calc(100vh - 70px);
   overflow-x: hidden;
-  // PassInput, ContentBox 공통
+  // 문서 페이지의 헤더
   .document-header {
     display: flex;
     justify-content: space-between;
+    // 제목, 저자
     .document-info {
       display: flex;
       margin-top: 10px;
+      .document-name {
+        font-size: 2.5rem;
+        margin-left: 1rem;
+        height: 2.5rem;
+        line-height: 2.5rem;
+      }
     }
+    // 헤더 우측 버튼들
     .header-button {
       display: flex;
-      .edit-page {
+      & > div {
         display: flex;
-        justify-items: center;
-        font-size: 1.3rem;
-        line-height: 1.5rem;
+        justify-content: center;
         margin: 1.7rem 10px 0 0;
+        line-height: 1.5rem;
         cursor: pointer;
-        .edit-page-text {
+        span {
           font-size: 1rem;
         }
+      }
+      .edit-page {
+        font-size: 1.3rem;
       }
       .copy-link {
-        display: flex;
-        justify-items: center;
         font-size: 1.5rem;
-        line-height: 1.5rem;
-        margin: 1.7rem 10px 0 0;
-        cursor: pointer;
-        .copy-link-text {
-          font-size: 1rem;
-        }
+      }
+      .mobile-darkmode>svg {
+        width: 0;
       }
     }
-  }
-  .document-name {
-    font-size: 2.5rem;
-    margin-left: 1rem;
-    height: 2.5rem;
-    line-height: 2.5rem;
   }
   .document-main {
     flex-grow: 1;
@@ -372,6 +371,9 @@
         .copy-link-text {
           display: none;
         }
+      }
+      .mobile-darkmode>svg {
+        width: 23px !important;
       }
     }
     .document-main {

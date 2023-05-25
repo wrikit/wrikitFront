@@ -15,15 +15,10 @@ import Profile from "./components/UserProfile/Profile";
 import NotFound from "./pages/NotFound";
 import "./styles/App.scss";
 import { serverURL } from "./settings.js";
+import { getCookie, setCookie } from "./tools";
 
 const App = () => {
-  const setCookie = (name, value, exp = 7) => {
-    let date = new Date();
-    date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
-    document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
-  };
-
-  // 로그인 상태 관리
+// 로그인 상태 관리
 const [isLogin, setIsLogin] = useState(false);
 const refreshIsLogin = async() => {
   try{
@@ -41,6 +36,14 @@ const refreshIsLogin = async() => {
   }
 };
 
+// 다크모드 관리
+const [isDarkMode, setIsDarkMode] = useState(getCookie('darkmode') == 'true');
+const toggleDarkMode = () => {
+  console.log(2);
+  setCookie('darkmode', !isDarkMode);
+  setIsDarkMode(!isDarkMode);
+}
+
 useEffect(() => {
   refreshIsLogin();
 }, []);
@@ -50,10 +53,10 @@ useEffect(() => {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route element={<PageLayout isLogin={isLogin} setCookie={setCookie}/>}>
+          <Route element={<PageLayout isLogin={isLogin} isDarkMode={isDarkMode} setDarkMode={toggleDarkMode} />}>
             <Route path="/" element={<MainPage isLogin={isLogin}/>} />
             <Route path="/document" element={<Document />} />
-            <Route path="/document/:id/:type" element={<DocumentView />} />
+            <Route path="/document/:id/:type" element={<DocumentView isDarkMode={isDarkMode} setDarkMode={toggleDarkMode} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/lgpage" element={<LoginPage />} />
           </Route>

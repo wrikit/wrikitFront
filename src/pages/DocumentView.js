@@ -88,7 +88,7 @@ const DocumentView = (props) => {
           if (getCookie("username") != "null") {
             axios
               .post(
-                `${serverURL}main/add-document-key/`,
+                `${URL}main/add-document-key/`,
                 { documentid: id, documentkey: key },
                 { withCredentials: true }
               )

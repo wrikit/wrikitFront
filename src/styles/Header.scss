@@ -125,7 +125,8 @@
         #icon {
           list-style: none;
           a {
-            padding-left: 4em;
+            // padding-left: 4em;
+            padding-right: 0;
             & path {
               color: black;
             }

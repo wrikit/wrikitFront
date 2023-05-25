@@ -7,7 +7,6 @@ import Mypage from "../pages/Mypage";
 
 const PageLayout = (props) => {
     const isLogin = props.isLogin;
-    const setCookie=props.setCookie;
     // 마이페이지 사이드바
     const mypageRef = useRef(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -30,29 +29,15 @@ const PageLayout = (props) => {
     const handleSidebarToggle = () => {
       setIsSidebarOpen(!isSidebarOpen);
     };
-  
-    //다크모드
-    const [isDarkMode, setIsDarkMode] = useState(false);
-    useEffect(() => {
-      // console.log('darkmode_effect >>>', getCookie('darkmode'));
-      if (getCookie('darkmode') === 'true') {
-        // setCookie('darkmode', true);
-        setIsDarkMode(true);
-      }
-    }, []);
-    const toggleDarkMode = () => {
-      setCookie('darkmode', !isDarkMode);
-      setIsDarkMode(!isDarkMode);
-    };
-    
+      
     // 문서 작성 페이지에서 모바일환경에서는 헤더 숨김
     const match = useMatch("/document/:id/:type");
     const isMobile = useMediaQuery({ query: "(max-width : 767px)" });
     return (
       <>
-          <div className={isDarkMode ? 'dark-mode':''}>
+        <div className={props.isDarkMode ? 'dark-mode':''}>
         {!match || (match && !isMobile) ? (
-          <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
+          <Header isLogin={isLogin} onMenuClick={handleSidebarToggle} isDarkMode={props.isDarkMode} setDarkMode={props.setDarkMode} />
         ) : null}
         {isSidebarOpen && (
           <div ref={mypageRef}>

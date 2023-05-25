@@ -7,6 +7,11 @@ const getCookie = key => {
   let value = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
   return value ? value[2] : null;
 }
+const setCookie = (name, value, exp = 7) => {
+  let date = new Date();
+  date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+};
 
 const inputHandler = (settingFunc) => {
   return (event) => {
@@ -165,6 +170,7 @@ class reactStates {
 
 export { 
   getCookie,
+  setCookie,
   inputHandler,
   ifKeyDownEnter,
   copyToClipboard,

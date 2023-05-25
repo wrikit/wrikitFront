@@ -12,6 +12,7 @@
   padding: 0;
   scroll-behavior: smooth;
   font-family: "Poppins", "Do Hyeon", sans-serif;
+  transition: background-color 0.7s;
 }
 *::-webkit-scrollbar {
   width: 6px; /* 스크롤바 너비 */
@@ -20,7 +21,6 @@
   background-color: #999; /* 슬라이더(스크롤바 이동 부분) 색상 */
   border-radius: 3px; /* 슬라이더의 모서리 반경 */
 }
-
 .dark-mode{
   .header{
   &__content{
@@ -40,7 +40,7 @@
 
       }
     }
-}
+  }
   .MainPage{
     min-height: 100vh;
     background: $primary-color;
@@ -72,8 +72,6 @@
   }
   .editor, .reader{
     background-color: $primary-color;
-    // height: calc(100vh - 70px);
-    // min-height: 100vh;
     .document-functions{
       background-color: $primary-color;
       & button{
@@ -151,18 +149,18 @@
   .header{
     &__content{
       &__nav {
-       ul{
+      ul{
       color:$secondary-color;
-      svg{
-        stroke: $point-color-light;
-        fill: $point-color-light;
-      }
-      .active{
         svg{
-          stroke: $secondary-color;
-          fill: $secondary-color;
+          stroke: $point-color-light;
+          fill: $point-color-light;
         }
-      }
+        .active{
+          svg{
+            stroke: $secondary-color;
+            fill: $secondary-color;
+          }
+        }
       }
     }
   }

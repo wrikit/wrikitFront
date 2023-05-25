@@ -7,11 +7,10 @@ import {FiSun} from "react-icons/fi";
 import {MdDarkMode} from "react-icons/md";
 import axios from "axios";
 import { serverURL } from "../settings.js";
+import { getCookie, setCookie } from "../tools.js";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
-  const toggleDarkMode = props.toggleDarkMode;
-  const isDarkMode = props.isDarkMode;
   // 스크롤 감지 (-> 헤더 그림자 + 높이 줄어듦 효과)
   // isScrolled가 true -> shadow 클래스 추가
   const [isScrolled, setIsScrolled] = useState(false);
@@ -114,8 +113,8 @@ const Header = (props) => {
                 </div>
               )}
             </li>
-            <li onClick={toggleDarkMode}>
-              {isDarkMode ? <MdDarkMode size="23"/> : <FiSun size="23" />}
+            <li onClick={props.setDarkMode}>
+              {props.isDarkMode ? <MdDarkMode size="23"/> : <FiSun size="23" />}
             </li>
           </ul>
         </nav>

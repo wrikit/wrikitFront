@@ -5,6 +5,7 @@ body {
   background-color: $background-color;
 }
 .templateBlock {
+  // 로그인/회원가입 컴포넌트가 보여지는 부분
   left: 0;
   right: 0;
   top: 0;
@@ -18,10 +19,11 @@ body {
 }
 
 .whiteBox {
+  // 문구 + input + 버튼 컨테이너
   padding: 1rem;
   max-width: 360px;
   background: $secondary-background-color;
-
+  // 로그인 / 회원가입 문구
   h1 {
     @extend .text-center;
     color: $black;
@@ -30,21 +32,11 @@ body {
     font-size: xx-large;
     @extend .mb-40;
   }
-
+  // input label 안 보이게
   label {
     @extend .d-none;
   }
-  label.active {
-    @extend .d-flex;
-    transform: translateY(-5px);
-    left: 2px;
-    font-size: 14px;
-    color: rgba(black, 0.5);
-  }
-  label.highlight {
-    color: $black;
-  }
-
+  // input 스타일
   .styleInput {
     font-size: 14pt;
     @extend .mb-40;
@@ -55,7 +47,7 @@ body {
     width: 100%;
     background-color: $secondary-background-color;
   }
-
+  // 로그인 / 회원가입 버튼
   .button {
     height: 3rem;
     @extend .mb-20;
@@ -80,28 +72,15 @@ body {
     &:focus {
       opacity: 0.8;
     }
-
+    // 카카오 로그인 버튼
     &.kakao-login {
       background: #fee500;
       border-radius: 12px;
       @extend .text-center;
     }
   }
-
-  .link {
-    @extend .mt-32;
-    @extend .text-right;
-    a {
-      color: $black;
-      @extend .text-underline;
-
-      &:hover {
-        opacity: 0.8;
-      }
-    }
-  }
 }
-
+// 이미 로그인한 유저에게 보여지는 로그인 페이지
 .logined {
   margin-top: 70px;
   display: flex;
@@ -135,6 +114,7 @@ body {
 
 }
 
+// 모바일 반응형
 @include mobile {
   .templateBlock {
     background-color: $background-color;

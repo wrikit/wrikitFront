@@ -19,16 +19,19 @@
   transition: transform 0.2s ease-in-out;
   animation: slidein 0.8s forwards;
   color: $secondary-color;
+  // Mypage 문구
   h2 {
     text-align: center;
     @extend .mb-20;
   }
+  // 닫기 버튼('X'아이콘)
   .closeBtn {
     margin-left: 45px;
     cursor: pointer;
   }
 }
 
+// 사이드바 나올 때 애니메이션(오->왼)
 @keyframes slidein {
   from {
     transform: translateX(100%);
@@ -38,8 +41,10 @@
   }
 }
 
+// 모바일 반응형
 @include mobile {
   .Mypage {
+    // 애니메이션 X -> 전체 화면
     width: 100%;
     max-width: 100%;
     animation: none;

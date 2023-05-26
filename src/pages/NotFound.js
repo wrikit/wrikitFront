@@ -1,4 +1,5 @@
 import "../styles/NotFound.scss";
+// 404 오류 페이지
 const NotFound = () => {
   return (
     <div className="NotFound">

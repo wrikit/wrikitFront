@@ -4,6 +4,7 @@ import Quill from "quill";
 import ImageResize from "quill-image-resize";
 import "react-quill/dist/quill.snow.css";
 
+//이미지 리사이즈 기능 관련 모듈 추가
 Quill.register("modules/ImageResize", ImageResize);
 
 const QuillEditor = (props) => {
@@ -21,20 +22,6 @@ const QuillEditor = (props) => {
   const handleBlur = () => {
     props.setIsFocused(false);
   };
-  useEffect(() => {
-    const quill = quillRef.current.getEditor();
-    quill.on("selection-change", (range) => {
-      if (range) {
-        handleFocus();
-      } else {
-        handleBlur();
-      }
-    });
-
-    return () => {
-      quill.off("selection-change");
-    };
-  }, []);
 
   const toolBar = [
     [
@@ -56,13 +43,18 @@ const QuillEditor = (props) => {
       { indent: "+1" },
     ],
   ];
+
   const modules = {
+    // 툴바
     toolbar: toolBar,
+    // 이미지 사이즈 재조정
     ImageResize: {
       parchment: Quill.import("parchment"),
     },
+    // 클립보드
     clipboard: {
-      matchVisual: false,
+      matchVisual: false, 
+      //false -> 텍스트 붙여넣기시 일반텍스트로 붙여넣기됨(서식적용 X)
     },
   };
 

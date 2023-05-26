@@ -12,10 +12,8 @@
   box-sizing: border-box;
   background-color: $background-color;
   z-index: 2;
-  .header__content__logo {
-    user-select: none;
-  }
 
+  // 화면 스크롤시 헤더에 그림자 생성
   &.shadow {
     position: fixed;
     top: 0;
@@ -33,6 +31,7 @@
     box-shadow: 0px 15px 10px -15px rgba(57, 63, 72, 0.5);
   }
 
+  // 로고
   &__logo {
     color: $black;
     font-weight: 700;
@@ -40,8 +39,10 @@
     font-size: 2em;
     text-transform: uppercase;
     letter-spacing: 2px;
-  }
+    user-select: none; // 텍스트 선택 및 드래그 불가
 
+  }
+  // 헤더 우측 네비게이션
   &__nav {
     ul {
       @extend .d-flex;
@@ -59,7 +60,7 @@
           color: $black;
           @extend .br-20;
         }
-
+        // 시작하기 버튼
         &:not(#icon) a:hover:not(.lgbtn-hide),
         Link:hover,
         &:not(#icon) a.active:not(.lgbtn-hide),
@@ -68,6 +69,7 @@
           color: whitesmoke;
         }
       }
+      // 내문서 아이콘
       #icon {
         vertical-align: -12px;
         @extend .br-20;
@@ -84,6 +86,7 @@
             color: whitesmoke;
           }
         }
+        // 아이콘 하단 '내문서' 표시
         p {
           @extend .text-center;
           font-size: $font-size-xs;
@@ -97,6 +100,7 @@
     }
   }
 }
+// 시작하기 버튼 => 모바일 환경에서 안 보이도록 설정(아이콘으로 변경)
 .iconContainer {
   position: relative;
   display: inline-block;
@@ -110,11 +114,13 @@
     display: none;
   }
 }
+
+// 모바일 반응형
 @include mobile {
   .header__content {
     min-height: 70px;
     transition: 0.3s ease-in-out;
-    justify-content: space-evenly;
+    justify-content: space-evenly; // 로고와 네비게이션 좌우 간격 동일하게 
     z-index: 1;
     &.shadow {
       justify-content: space-evenly;
@@ -130,10 +136,12 @@
             & path {
               color: black;
             }
+            // 활성화된 아이콘 => 밝은 녹색으로 설정
             &.active path {
               color: $point-color-light;
             }
           }
+          // 내문서 아이콘 하단 P태그 안 보이게 설정
           p {
             display: none;
           }
@@ -141,6 +149,7 @@
       }
     }
   }
+  // 모바일 환경에서 시작하기 버튼 -> 로그인 아이콘으로 대체
   .iconContainer .lgbtn-show {
     display: none;
   }
@@ -148,11 +157,13 @@
     display: inline-block;
     color: black;
     &.active path {
+      // 활성화된 아이콘 => 밝은 녹색으로 설정
       color: $point-color-light;
     }
   }
 }
 
+// 내문서 아이콘 하단 P태그 기본 설정(hover, active일때만 보여지도록 하기 위함)
 .hiddenName {
   display: none;
 }

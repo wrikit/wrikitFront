@@ -18,6 +18,7 @@ import { serverURL } from "./settings.js";
 import { getCookie, setCookie } from "./tools";
 
 const App = () => {
+// 쿠키 적용(로그인, 다크모드 유지)
 // 로그인 상태 관리
 const [isLogin, setIsLogin] = useState(false);
 const refreshIsLogin = async() => {
@@ -39,7 +40,6 @@ const refreshIsLogin = async() => {
 // 다크모드 관리
 const [isDarkMode, setIsDarkMode] = useState(getCookie('darkmode') == 'true');
 const toggleDarkMode = () => {
-  console.log(2);
   setCookie('darkmode', !isDarkMode);
   setIsDarkMode(!isDarkMode);
 }

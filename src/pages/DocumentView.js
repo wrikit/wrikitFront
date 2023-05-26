@@ -153,6 +153,7 @@ const DocumentView = (props) => {
       softAlert("패스워드는 최대20이고 비워둘수 없습니다");
     }
   };
+  //문서 삭제
   const deleteDocument = () => {
     axios
       .post(
@@ -270,17 +271,18 @@ const DocumentView = (props) => {
     window.location.href = "/document";
   };
 
-  //마이페이지 클릭
+  //마이페이지 열림/닫힘 (상태)
   const [showProfile, setShowProfile] = useState(false);
+  // 마이페이지 이벤트_onClick Event
   const mypageClick = () => {
     setShowProfile(true);
   };
-  // 마이페이지 닫힘 버튼 props 전달
+  // 마이페이지내에 닫힘 버튼 => Mypage Component에 props 전달
   const closeMypage = () => {
     setShowProfile(false);
   };
 
-  //모바일 환경에서 문서작성 타이핑 중에는 하단 버튼 안 보이게 설정
+  //모바일 환경에서 문서작성 타이핑 중에는 하단 메뉴 안 보이게 설정
   const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
@@ -427,6 +429,7 @@ const DocumentView = (props) => {
             <VscLink />
             <span className="copy-link-text">링크복사</span>
           </div>
+          {/* 모바일 환경(헤더 X) -> 다크모드 버튼 링크 복사 아이콘 옆으로 재배치 */}
           <div className="mobile-darkmode" onClick={props.setDarkMode}>
             {props.isDarkMode ? (<MdDarkMode size={23} />) : (<FiSun size={23} />)}
             <span></span>
@@ -441,6 +444,7 @@ const DocumentView = (props) => {
             isFocused={isFocused}
             setIsFocused={setIsFocused}
           />
+          {/* 하단 메뉴(모바일환경에서 타이핑 중에는 보이지 않음)*/}
           <div className={`document-functions ${isFocused ? "hidden" : null}`}>
             <div className="flex-wrap btnGroup1">
               <button className="copy-button" onClick={copyContent}>
@@ -467,6 +471,7 @@ const DocumentView = (props) => {
                 <span>PDF</span>
               </button>
             </div>
+            {/* 모바일 환경에서 헤더 대신 하단 메뉴 추가 */}
             <div className="flex-wrap btnGroup2">
               <button className="docList-button" onClick={goToDocList}>
                 문서목록
@@ -481,7 +486,9 @@ const DocumentView = (props) => {
             ref={htmlPdfRef}
           >
           </div>
+          {/* 마이페이지 컴포넌트 렌더링 */}
           {showProfile && <Mypage onCloseClick={closeMypage} />}
+          {/* 문서 저장 및 설정 관련 모달 */}
           <dialog ref={saveRef}>
             <h3>저장하기</h3>
             <div className="input-updatekey">
@@ -581,6 +588,8 @@ const DocumentView = (props) => {
           </dialog>
         </div>
       ) : (
+        // 비회원 유저가 초대링크와 같은 경로로 접속했을 경우,
+        // 해당 문서의 비밀번호 입력을 통해 접근 권한 확인
         <div className="passInputWrapper">
           <div className="pass-input">
             <div className="pass-input__container">

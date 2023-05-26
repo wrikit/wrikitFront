@@ -7,12 +7,11 @@ import {FiSun} from "react-icons/fi";
 import {MdDarkMode} from "react-icons/md";
 import axios from "axios";
 import { serverURL } from "../settings.js";
-import { getCookie, setCookie } from "../tools.js";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
   // 스크롤 감지 (-> 헤더 그림자 + 높이 줄어듦 효과)
-  // isScrolled가 true -> shadow 클래스 추가
+  // isScrolled(true) -> shadow 클래스 추가
   const [isScrolled, setIsScrolled] = useState(false);
   const updateScroll = () => {
     // 스크롤 위치 값 가져오기
@@ -24,18 +23,18 @@ const Header = (props) => {
   };
   window.addEventListener("scroll", updateScroll);
 
-  //내문서 아이콘 밑에 p태그 등장
-  const [iconHover, setIconHover] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  //내문서 아이콘 밑에 p태그('내문서') 등장
+  const [iconHover, setIconHover] = useState(false); // hover
+  const [isActive, setIsActive] = useState(false);   // active 
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (pathname === "/document") {
-      setIsActive(true);
+    if (pathname === "/document") { //경로가 "/document"인 경우에만
+      setIsActive(true); // => 활성화
     } else {
-      setIsActive(false);
+      setIsActive(false); // => 비활성화
     }
-  }, [pathname]);
+  }, [pathname]); // 경로가 바뀔 때마다 상태 업데이트
 
   // 다른 페이지에서 아이콘 호버했을 때
   const handleMouseOver = () => {
@@ -45,6 +44,7 @@ const Header = (props) => {
     setIconHover(false);
   };
 
+  // 마이페이지 아이콘 클릭시 이벤트_onClick Event
   const MypageClick = () => {
     props.onMenuClick();
   };
@@ -81,6 +81,7 @@ const Header = (props) => {
         </a>
         <nav className="header__content__nav">
           <ul>
+            {/* 문서페이지로 이동 */}
             <li
               id="icon"
               onMouseOver={handleMouseOver}
@@ -95,6 +96,7 @@ const Header = (props) => {
             </li>
             <li>
               {isLogin ? (
+                // 로그인 O -> 마이페이지 아이콘
                 <div className="iconContainer">
                   <BsPersonCircle
                     size="24"
@@ -103,6 +105,7 @@ const Header = (props) => {
                   />
                 </div>
               ) : (
+                // 로그인 X -> 시작하기 버튼('로그인페이지'로 이동)
                 <div className="iconContainer">
                   <NavLink to="/lgpage" className="lgbtn-show">
                     시작하기
@@ -113,6 +116,7 @@ const Header = (props) => {
                 </div>
               )}
             </li>
+            {/* 다크모드 */}
             <li onClick={props.setDarkMode}>
               {props.isDarkMode ? <MdDarkMode size="23"/> : <FiSun size="23" />}
             </li>

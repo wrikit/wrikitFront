@@ -1,21 +1,22 @@
 @import "./utility";
-// Title
 .DocumentItem {
   display: flex;
   width: auto;
   height: 43px;
   padding: 0 5%;
   align-items: center;
-  border-top: 1px solid rgb(234, 232, 232);
+  border-top: 1px solid rgb(234, 232, 232); // 개별 문서 구분선
   color: rgba($primary-color, 0.6);
 
   &:hover {
     background-color: $secondary-background-color;
     color: rgba($primary-color, 0.8);
   }
+  // 리스트의 마지막 문서는 하단 좌우 모서리 약간 둥글게 처리
   &:last-child {
     border-radius: 0 0 0.25rem 0.25rem;
   }
+  // 체크박스
   &__checkbox {
     padding-right: 8px;
   }
@@ -26,32 +27,37 @@
       display: flex;
       font-size: $font-size-s;
       align-items: center;
+      // 문서 모양 아이콘 위치
       &__icon {
         padding: 0 8px;
         display: flex;
         align-items: center;
       }
+      // 문서 아이디 위치
       &__id {
         display: inline-block;
         padding-left: 8px;
         padding-right: 8px;
       }
+      // 문서 제목 위치
       &__docName {
         display: inline-block;
         padding-left: 8px;
         padding-right: 8px;
+        // 문서 제목에 hover시 텍스트 밑줄 효과
         &:hover {
           text-decoration: underline;
         }
       }
     }
   }
+  // 삭제 아이콘
   &__button {
     display: none;
     align-items: center;
     margin-left: 5%;
     padding: 3px 6px;
-    background-color: $secondary-background-color;
+    background-color: transparent;
     border: none;
     cursor: pointer;
   }
@@ -59,6 +65,8 @@
 .DocumentItem:hover .DocumentItem__button {
   display: flex;
 }
+
+// 모바일 반응형
 @include mobile {
   .DocumentItem {
     &__container {

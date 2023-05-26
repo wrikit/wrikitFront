@@ -97,6 +97,7 @@
         animation: dialog-open 0.5s ease normal;
       }
     }
+    // 하단 메뉴
     .document-functions {
       position: fixed;
       bottom: -9rem;
@@ -117,13 +118,14 @@
         border: 1px solid #aaaaaa;
         border-bottom: 0;
         padding-top: 10px;
+        // 하단 메뉴 버튼들
         button {
           cursor: pointer;
           font-size: 1rem;
           height: 1.5rem;
           line-height: 1.5rem;
           padding: 0 auto;
-          z-index: 2;
+          z-index: 2; // 텍스트 편집기보다 높게 설정
           width: 33.3%;
           max-width: 200px;
           border: 0;
@@ -132,6 +134,7 @@
             opacity: 0.7;
           }
         }
+        // 버튼 구분선
         button:nth-child(2n):not(:last-child) {
           border-left: 2px solid #aaaaaa;
           border-right: 2px solid #aaaaaa;
@@ -140,6 +143,7 @@
           border-left: 2px solid #aaaaaa;
         }
       }
+      // 모바일 환경에서만 화면에 노출
       .btnGroup2 {
         display: none;
       }
@@ -390,14 +394,18 @@
           text-align: center;
           padding-bottom: 5px;
         }
+        // 모바일 환경에서 하단 메뉴 추가
+        // display : none -> flex로 변경
         .btnGroup2 {
           display: flex;
           width: 100%;
+          // 문서목록 클릭 버튼
           .docList-button {
             margin: 0;
             width: 50%;
             max-width: none;
           }
+          // 마이페이지 클릭 버튼
           .mypage-button {
             width: 50%;
             max-width: none;

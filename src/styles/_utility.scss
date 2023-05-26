@@ -271,21 +271,6 @@ $red: red;
 }
 
 // 반응형
-// @mixin breakpoint($point) {
-//   @if $point == md {
-//     // 모바일
-//     @media all and (max-width: 768px) {
-//       @content;
-//     }
-//   }
-//   // 태블릿, 데스크탑
-//   @if $point == lg {
-//     @media all and (min-width: 769px) {
-//       @content;
-//     }
-//   }
-// }
-
 $mobile: 767px;
 $tablet: 768px;
 $desktop: 992pt;

@@ -1,4 +1,6 @@
 @import "./utility";
+
+// '+' 버튼 컨테이너 너비
 .NewBtndiv {
   width: 2.5rem;
   height: 2.5rem;
@@ -6,11 +8,12 @@
 
 .DocumentNew {
   user-select: none;
-  border: 3px dashed $point-color-light;
+  border: 3px dashed $point-color-light; // 초록 점선 테두리
   margin-top: 80px;
   margin-left: 10px;
   margin: 101px 5% 2% 5%;
   padding: 2%;
+  // 문구, '+' 아이콘 컨테이너 => 세로로 위치, hover시 더욱 선명해지게
   &__btnArea {
     display: flex;
     flex-direction: column;
@@ -22,10 +25,12 @@
   }
 }
 
+// 모바일 반응형
 @include mobile {
   .DocumentNew {
     padding: 5%;
     &__btnArea {
+      // hover X -> 선명하게 변경
       opacity: 1;
     }
   }

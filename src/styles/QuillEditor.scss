@@ -29,14 +29,15 @@
       }
     }
   }
+  // 텍스트 편집기 하단 경계선 X
   .ql-container.ql-snow {
     border: none;
     .ql-editor {
-      // height: calc(100% - 4rem);
       width: 100vw;
     }
   }
 
+  // 모바일 반응형
   @media (max-width: 360px) {
     .ql-toolbar {
       padding-top: 0;

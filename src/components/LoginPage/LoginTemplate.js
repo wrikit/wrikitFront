@@ -8,13 +8,8 @@ import { NavLink } from "react-router-dom";
 import { serverURL } from "../../settings";
 
 const LoginPage = () => {
-  const [content, setContent] = useState("login");
-  const [display, setDisplay] = useState(<Login />);
   const [login, setLogin] = useState(false);
-  const handleClickBtn = (e) => {
-    setContent(e.target.name);
-  };
-
+  // 로그아웃
   const logout_login = () => {
     axios.post(
       `http://${serverURL}/auth/logout/`,
@@ -27,6 +22,13 @@ const LoginPage = () => {
 
     });
   }
+  // 로그인 / 회원가입 컴포넌트 조건부 렌더링
+  const [content, setContent] = useState("login");
+  const [display, setDisplay] = useState(<Login />);
+
+  const handleClickBtn = (e) => {
+    setContent(e.target.name);
+  };
 
   useEffect(() => {
     content === "login"

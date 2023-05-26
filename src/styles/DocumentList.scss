@@ -1,6 +1,4 @@
 @import "./utility";
-
-// Title
 .documentList {
   margin: 5%;
   margin-top: 0;
@@ -10,6 +8,7 @@
   background-color: $white;
 
   @extend .shadow-lg, .br-4;
+  // 문서 리스트 헤더
   &__header {
     display: flex;
     align-items: center;
@@ -19,9 +18,11 @@
     span {
       padding: 0 10px;
     }
+    // 시작 위치
     &:first-child span{
       margin-left: 10px;
     }
+    // 삭제하기 버튼
     button{
       cursor: pointer;
       width: 4rem;
@@ -38,34 +39,40 @@
       } 
     }
   }
+  // 문서 전체 리스트 크기
   &__contents {
     max-height: calc(43px * 7.8);
-    overflow-y: auto;
+    overflow-y: auto; // 문서가 많을 경우 스크롤 가능
   }
 }
+// 내 문서(표제) 
 h2 {
   padding-left: 5%;
   padding-bottom: 2%;
 }
-
+// '문서함이 비었습니다' 문구
 h4 {
   text-align: center;
   margin: 1% 1% 1% 1%;
   opacity: 0.5;
 }
+
+//모바일 반응형
 @include mobile {
   .documentList {
     background-color: $background-color;
     box-shadow: none;
     margin: 2%;
+    // 문서 리스트 헤더 X, 문서 정보 contents만 노출
     &__header {
       display: none;
     }
     &__contents {
       max-height: 63vh;
-      overflow-y: auto;
+      overflow-y: auto; // 문서가 많은 경우 스크롤 가능
     }
   }
+  // 내문서(표제)
   h2 {
     padding: 5%;
     box-shadow: 0px 3px 7px -2px rgba($primary-color, 0.3);

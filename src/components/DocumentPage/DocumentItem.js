@@ -3,17 +3,22 @@ import { HiDocumentText } from "react-icons/hi";
 import "../../styles/DocumentItem.scss";
 import { MdDeleteForever } from "react-icons/md";
 import { useEffect, useState } from "react";
-//documentItem컴포넌트 문서 번호, 이름, 마지막업데이트날짜
+
+//DocumentItem Component에 들어가는 정보 => 문서 번호, 이름, 마지막업데이트날짜
 const DocumentItem = (props) => {
+  // 문서 개별 선택(상태)
   const [isChecked, setIsChecked] = useState(props.checked);
-  const isAllSelected = props.isAllSelected;
+  //문서 선택 (이벤트_onChange Event)
   const onChange = props.onChange;
+
+  //선택 문서 정보(이벤트_onClick Event)
   const handleCheck = (e) => {
     const selectedValue = e.target.checked;
     setIsChecked(selectedValue);
     onChange(selectedValue, document);
   };
-  //문서 전체 선택/해제 기능
+  // 문서가 전체 [선택/해제] 됐을 경우, 개별 문서 전부 isChecked값 [true/false]로 변경.
+  const isAllSelected = props.isAllSelected;
   useEffect(()=>{
     if(isAllSelected){
       setIsChecked(true);

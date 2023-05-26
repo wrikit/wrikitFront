@@ -1,7 +1,4 @@
-//새문서 생성 버튼
-// 새문서 생성api
 import axios from "axios";
-// 클릭 시 새문서 생성 후 생성된 문서 texteditor로 이동
 import { FaPlus } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import "../../styles/DocumentNew.scss";
@@ -9,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { serverURL } from "../../settings";
 import { nanoid } from "nanoid";
 
+//새문서 생성 버튼
+// 새문서 생성api
+// 클릭 시 새문서 생성 후 생성된 문서 texteditor로 이동
 const DocumentNew = () => {
   let navigate = useNavigate();
   const onClickHandler = async (e) => {

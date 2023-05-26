@@ -5,12 +5,15 @@
   background: $background-color;
   overflow: hidden;
   flex: 1;
+  // 슬라이더 - 왼쪽 화살표
   .slick-prev{
     left: 0;
   }
+  // 슬라이더 - 오른쪽 화살표
   .slick-next{
     right: 0;
   }
+  // 슬라이더 화살표 양쪽에 모두 적용
   .slick-prev, .slick-next{
     top: 35%;
     width: 100px;
@@ -20,29 +23,34 @@
       font-size: 30px;
     }
   }
+  // 슬라이더 하단에 점 표시
   .slick-dots{
     bottom: 460px;
   }
+  // 각 슬라이더 점의 스타일 색상
   .slick-dots li button::before{
     color: $point-color;
   }
+  // 활성화된 슬라이더 점 스타일
   .slick-dots li.slick-active button::before {
     opacity: .75;
     color: $primary-color;
   }
   .slick-prev, .slick-next, .slick-dots{
-   display: initial;
-   z-index: 3;
-// 
+   display: initial; // 기본값
+   z-index: 3; // 다른 요소 위에 배치(ex.배경사진)
   }
+  // 첫번째 슬라이드
   .banner {
-    background-size: cover;
+    background-size: cover; // 화면 전체 꽉 채우도록 설정
     height: 100vh;
     width: auto;
     padding: 220px 0px 210px 0px;
   }
+  // 첫번째 슬라이드 - 배경 이미지
   .index-img {
     background-position: center;
+    // 배경사진에 음영 추가(모서리쪽이 어둡게 그라이데이션)
     background-image: linear-gradient(
         180deg,
         rgba(33, 37, 41, 0.3) 0,
@@ -50,20 +58,23 @@
       ),
       url(/img/meeting.jpg);
   }
+  // 두번째 슬라이드
   .second-banner{
     position: relative;
+    // 두번째 슬라이드 - 배경 이미지 
     .second-img {
       float: left;
-      margin-top: calc(50vh - (60vh / 2));
+      margin-top: calc(50vh - (60vh / 2)); // 높이 중앙에 위치
       margin-left: 5%;
       height: 60vh;
       width: 50vw;
       background-image:
         url(/img/copylink.jpg);
-      background-repeat: no-repeat;
-      background-size:contain;
+      background-repeat: no-repeat; // 단일한 이미지
+      background-size:contain; // 요소의 내부에 채워지게 설정
       box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
     }
+    // 두번째 슬라이드 - 문구
     .second-textwrapper{
       font-size: $font-size-lg;
       position: absolute;
@@ -75,11 +86,13 @@
       @extend .text-center;
     }
   }
+  // 세번째 슬라이드
   .third-banner{
     position: relative;
+    // 세번째 슬라이드 - 배경 이미지
     .third-img{
       float: right;
-      margin-top: calc(50vh - (60vh / 2));
+      margin-top: calc(50vh - (60vh / 2)); // 높이 중앙에 위치
       margin-left: 5%;
       height: 60vh;
       width: 50vw;
@@ -88,11 +101,13 @@
       background-repeat: no-repeat;
       background-size:contain;
     }
+    // 세번째 슬라이드 - 문구
     .third-textwrapper{
       position: absolute;
       transform: translateX(-130%) translateY(40%);
       @extend .text-center;
       width: 30vw;
+      // 세번째 슬라이드 - 문구_소제목
       &__title{
       font-size: $font-size-lg;
       max-width: 1180px;
@@ -100,6 +115,7 @@
       margin-bottom: 30px;
       line-height: 3rem;
     }
+    // 세번째 슬라이드 - 문구_부연설명
     &__desc{
       font-size: $font-size-s;
       line-height: 2rem;
@@ -110,6 +126,7 @@
     }
   }
 }
+// 서비스 소개 문구
   .main__textwrapper {
     max-width: 1180px;
     margin-left: auto;
@@ -125,6 +142,7 @@
     &__desc {
       font-size: $font-size-lg;
     }
+    // 시작하기 버튼
     &__btnArea {
       @extend .mt-40;
       max-width: 160px;
@@ -136,7 +154,6 @@
         background: none;
         border: none;
         position: relative;
-        text-transform: uppercase;
         box-shadow: 5px 7px 7px;
         font-size: $font-size-m;
         letter-spacing: 3px;
@@ -172,12 +189,13 @@
     }
   }
 }
-
+// 모바일 반응형
 @include mobile{
   .MainPage{
     .slick-prev, .slick-next{
       z-index: -1;
     }
+    // 두번째 슬라이드
     .second-banner{
       position: relative;
       .second-img {
@@ -203,6 +221,7 @@
         margin: 0 auto;
       }
     }
+    // 세번째 슬라이드
     .third-banner{
       position: relative;
       .third-img{

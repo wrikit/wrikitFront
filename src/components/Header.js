@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { FaFolderOpen } from "react-icons/fa";
-import { BsPersonCircle } from "react-icons/bs";
 import { SlLogin } from "react-icons/sl";
 import {FiSun} from "react-icons/fi";
 import {MdDarkMode} from "react-icons/md";

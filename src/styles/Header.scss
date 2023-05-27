@@ -99,6 +99,13 @@
       }
     }
   }
+  //헤더의 미니프로필에는 hover시 상태메시지 안 뜨게
+  .mini-profile {
+    margin: 0;
+    .profile-message{
+      display: none;
+    }
+  }
 }
 // 시작하기 버튼 => 모바일 환경에서 안 보이도록 설정(아이콘으로 변경)
 .iconContainer {
@@ -147,6 +154,9 @@
           }
         }
       }
+    }
+    .mini-profile .profile-name{
+      display: none;
     }
   }
   // 모바일 환경에서 시작하기 버튼 -> 로그인 아이콘으로 대체

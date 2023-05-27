@@ -7,6 +7,7 @@ import {FiSun} from "react-icons/fi";
 import {MdDarkMode} from "react-icons/md";
 import axios from "axios";
 import { serverURL } from "../settings.js";
+import MiniProfile from "./UserProfile/MiniProfile.js";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
@@ -94,15 +95,15 @@ const Header = (props) => {
                 내 문서
               </p>
             </li>
+            {/* 다크모드 */}
+            <li onClick={props.setDarkMode}>
+              {props.isDarkMode ? <MdDarkMode size="23"/> : <FiSun size="23" />}
+            </li>
             <li>
               {isLogin ? (
-                // 로그인 O -> 마이페이지 아이콘
-                <div className="iconContainer">
-                  <BsPersonCircle
-                    size="24"
-                    onClick={MypageClick}
-                    title="마이페이지"
-                  />
+                // 로그인 O -> 미니프로필(클릭 -> 마이페이지)
+                <div className="iconContainer" onClick={MypageClick}>
+                  <MiniProfile profileName={userName}/>
                 </div>
               ) : (
                 // 로그인 X -> 시작하기 버튼('로그인페이지'로 이동)
@@ -115,10 +116,6 @@ const Header = (props) => {
                   </NavLink>
                 </div>
               )}
-            </li>
-            {/* 다크모드 */}
-            <li onClick={props.setDarkMode}>
-              {props.isDarkMode ? <MdDarkMode size="23"/> : <FiSun size="23" />}
             </li>
           </ul>
         </nav>

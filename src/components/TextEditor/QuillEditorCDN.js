@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+// Quill에디터 css 가져오기
 const CSS_CDN = () => {
   return (
     <div>

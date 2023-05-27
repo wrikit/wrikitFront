@@ -19,7 +19,6 @@ const LoginPage = () => {
     .then(() => {
       document.cookie = 'username=null';
       setLogin(false);
-
     });
   }
   // 로그인 / 회원가입 컴포넌트 조건부 렌더링
@@ -64,8 +63,7 @@ const LoginPage = () => {
               <li
                 className={`tab register ${
                   content === "register" ? "active" : ""
-                }`}
-              >
+                }`}>
                 <a name="register" onClick={handleClickBtn}>
                   회원가입
                 </a>

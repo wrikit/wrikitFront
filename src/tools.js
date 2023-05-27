@@ -66,7 +66,7 @@ const c2c_exec_command = text => {
   }
 }
 
-const softAlert = (content, displayTime=1, inTime=1, outTime=1, maxOpacity=0.6) => {
+const softAlert = (content, displayTime=1, inTime=1, outTime=1, maxOpacity=0.8) => {
   const messageWrap = document.createElement('div');
   const message = document.createElement('div');
   message.innerText = content;
@@ -106,7 +106,7 @@ const softAlert = (content, displayTime=1, inTime=1, outTime=1, maxOpacity=0.6) 
     'bottom': '3rem',
     'width': '100%',
     'opacity': '0',
-    'z-index': 5
+    'z-index': 99
   }
   const messageStyles = {
     'font-size': '1rem',

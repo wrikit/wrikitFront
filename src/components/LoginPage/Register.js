@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useRef } from "react";
 import { serverURL } from "../../settings";
 
+// 로그인 페이지의 회원가입 컴포넌트
 const Register = (props) => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
@@ -18,6 +19,7 @@ const Register = (props) => {
   };
   const idRef = useRef(null);
 
+  // 아이디, 패스워드, 패스워드확인 입력 후 회원가입, 로그인페이지로 이동
   const onSubmitHandler = (e) => {
     e.preventDefault();
 

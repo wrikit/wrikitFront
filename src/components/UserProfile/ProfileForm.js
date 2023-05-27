@@ -10,11 +10,12 @@ import axios from "axios";
 import { FaEdit, FaRegWindowClose } from "react-icons/fa";
 import { serverURL } from "../../settings";
 
+// 프로필 컴포넌트, 기존 프로필 컴포넌트에 현재 컴포넌트 외에 다른기능이 있어 분리 시켰었지만
+// 삭제되서 프로필 컴포넌트, 프로필을 표시, 프로필 수정시 프로필의 내용이 변경되었는지 확인하고
+// 변경되면 서버에 저장, 패스워드 변경(카카오계정은 안됨), 로그아웃, 계정 삭제 기능 포함
 const ProfileForm = (props) => {
-  //TODO 카카오 연동하기 버튼 (카카오계정이 아니라면)
-  //TODO 모든기능 완성후 css수정
   const [isDisabled, setIsDisabled] = useState(true);
-  const [profileId, setProfileId] = useState(props.profileId);
+  const [profileId] = useState(props.profileId);
   const [csrf, setCsrf] = useState("");
   const [profileName, setProfileName] = useState(props.profileName);
   const [message, setMessage] = useState(props.profileMessage);
@@ -220,7 +221,10 @@ const ProfileForm = (props) => {
           <button onClick={isDisabledHandler} type="button">
             {isDisabled ? "프로필 수정하기" : "저장하기"}
           </button>
-          {isKakao ? <button disabled>패스워드 변경</button> : <PassSetting />}
+          {isKakao ? <button onClick={(e) => {
+            e.preventDefault();
+            softAlert('카카오계정으로 로그인되어 있습니다.');
+          }}>패스워드 변경</button> : <PassSetting />}
         </div>
         <div className="button_container">
           <button type="button" onClick={deleteAccountModal}>

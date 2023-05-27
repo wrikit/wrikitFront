@@ -3,6 +3,7 @@ import axios from "axios";
 import { getCookie } from "../../tools";
 import { serverURL } from "../../settings";
 
+// 프로필에서 계정 패스워드 변경 모달
 const Setting = () => {
   const settingDialogRef = useRef(null);
   const passRef = useRef(null);
@@ -21,6 +22,7 @@ const Setting = () => {
     event.preventDefault();
     settingDialogRef.current.showModal();
   };
+  // 패스워드 유효성 검사 함수, 기준변경시 수정할 부분
   const passValidity = (password) => {
     let length = password.length >= 8;
     return length;

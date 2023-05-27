@@ -53,12 +53,15 @@ const Profile = (props) => {
         });
     };
     if (window.location.href == `http://localhost:3000/profile/` || window.location.href == `http://115.85.180.7:3000/profile/`) {
+      // 현재 사용되지 않는페이지, 이전 페이지로 보내기
     window.history.go(-1);
     } else {
+      // url이 '/'으로 끝나지 않을 경우 페이지에 접근가능
       getData();
     }
   }, []);
   
+  // name의 초기값이 false, 데이터가 정상적으로 도착했는지 판별하는데 사용
   return (
     <div className={props.type} id="profile">
       {name && isKakao != undefined ? (
@@ -76,8 +79,6 @@ const Profile = (props) => {
       )}
     </div>
   );
-  // TODO App.js에서 유저정보 쿠키로 만들고 가져오기
-  // TODO 카카오계정이면 PassSetting숨기기
 };
 
 export default Profile;

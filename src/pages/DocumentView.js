@@ -19,7 +19,10 @@ import { serverURL } from "../settings";
 import { FiSun } from "react-icons/fi";
 import { MdDarkMode } from "react-icons/md";
 
-
+// 문서를 보는 컴포넌트, 만약 로그인 상태라면 저장된 키를 가져오고 저장되있지 않다면 한번 입력받고 계정에 저장
+// 문서의 데이터는 모두 html 그대로 저장됨 -> 서버에서 가져와서 innerHTML로 바로 사용가능, 다른 html 기능으로 확장가능
+// type은 editor, reader 두가지, 각각 수정가능 페이지, 읽기전용 페이지
+// editor에서 패스워드가 있어 저장 가능한 경우 2분마다 자동저장
 const DocumentView = (props) => {
   const { id, type } = useParams();
   const [docName, setDocName] = useState(false);
@@ -32,10 +35,12 @@ const DocumentView = (props) => {
   const [content, setContent] = useState(false);
   const [editable, setEditable] = useState(false);
   const [settings, setSettings] = useState({});
+  // state 가 너무 많아서 다른 파일에서 state들을 관리하는 class 정의
   const settingsObj = new reactStates(setSettings, settings);
   const [autosave, setAutosave] = useState({});
   const autosaveObj = new reactStates(setAutosave, autosave); 
 
+  // 잘못된 url은 뒤로 보냄
   let typeArr = ["editor", "reader"];
   if (!typeArr.includes(type)) {
     window.history.go(-1);
@@ -67,6 +72,7 @@ const DocumentView = (props) => {
         }
       });
   };
+  // 패스워드를 입력받은 다음에 동작하는 함수
   const inputKeyCB = (key, URL = `http://${serverURL}/`) => {
     axios
       .post(`${URL}main/get-document/`, { documentid: id, documentkey: key })
@@ -114,6 +120,7 @@ const DocumentView = (props) => {
       softAlert("복사되지 않았어요 :(");
     }
   };
+  // 저장 모달 오픈
   const saveForm = (event) => {
     event.preventDefault();
     saveRef.current.showModal();
@@ -122,12 +129,14 @@ const DocumentView = (props) => {
       setUpdateKey(saveKey);
     }
   };
+  // 설정 모달 오픈
   const settingForm = () => {
     settingFormRefs.name.current.value = settings.name;
     settingFormRefs.editable.current.checked = settings.editable;
     settingFormRefs.public.current.checked = settings.public;
     settingFormRefs.settingForm.current.showModal();
   };
+  // 설정에서 패스워드 변경, 최대 20자
   const resetPassword = () => {
     const newPass = settingFormRefs.newPassword.current.value;
     if (newPass.length && newPass.length <= 20) {
@@ -169,7 +178,7 @@ const DocumentView = (props) => {
       });
   };
 
-  const saveSettings = (event) => {
+  const saveSettings = () => {
     const newName = settingFormRefs.name.current.value;
     if (newName.length) {
       axios
@@ -235,12 +244,12 @@ const DocumentView = (props) => {
     quotes.forEach((element) => {
       element.innerHTML = `<p style="border-left: 5px solid #bbbbbb; padding: 0 0 0 8px; margin: 2px 0 2px 0;">${element.innerText}</p>`;
     });
-
+    // 문서 내의 이미지들이 너무 크면 화면너비를 넘어가서 최대너비 100%로 제한
     const images = htmlPdfRef.current.querySelectorAll("img");
     images.forEach((element) => {
       element.style["max-width"] = "100%";
     });
-
+    // PDF 변환 관련 설정값들
     const opt = {
       margin: 0.3,
       filename: `${docName}.pdf`,
@@ -393,6 +402,7 @@ const DocumentView = (props) => {
                   setContent(data.content);
                   setIsDisplay(true);
                 } else {
+                  // 저장된 키가 틀리면 삭제
                   setSaveKey(false);
                   axios.post(
                     `http://${serverURL}/main/delete-document-key/`,
@@ -459,6 +469,7 @@ const DocumentView = (props) => {
                   저장하기
                 </button>
               )}
+              {/* 세부적인 설정은 문서주인만 가능 */}
               {isMine ? (
                 <button className="setting-button" onClick={settingForm}>
                   Setting

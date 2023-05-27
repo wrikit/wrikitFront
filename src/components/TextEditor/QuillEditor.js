@@ -58,6 +58,7 @@ const QuillEditor = (props) => {
     },
   };
 
+  // 툴바에서 사용가능한 기능들
   const formats = [
     "font",
     "size",

@@ -3,7 +3,7 @@ import KakaoLogin from "./KakaoLogin";
 import axios from "axios";
 import { serverURL } from "../../settings";
 
-const LoginTemplate = () => {
+const Login = () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
@@ -80,4 +80,4 @@ const LoginTemplate = () => {
   );
 };
 
-export default LoginTemplate;
+export default Login;

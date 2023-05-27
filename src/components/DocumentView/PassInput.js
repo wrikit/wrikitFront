@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// 패스워드가 저장되 있지 않을 경우 패스워드 입력에 사용되는 컴포넌트
 const PassInput = props => {
   const [pass, setPass] = useState('');
 
@@ -9,6 +10,7 @@ const PassInput = props => {
   const inputEnterDown = e => {
     (e.key=="Enter") && callbackHandler();
   }
+  // 패스워드 입력후 실행할 함수
   const callbackHandler = () => {
     props.callback(pass);
   }

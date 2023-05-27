@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { serverURL } from "../../settings";
 
+// 마이페이지가 아닌 다른유저의 프로필사진, 상테메세지를 가져오기, 인증 필요없음
 const MiniProfile = (props) => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");

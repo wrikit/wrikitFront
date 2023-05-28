@@ -7,8 +7,8 @@ import "../../styles/DocumentList.scss";
 import { serverURL } from "../../settings";
 
 // DocumentList Component : 개별 문서(DocumentItem)의 목록
+//get-profile API를 통해 Document테이블에서 문서리스트 정보 가져오기
 const DocumentList = () => {
-  // 2초기다리는건 처음에 state에 빈값이여야... 2초후바꾸기
   const [documents, setDocuments] = useState([]);
   const getDocuments = async () => {
     try {
@@ -63,7 +63,7 @@ const DocumentList = () => {
   const [isAllSelected, setIsAllSelected] = useState(false); // 문서 전체 선택 여부(상태)
 
   //개별 체크박스(이벤트_onChange Event)
-  const handleCheckbox= (isChecked, document) => {
+  const handleCheckbox = (isChecked, document) => {
     // 개별 문서가 새로 체크될 때마다 isSelected에 추가
     if (isChecked) {
       setIsSelected((prevSelectedDocuments) => [
@@ -73,40 +73,46 @@ const DocumentList = () => {
     } else {
       // 체크 해제시 isSelected 배열에서 제외
       setIsSelected((prevSelectedDocuments) =>
-      prevSelectedDocuments.filter((item) => item.id !== document.id)
+        prevSelectedDocuments.filter((item) => item.id !== document.id)
       );
     }
   };
   //문서 전체 선택한 경우(이벤트_onChange Event)
   const handleAllCheckboxes = (e) => {
-    const isChecked= e.target.checked;
+    const isChecked = e.target.checked;
     setIsAllSelected(isChecked); //문서 전체 체크 여부(true / false)
-    if(isChecked){ // true
+    if (isChecked) {
+      // true
       setIsSelected(documents); //문서 전체를 isSelected에 추가
-    }else { // false
-      setIsSelected([]);} //빈 배열(전체선택해제)
+    } else {
+      // false
+      setIsSelected([]);
+    } //빈 배열(전체선택해제)
   };
-  
+
   // 체크된 문서 일괄 삭제(문서리스트 헤더에 있는 삭제하기 버튼 이벤트_onClick Event)
-  const handleDeleteButon = ()=>{
+  const handleDeleteButon = () => {
     // 선택된 문서 배열인 isSelected에서 각 문서들의 id를 하나씩 추출
-    const docsToDelete = isSelected.map((document)=> document.id);
-    if(window.confirm("정말 삭제하시겠습니까?")){
+    const docsToDelete = isSelected.map((document) => document.id);
+    if (window.confirm("정말 삭제하시겠습니까?")) {
       //id별로 서버에 삭제 요청
-    docsToDelete.forEach((id)=>{
-      axios.post(`http://${serverURL}/main/delete-document/`, 
-      {documentid : id},
-      {withCredentials:true})
-      .then((res)=>{
-        if(res.data.result){
-          alert("삭제되었습니다.");
-          window.location.href = "/document";
-        }
-        return;
-      })
-    })}    
-    
-  }
+      docsToDelete.forEach((id) => {
+        axios
+          .post(
+            `http://${serverURL}/main/delete-document/`,
+            { documentid: id },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            if (res.data.result) {
+              alert("삭제되었습니다.");
+              window.location.href = "/document";
+            }
+            return;
+          });
+      });
+    }
+  };
 
   //document리스트 map
   const dataLoaded = documents.map((document) => {
@@ -142,13 +148,17 @@ const DocumentList = () => {
   return (
     <>
       <div>
+        {/* 새문서 컴포넌트 */}
         <DocumentNew />
       </div>
       <h2>내 문서</h2>
       <div className="documentList">
         <div className="documentList__header">
-          <input type="checkbox"  checked={isAllSelected} 
-          onChange={handleAllCheckboxes}/>
+          <input
+            type="checkbox"
+            checked={isAllSelected}
+            onChange={handleAllCheckboxes}
+          />
           <span></span>
           <span>문서번호</span>
           <span>문서이름</span>
@@ -157,6 +167,7 @@ const DocumentList = () => {
           <button onClick={handleDeleteButon}>삭제하기</button>
         </div>
         <div className="documentList__contents">
+          {/* 문서리스트 정보 보여주기 */}
           {documents.length < 1 ? <h4>문서함이 비어있습니다</h4> : dataLoaded}
         </div>
       </div>

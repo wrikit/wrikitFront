@@ -7,7 +7,7 @@ import { serverURL } from "../../settings";
 import { nanoid } from "nanoid";
 
 //새문서 생성 버튼
-// 새문서 생성api
+// 새문서 생성api create-document
 // 클릭 시 새문서 생성 후 생성된 문서 texteditor로 이동
 const DocumentNew = () => {
   let navigate = useNavigate();

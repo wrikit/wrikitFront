@@ -34,11 +34,12 @@
     border: none;
     .ql-editor {
       width: 100vw;
+      min-height: 15rem;
     }
   }
 
   // 모바일 반응형
-  @media (max-width: 360px) {
+ @include mobile{
     .ql-toolbar {
       padding-top: 0;
       .ql-formats {
@@ -62,12 +63,12 @@
         }
       }
     }
-  }
-
-  .ql-container {
-    .ql-editor {
-      // max-height: 65vh;
-      min-height: 15rem;
+  .ql-snow{
+      .ql-picker.ql-expanded{
+          #ql-picker-options-2{
+            transform: translateX(-80%);
+          }
+      }
     }
   }
 }

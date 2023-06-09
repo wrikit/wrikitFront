@@ -190,6 +190,7 @@ const DocumentView = (props) => {
             docName: newName,
             editable: settings.editable,
             public: settings.public,
+            savetoken: 'false'
           },
           { withCredentials: true }
         )
@@ -208,7 +209,45 @@ const DocumentView = (props) => {
     }
   };
   const update = () => {
-    const editorDiv = document.querySelector(".quill .ql-editor");
+    const saveToken = 'false';
+    updateImage(saveToken);
+    softAlert("저장중 ...");
+    setTimeout(() => {
+      updateContent(saveToken);
+    }, 5000);
+    // updateContent(updateImage());
+  }
+  const updateImage = (saveToken) => {
+    let editorDiv = document.querySelector(".quill .ql-editor");
+    const images = editorDiv.querySelectorAll("img");
+    if (images != null) {
+      images.forEach(element => {
+        let src = element.src;
+        if (src.slice(0, 4) == "data") {
+          const imageNum = Math.floor(Math.random() * 1000);
+          const imageName = `${id}_${imageNum}`;
+          // let imageType = src.substring(0, src.indexOf(";"));
+          // imageType = imageType.slice(imageType.indexOf('/')+1, imageType.length);
+          // element.src = `http://${serverURL}/media/document/${imageName}.${imageType}`;
+          axios.post(
+            `http://${serverURL}/main/upload-image/`,
+            {
+              name: imageName,
+              documentid: id,
+              dataurl: src,
+              savetoken: saveToken
+            }
+          )
+          .then(res => {
+            element.src = `http://${serverURL}/media/document/${res.data['name']}`;        
+          });
+        } ;
+      });
+    }
+    return saveToken;  
+  }
+  const updateContent = (saveToken) => {
+    let editorDiv = document.querySelector(".quill .ql-editor");
     axios
       .post(
         `http://${serverURL}/main/update-document/`,
@@ -216,6 +255,7 @@ const DocumentView = (props) => {
           documentid: id,
           documentkey: updateKey,
           content: editorDiv.innerHTML,
+          savetoken: String(saveToken)
         },
         { withCredentials: true }
       )

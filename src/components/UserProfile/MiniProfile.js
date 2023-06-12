@@ -20,7 +20,9 @@ const MiniProfile = (props) => {
       if (res.data.result) {
         setLoading(true);
         setName(res.data.profileName);
-        setMessage(res.data.profileMessage);
+        if (res.data.profileMessage != null) {
+          setMessage(res.data.profileMessage);
+        }
         setImage(
           `http://${serverURL}/media/user_profile/${res.data.profileImg}`
         );

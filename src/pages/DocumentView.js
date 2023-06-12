@@ -214,21 +214,22 @@ const DocumentView = (props) => {
     softAlert("저장중 ...");
     setTimeout(() => {
       updateContent(saveToken);
-    }, 5000);
-    // updateContent(updateImage());
+    }, 1000);
   }
   const updateImage = (saveToken) => {
     let editorDiv = document.querySelector(".quill .ql-editor");
-    const images = editorDiv.querySelectorAll("img");
+    let images;
+    try {
+      images = editorDiv.querySelectorAll("img");
+    } catch {
+      images = null;
+    }
     if (images != null) {
       images.forEach(element => {
         let src = element.src;
         if (src.slice(0, 4) == "data") {
           const imageNum = Math.floor(Math.random() * 1000);
           const imageName = `${id}_${imageNum}`;
-          // let imageType = src.substring(0, src.indexOf(";"));
-          // imageType = imageType.slice(imageType.indexOf('/')+1, imageType.length);
-          // element.src = `http://${serverURL}/media/document/${imageName}.${imageType}`;
           axios.post(
             `http://${serverURL}/main/upload-image/`,
             {

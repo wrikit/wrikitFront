@@ -88,29 +88,35 @@ const DocumentList = () => {
       // false
       setIsSelected([]);
     } //빈 배열(전체선택해제)
+    console.log("Debug::DocumentList->handleAllCheckboxes->isChecked:", isChecked);
   };
 
+  // 선택된 문서를 순차적으로 삭제하기 위한 함수, handleDeleteButton에서 사용
+  const deleteDocuments = docArr => {
+    // 만약 docArr이 비어있다면 alert & 함수 종료(return true;)
+    if (docArr.length > 0) {
+      axios.post(
+        `http://${serverURL}/main/delete-document/`,
+        { documentid: docArr[0] },
+        { withCredentials: true }
+      ).then(() => {
+        const nextArr = docArr.slice(1);
+        return deleteDocuments(nextArr);
+      });
+    } else {
+      alert("삭제되었습니다.");
+      window.location.href = "/document";
+      return true;
+    }
+  }
   // 체크된 문서 일괄 삭제(문서리스트 헤더에 있는 삭제하기 버튼 이벤트_onClick Event)
-  const handleDeleteButon = () => {
+  const handleDeleteButton = () => {
     // 선택된 문서 배열인 isSelected에서 각 문서들의 id를 하나씩 추출
     const docsToDelete = isSelected.map((document) => document.id);
-    if (window.confirm("정말 삭제하시겠습니까?")) {
+    console.log("Debug::DocumentList->handleDeleteButton->docsToDelete:", docsToDelete);
+    if (docsToDelete.length && window.confirm("정말 삭제하시겠습니까?")) {
       //id별로 서버에 삭제 요청
-      docsToDelete.forEach((id) => {
-        axios
-          .post(
-            `http://${serverURL}/main/delete-document/`,
-            { documentid: id },
-            { withCredentials: true }
-          )
-          .then((res) => {
-            if (res.data.result) {
-              alert("삭제되었습니다.");
-              window.location.href = "/document";
-            }
-            return;
-          });
-      });
+      deleteDocuments(docsToDelete);
     }
   };
 
@@ -164,7 +170,7 @@ const DocumentList = () => {
           <span>문서이름</span>
           <span>수정한 날짜</span>
           <span></span>
-          <button onClick={handleDeleteButon}>삭제하기</button>
+          <button onClick={handleDeleteButton}>삭제하기</button>
         </div>
         <div className="documentList__contents">
           {/* 문서리스트 정보 보여주기 */}

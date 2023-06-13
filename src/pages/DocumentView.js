@@ -190,7 +190,6 @@ const DocumentView = (props) => {
             docName: newName,
             editable: settings.editable,
             public: settings.public,
-            savetoken: 'false'
           },
           { withCredentials: true }
         )
@@ -208,46 +207,44 @@ const DocumentView = (props) => {
       softAlert("제목을 비워둘수 없습니다");
     }
   };
-  const update = () => {
-    const saveToken = 'false';
-    updateImage(saveToken);
-    softAlert("저장중 ...");
-    setTimeout(() => {
-      updateContent(saveToken);
-    }, 1000);
+  const upload_image = imgArr => {
+    if (imgArr.length > 0) {
+      let image = imgArr[0];
+      let src = image.src;
+      if (src.slice(0, 4) == "data") {
+        const imageNum = Math.floor(Math.random() * 1000);
+        const imageName = `${id}_${imageNum}`;
+        axios.post(
+          `http://${serverURL}/main/upload-image/`,
+          {
+            name: imageName,
+            documentid: id,
+            dataurl: src,
+          }
+        )
+        .then(res => {
+          image.src = `http://${serverURL}/media/document/${res.data['name']}`;
+          const nextArr = imgArr.slice(1);
+          return upload_image(nextArr);
+        });
+      }
+    } else {
+      updateContent();
+    }
   }
-  const updateImage = (saveToken) => {
+  const update = () => {
     let editorDiv = document.querySelector(".quill .ql-editor");
     let images;
     try {
       images = editorDiv.querySelectorAll("img");
+      images = Array.from(images);
     } catch {
-      images = null;
+      images = [];
     }
-    if (images != null) {
-      images.forEach(element => {
-        let src = element.src;
-        if (src.slice(0, 4) == "data") {
-          const imageNum = Math.floor(Math.random() * 1000);
-          const imageName = `${id}_${imageNum}`;
-          axios.post(
-            `http://${serverURL}/main/upload-image/`,
-            {
-              name: imageName,
-              documentid: id,
-              dataurl: src,
-              savetoken: saveToken
-            }
-          )
-          .then(res => {
-            element.src = `http://${serverURL}/media/document/${res.data['name']}`;        
-          });
-        } ;
-      });
-    }
-    return saveToken;  
+    upload_image(images);
+    return true;  
   }
-  const updateContent = (saveToken) => {
+  const updateContent = () => {
     let editorDiv = document.querySelector(".quill .ql-editor");
     axios
       .post(
@@ -256,7 +253,6 @@ const DocumentView = (props) => {
           documentid: id,
           documentkey: updateKey,
           content: editorDiv.innerHTML,
-          savetoken: String(saveToken)
         },
         { withCredentials: true }
       )

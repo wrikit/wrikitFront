@@ -1,5 +1,5 @@
 <!-- Header -->
-<img src="https://capsule-render.vercel.app/api?type=transparent&color=auto&height=180&section=header&text=WRIKIT&fontSize=70&fontColor=00917C&fontAlign=60&desc=간편%20문서%20협업%20및%20공유%20사이트&descAlign=60&descAlignY=70&descSize=15" />
+<img src="https://capsule-render.vercel.app/api?type=transparent&color=auto&height=180&section=header&text=WRIKIT&fontSize=70&fontColor=00917C&fontAlign=50&desc=간편%20문서%20협업%20및%20공유%20사이트&descAlign=50&descAlignY=70&descSize=15" />
 
 <!--서비스 소개 -->
 <h2>💁‍♂️웹 서비스 소개</h2>

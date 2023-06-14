@@ -130,7 +130,7 @@ WRIKIT은 사용자들에게 심플하고 직관적인 인터페이스를 제공
     </div>
     <br /><br />
     <li>초대 링크 접속 화면</li>
-    <pre><code>초대 링크로 접속한 사용자는 문서 주인이 설정한 수정 가능 권한에 따라 편집 가능 여부에 차이가 있습니다.</code></pre>
+    <pre><code>초대 링크로 접속한 사용자는 문서 주인이 설정한 수정 권한에 따라 편집 가능 여부에 차이가 있습니다.</code></pre>
     <div align="center">
     <img src="https://github.com/wrikit/wrikitFront/assets/67899735/d377aa37-2465-419b-9d13-c63b420ac5d2" />
     </div>

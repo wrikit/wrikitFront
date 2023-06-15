@@ -29,7 +29,8 @@ const ProfileForm = (props) => {
   const submitRef = useRef(null);
   const nameInputRef = useRef(null);
   const deleteAccountRef = useRef(null);
-  const isDisabledHandler = (event) => {
+  // form의 내용이 변했나 확인하고 submit
+  const isDisabledHandler = () => {
     if (!isDisabled && (isNameChange || isImageChange || isMessageChange)) {
       submitRef.current.submit();
     }
@@ -237,12 +238,17 @@ const ProfileForm = (props) => {
       </form>
       <dialog ref={deleteAccountRef} className="delete-confirm-modal">
         <h2>회원탈퇴</h2>
+        <span className="delete-confirm-message">작성했던 내용은 모두 삭제됩니다</span>
         <div className="delete-confirm">
-          <input
+          {isKakao ? (
+            <></>
+          ) : (
+            <input
             type="password"
             onChange={inputHandler(setConfirmKey)}
             onKeyDown={ifKeyDownEnter(deleteAccount)}
-          />
+            />
+          )}
           <button type="button" onClick={deleteAccount}>
             탈퇴하기
           </button>

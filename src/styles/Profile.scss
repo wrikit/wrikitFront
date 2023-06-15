@@ -189,19 +189,19 @@
   .delete-confirm-modal {
     margin: auto auto;
     border: none;
-    padding: 30px 50px;
+    padding: 30px 60px;
     text-align: center;
     border-radius: 1.25rem;
     box-shadow: 0 4px 10px 4px rgba(#13232f, 0.3);
 
     h2 {
       text-align: center;
-      margin: 20px 0;
+      margin: 20px 0 10px 0;
       text-decoration: underline;
     }
     button {
       padding: 6px 0;
-      margin-top: 20px;
+      margin-top: 10px;
       margin-bottom: 10px;
       color: $primary-color;
       &:hover {
@@ -212,10 +212,16 @@
     }
     span {
       margin: 3px;
+      height: 2rem;
+      line-height: 2rem;
+    }
+    .delete-confirm-message {
+      margin-bottom: 20px;
     }
     .delete-confirm {
       display: flex;
-      align-items: center;
+      justify-content: center;
+      width: 100%;
       button {
         margin: 0 10px;
         padding: 6px 0;
@@ -228,6 +234,7 @@
       }
       input {
         height: 2rem;
+        max-width: 200px;
         border-top: 0;
         border-right: 0;
         border-left: 0;
@@ -250,7 +257,7 @@
   .side {
     .pass-setting {
       dialog {
-        padding: 50px 20px;
+        padding: 30px 20px 50px 20px;
         border-radius: 0px 0px 20px 20px;
         box-shadow: 2px 2px 5px gray;
         margin: 0 auto;
@@ -277,36 +284,6 @@
             color: whitesmoke;
             border-radius: 1.25rem;
           }
-        }
-      }
-    }
-    .delete-confirm-modal {
-      margin: 0 auto;
-      padding: 50px 20px;
-      border-radius: 0px 0px 20px 20px;
-      box-shadow: 2px 2px 5px gray;
-
-      button {
-        padding: 4px 0;
-        margin-top: 30px;
-        background-color: $black;
-        color: whitesmoke;
-        border-radius: 1.25rem;
-      }
-      .delete-confirm {
-        flex-direction: column;
-        button {
-          margin-top: 30px;
-          padding: 3px 0;
-          color: gray;
-          border: 2px solid lightgray;
-          border-radius: 1.25rem;
-          font-size: 0.9rem;
-          background-color: $background-color;
-        }
-        input {
-          background: transparent;
-          text-align: center;
         }
       }
     }

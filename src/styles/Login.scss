@@ -1,163 +1,172 @@
 // Login
-@import "./utility";
+@import './utility';
 
 body {
-  background-color: $background-color;
+    background-color: $background-color;
 }
 .templateBlock {
-  // 로그인/회원가입 컴포넌트가 보여지는 부분
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background-color: $secondary-background-color;
-  @extend .d-flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.whiteBox {
-  // 문구 + input + 버튼 컨테이너
-  padding: 1rem;
-  max-width: 360px;
-  background: $secondary-background-color;
-  // 로그인 / 회원가입 문구
-  h1 {
-    @extend .text-center;
-    color: $black;
-    font-weight: 500;
-    letter-spacing: 0.2rem;
-    font-size: xx-large;
-    @extend .mb-40;
-  }
-  // input label 안 보이게
-  label {
-    @extend .d-none;
-  }
-  // input 스타일
-  .styleInput {
-    font-size: 14pt;
-    @extend .mb-40;
-    border: none;
-    border-bottom: 1px solid black;
-    @extend .pb-8;
-    outline: none;
-    width: 100%;
-    background-color: $secondary-background-color;
-  }
-  // 로그인 / 회원가입 버튼
-  .button {
-    height: 3rem;
-    @extend .mb-20;
-    @extend .d-block;
-    width: 100%;
-    border: 0;
-    outline: none;
-    @extend .br-4;
-    font-size: $font-size-lg;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    background: $black;
-    color: $white;
-    transition: all 0.5s ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      opacity: 0.8;
-    }
-    // 카카오 로그인 버튼
-    &.kakao-login {
-      background: #fee500;
-      border-radius: 12px;
-      @extend .text-center;
-    }
-  }
-}
-// 이미 로그인한 유저에게 보여지는 로그인 페이지
-.logined {
-  margin-top: 70px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  height: calc(100vh - 80px);
-  padding: 0 10px;
-  &>* {
-    height: 4rem;
-  }
-  button {
-    font-size: 1.5rem;
-    background-color: inherit;
-    border: 2px solid black;
-    border-radius: 0.5rem;
-    margin: auto;
-    margin-bottom: 5%;
-    padding: 0.5rem;
-    width: 25%;
-    min-width: 300px;
-    cursor: pointer;
-    &:hover {
-      color: white;
-      background-color: black;
-      transition: 0.5s;
-    }
-    &:not(:hover) {
-      transition: 0.5s;
-    }
-  }
-
-}
-
-// 모바일 반응형
-@include mobile {
-  .templateBlock {
-    background-color: $background-color;
+    // 로그인/회원가입 컴포넌트가 보여지는 부분
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
     right: 0;
+    background-color: $secondary-background-color;
+    @extend .d-flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    .whiteBox {
-      background: $background-color;
-      padding: 0;
-      margin: 0px auto;
-      width: 100%;
-      text-align: center;
-      h1 {
-        width: 100%;
-      }
+}
 
-      .styleInput {
-        background-color: $background-color;
+.whiteBox {
+    // 문구 + input + 버튼 컨테이너
+    padding: 1rem;
+    max-width: 360px;
+    background: $secondary-background-color;
+    // 로그인 / 회원가입 문구
+    h1 {
+        @extend .text-center;
+        color: $black;
+        font-weight: 500;
+        letter-spacing: 0.2rem;
+        font-size: xx-large;
+        @extend .mb-40;
+    }
+    // input label 안 보이게
+    label {
+        @extend .d-none;
+    }
+    // input 스타일
+    .styleInput {
+        font-size: 14pt;
+        @extend .mb-40;
+        border: none;
+        border-bottom: 1px solid black;
+        @extend .pb-8;
+        outline: none;
         width: 100%;
-      }
-      .button {
+        background-color: $secondary-background-color;
+    }
+    // 로그인 / 회원가입 버튼
+    .button {
+        height: 3rem;
+        @extend .mb-20;
+        @extend .d-block;
         width: 100%;
+        border: 0;
+        outline: none;
+        @extend .br-4;
+        font-size: $font-size-lg;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        background: $black;
+        color: $white;
+        transition: all 0.5s ease;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        cursor: pointer;
 
-        font-size: 1.3rem;
-        &.kakao-login {
-          width: 100%;
-          background: #fee500;
-          padding: 0;
-          border-radius: 12px;
+        &:hover,
+        &:focus {
+            opacity: 0.8;
         }
-      }
+        // 카카오 로그인 버튼
+        &.kakao-login {
+            background: #fee500;
+            border-radius: 0.25rem;
+            @extend .text-center;
+        }
     }
-  }
-  .logined {
-    button:active {
-      color: white;
-      background-color: black;
-      transition: 0.5s;
+    span {
+        a {
+            @extend .d-flex, .text-none;
+            justify-content: center;
+            color: gray;
+            &:hover {
+                cursor: pointer;
+                @extend .text-underline;
+            }
+        }
     }
-  }
+}
+// 이미 로그인한 유저에게 보여지는 로그인 페이지
+.logined {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    height: calc(100vh - 80px);
+    padding: 0 10px;
+    & > * {
+        height: 4rem;
+    }
+    button {
+        font-size: 1.5rem;
+        background-color: inherit;
+        border: 2px solid black;
+        border-radius: 0.5rem;
+        margin: auto;
+        margin-bottom: 5%;
+        padding: 0.5rem;
+        width: 25%;
+        min-width: 300px;
+        cursor: pointer;
+        &:hover {
+            color: white;
+            background-color: black;
+            transition: 0.5s;
+        }
+        &:not(:hover) {
+            transition: 0.5s;
+        }
+    }
+}
+
+// 모바일 반응형
+@include mobile {
+    .templateBlock {
+        background-color: $background-color;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .whiteBox {
+            background: $background-color;
+            padding: 0;
+            margin: 0px auto;
+            width: 100%;
+            text-align: center;
+            h1 {
+                width: 100%;
+            }
+
+            .styleInput {
+                background-color: $background-color;
+                width: 100%;
+            }
+            .button {
+                width: 100%;
+
+                font-size: 1.3rem;
+                &.kakao-login {
+                    width: 100%;
+                    background: #fee500;
+                    padding: 0;
+                }
+            }
+        }
+    }
+    .logined {
+        button:active {
+            color: white;
+            background-color: black;
+            transition: 0.5s;
+        }
+    }
 }

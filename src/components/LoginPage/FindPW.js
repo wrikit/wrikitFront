@@ -21,19 +21,20 @@ const FindPW = (props) => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
 
-        axios({
-            method: 'POST',
-            // url: `주소`,
-            data: {
-                //  전달값(아이디, 이메일)
-            },
-        })
+        axios.post(
+            `http://${serverURL}/auth/send-authcode/`,
+            {
+                username: id,
+                email: email
+            }
+        )
             .then((res) => {
-                if (res.data.result == 'True') {
-                    // alert(`이메일 전송이 완료되었습니다. 이메일을 확인해주세요.`);
+                if (res.data.result) {
+                    alert(`인증번호 전송이 완료되었습니다. 이메일을 확인해주세요.`);
+                    document.location.href = `/resetpassword/${id}/${email}`;
                 } else {
-                    // alert(`일치하는 정보가 없습니다. 아이디, 이메일을 다시 확인해주세요.`);
-                    // idRef.current.focus();
+                    alert(`일치하는 정보가 없습니다. 아이디, 이메일을 다시 확인해주세요.`);
+                    idRef.current.focus();
                 }
             })
             .catch(function (err) {

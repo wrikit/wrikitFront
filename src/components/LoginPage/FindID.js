@@ -16,23 +16,23 @@ const FindID = () => {
 
         axios
             .post(
-                // `주소`,
+                `http://${serverURL}/auth/find-account/`,
                 {
-                    // 전달값
-                },
-                { withCredentials: true }
+                    email: email
+                }
             )
             .then((res) => {
-                if (res.data.result === 'True') {
-                    alert(`회원님의 아이디는 000 입니다.`);
-                    document.location.href = '/login';
+                if (res.data.result) {
+                    alert(`이메일로 아이디가 전송 되었습니다.`);
+                    document.location.href = '/lgpage';
                 } else {
                     alert(`이메일을 다시 확인해주세요.`);
                 }
             })
             .catch(function (err) {
                 console.log(err);
-            });
+            }
+        );
     };
 
     const onKeyDown = (e) => {

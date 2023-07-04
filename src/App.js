@@ -13,6 +13,7 @@ import './styles/App.scss';
 import { serverURL } from './settings.js';
 import { getCookie, setCookie } from './tools';
 import FindAccountPage from './pages/FindAccount';
+import ResetPassword from './pages/ResetPassword';
 
 const App = () => {
     // 쿠키 적용(로그인, 다크모드 유지)
@@ -61,6 +62,7 @@ const App = () => {
                         <Route path="/register" element={<Register />} />
                         <Route path="/lgpage" element={<LoginPage />} />
                         <Route path="/findaccount" element={<FindAccountPage />} />
+                        <Route path="/resetpassword/:username/:email" element={<ResetPassword />}/>
                     </Route>
                     <Route path="/profile" element={<Profile type="profile" />} />
                     <Route path="/*" element={<NotFound />} />
